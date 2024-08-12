@@ -78,7 +78,15 @@ export const loader: LoaderFunction = async ({ request }) => {
   const language = getLanguageFromPath(pathname);
   const isIframe = request.headers.get("sec-fetch-dest") === "iframe";
 
-  return { language: language, isIframe: isIframe };
+  return {
+    language: language,
+    isIframe: isIframe,
+    ENV: {
+      VITE_SANITY_PROJECT_ID: import.meta.env.VITE_SANITY_PROJECT_ID!,
+      VITE_SANITY_DATASET: import.meta.env.VITE_SANITY_DATASET!,
+      VITE_SANITY_API_VERSION: import.meta.env.VITE_SANITY_API_VERSION!,
+    },
+  };
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -105,7 +113,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
-  const { language, isIframe } = useRouteLoaderData<typeof loader>("root");
+  const { language, isIframe, ENV } = useRouteLoaderData<typeof loader>("root");
   return (
     <LanguageProvider language={language}>
       <BackgroundColorProvider>
@@ -115,6 +123,11 @@ export default function App() {
               <LiveVisualEditing />
             </Suspense>
           )}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.ENV = ${JSON.stringify(ENV)}`,
+            }}
+          />
           <Header />
           <LanguageButton />
           <motion.div

@@ -3,4 +3,8 @@ import { client } from "./clientConfig";
 
 export const { loadQuery } = queryStore;
 
-queryStore.setServerClient(client);
+const clientWithToken = client.withConfig({
+  token: process.env.SANITY_READ_TOKEN,
+});
+
+queryStore.setServerClient(clientWithToken);

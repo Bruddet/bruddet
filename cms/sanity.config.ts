@@ -11,7 +11,7 @@ import {PluginConfig} from './structure/documentInternationalization'
 import {muxInput} from 'sanity-plugin-mux-input'
 import {userGuide} from './structure/UserGuide'
 import {media} from 'sanity-plugin-media'
-import {presentationTool} from 'sanity/presentation'
+import {defineLocations, presentationTool} from 'sanity/presentation'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
@@ -35,7 +35,31 @@ export default defineConfig({
     muxInput(),
     media(),
     presentationTool({
-      previewUrl: SANITY_STUDIO_PREVIEW_URL,
+      previewUrl: {
+        previewMode: {
+          enable: SANITY_STUDIO_PREVIEW_URL + '/resource/preview',
+        },
+      },
+      /*       resolve: {
+        locations: {
+          record: defineLocations({
+            select: {
+              title: 'title',
+              slug: 'slug.current',
+              type: '_type',
+            },
+            resolve: (doc) => ({
+              locations: [
+                {
+                  title: doc?.title || 'Untitled',
+                  href: `/records/${doc?.slug}`,
+                },
+                {title: 'Home', href: `/`},
+              ],
+            }),
+          }),
+        },
+      }, */
     }),
   ],
 
