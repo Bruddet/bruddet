@@ -14,8 +14,8 @@ import { loadQuery } from "../../sanity/loader.server";
 import { useQuery } from "../../sanity/loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const query = getFrontpageQuery(params);
-  const initial = await loadQuery<FRONTPAGE_QUERYResult>(query, params);
+  const { query, params: queryParams } = getFrontpageQuery(params);
+  const initial = await loadQuery<FRONTPAGE_QUERYResult>(query, queryParams);
   const event = initial.data;
 
   if (!event) {
@@ -30,7 +30,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return { initial, query: query, queryParams: params };
+  return { initial, query: query, queryParams: queryParams };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {

@@ -2,30 +2,29 @@ import { Params } from "@remix-run/react";
 import groq from "groq";
 
 export function getArticlesQuery(params: Params<string>) {
-  if (!params.lang) {
-    params = { lang: "nb" };
-  }
-  const ARTICLES_QUERY = groq`*[_type=="article" && language=="${params.lang}"]{_id, slug, title}`;
-  return ARTICLES_QUERY;
+  const lang = params.lang ?? "nb";
+  const ARTICLES_QUERY = groq`*[_type=="article" && language==$lang]{_id, slug, title}`;
+  return { query: ARTICLES_QUERY, params: { lang } };
 }
 
 export function getArticleQuery(params: Params<string>) {
-  const articleID = params.id;
+  const id = params.id;
+  const lang = params.lang ?? "nb";
 
   try {
-    if (!articleID) {
+    if (!id) {
       throw new Response("Event ID is required", { status: 404 });
     }
     if (params.id == "noSlugFound") {
-      return "No translation with this slug";
+      throw new Response("No translation found for this slug", { status: 404 });
     }
     if (!params.lang) {
-      params = { lang: "nb", id: articleID };
+      params = { lang: "nb", id: id };
     }
   } catch (error) {
     throw new Error("Params not found");
   }
-  const ARTICLE_QUERY = groq`*[_type=="article" && slug.current=="${params.id}" && language=="${params.lang}"][0]{
+  const ARTICLE_QUERY = groq`*[_type=="article" && slug.current==$id && language==$lang][0]{
     title, 
     slug, 
     metaTitle, 
@@ -51,5 +50,5 @@ export function getArticleQuery(params: Params<string>) {
       language,
       }
     }`;
-  return ARTICLE_QUERY;
+  return { query: ARTICLE_QUERY, params: { lang, id } };
 }

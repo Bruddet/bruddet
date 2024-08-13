@@ -9,8 +9,8 @@ import { QueryResponseInitial, useQuery } from "@sanity/react-loader";
 import { createTexts, useTranslation } from "../utils/i18n";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const query = getArticlesQuery(params);
-  const initial = await loadQuery<ARTICLES_QUERYResult>(query, params);
+  const { query, params: queryParams } = getArticlesQuery(params);
+  const initial = await loadQuery<ARTICLES_QUERYResult>(query, queryParams);
   const articles = initial.data;
 
   if (!articles) {
@@ -19,7 +19,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return { initial, query: query, sanityParams: params };
+  return { initial, query: query, queryParams: queryParams };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
@@ -65,13 +65,13 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
 };
 
 export default function Articles() {
-  const { initial, query, sanityParams } = useLoaderData<typeof loader>() as {
+  const { initial, query, queryParams } = useLoaderData<typeof loader>() as {
     initial: QueryResponseInitial<ARTICLES_QUERYResult>;
     query: string;
-    sanityParams: Record<string, string>;
+    queryParams: Record<string, string>;
   };
 
-  const { data } = useQuery<typeof initial.data>(query, sanityParams, {
+  const { data } = useQuery<typeof initial.data>(query, queryParams, {
     initial,
   });
   const params = useParams();

@@ -15,8 +15,11 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../sanity/loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const query = getArticleQuery(params);
-  const initial = await loadQuery<Custom_ARTICLE_QUERYResult>(query, params);
+  const { query, params: queryParams } = getArticleQuery(params);
+  const initial = await loadQuery<Custom_ARTICLE_QUERYResult>(
+    query,
+    queryParams
+  );
   const article = initial.data;
 
   if (!article) {
@@ -31,7 +34,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return { initial, query: query, params: params };
+  return { initial, query: query, queryParams: queryParams };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
@@ -79,13 +82,13 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
 };
 
 export default function Article() {
-  const { initial, query, params } = useLoaderData<typeof loader>() as {
+  const { initial, query, queryParams } = useLoaderData<typeof loader>() as {
     initial: QueryResponseInitial<Custom_ARTICLE_QUERYResult>;
     query: string;
-    params: Record<string, string>;
+    queryParams: Record<string, string>;
   };
 
-  const { data } = useQuery<typeof initial.data>(query, params, {
+  const { data } = useQuery<typeof initial.data>(query, queryParams, {
     initial,
   });
 
