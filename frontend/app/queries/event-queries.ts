@@ -1,29 +1,31 @@
 import { Params } from "@remix-run/react";
 import groq from "groq";
 
-export function getEventsQuery (params: Params<string>){
-  const EVENTS_QUERY = groq`*[_type=="event" && language=="${params.lang}"]{_id, slug, title}`;
-  return EVENTS_QUERY;
+export function getEventsQuery(params: Params<string>) {
+  const lang = params.lang ?? "nb";
+  const EVENTS_QUERY = groq`*[_type=="event" && language==$lang]{_id, slug, title}`;
+  return { query: EVENTS_QUERY, params: { lang } };
 }
 
 export function getEventQuery(params: Params<string>) {
-  const eventId = params.id;
+  const id = params.id;
+  const lang = params.lang ?? "nb";
   try {
-    if (!eventId) {
+    if (!id) {
       throw new Response("Event ID is required", { status: 404 });
     }
 
-    if (eventId == "noSlugFound") {
-      return "No translation with this slug";
+    if (id == "noSlugFound") {
+      throw new Response("No event found for this slug", { status: 404 });
     }
 
     if (!params.lang) {
-      params = { lang: "nb", id: eventId };
+      params = { lang: "nb", id: id };
     }
   } catch (error) {
     throw new Error("Params not found");
   }
-  const EVENT_QUERY = groq`*[_type=="event" && language=="${params.lang}" && slug.current=="${params.id}"][0]{
+  const EVENT_QUERY = groq`*[_type=="event" && language==$lang && slug.current==$id][0]{
     metaTitle,
     metaDescription,
     title, 
@@ -47,5 +49,5 @@ export function getEventQuery(params: Params<string>) {
     }
   }`;
 
-  return EVENT_QUERY;
+  return { query: EVENT_QUERY, params: { lang, id } };
 }

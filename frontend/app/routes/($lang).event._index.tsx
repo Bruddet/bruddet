@@ -11,8 +11,8 @@ import { loadQuery } from "../../sanity/loader.server";
 import { useQuery } from "../../sanity/loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const query = getEventsQuery(params);
-  const initial = await loadQuery<EVENTS_QUERYResult>(query, params);
+  const { query, params: queryParams } = getEventsQuery(params);
+  const initial = await loadQuery<EVENTS_QUERYResult>(query, queryParams);
   const event = initial.data;
 
   if (!event) {
@@ -21,7 +21,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return { initial, query: query, params: params };
+  return { initial, query: query, queryParams: queryParams };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ location }) => {
@@ -58,16 +58,12 @@ export const meta: MetaFunction<typeof loader> = ({ location }) => {
 };
 
 export default function Events() {
-  const {
-    initial,
-    query,
-    params: params,
-  } = useLoaderData<typeof loader>() as {
+  const { initial, query, queryParams } = useLoaderData<typeof loader>() as {
     initial: QueryResponseInitial<EVENTS_QUERYResult>;
     query: string;
-    params: Record<string, string>;
+    queryParams: Record<string, string>;
   };
-  const { data } = useQuery<typeof initial.data>(query, params, {
+  const { data } = useQuery<typeof initial.data>(query, queryParams, {
     initial,
   });
 

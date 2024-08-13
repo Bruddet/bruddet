@@ -10,8 +10,8 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../sanity/loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const query = getInfoPageQuery(params);
-  const initial = await loadQuery<INFOPAGE_QUERYResult>(query, params);
+  const { query, params: queryParams } = getInfoPageQuery(params);
+  const initial = await loadQuery<INFOPAGE_QUERYResult>(query, queryParams);
   const informationPage = initial.data;
 
   if (!informationPage) {
@@ -20,7 +20,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return { initial, query: query, sanityParams: params };
+  return { initial, query: query, queryParams: queryParams };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
@@ -69,12 +69,12 @@ function RedirectType(type: string) {
 }
 
 export default function Info() {
-  const { initial, query, sanityParams } = useLoaderData<typeof loader>() as {
+  const { initial, query, queryParams } = useLoaderData<typeof loader>() as {
     initial: QueryResponseInitial<INFOPAGE_QUERYResult>;
     query: string;
-    sanityParams: Record<string, string>;
+    queryParams: Record<string, string>;
   };
-  const { data } = useQuery<typeof initial.data>(query, sanityParams, {
+  const { data } = useQuery<typeof initial.data>(query, queryParams, {
     initial,
   });
 

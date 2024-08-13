@@ -3103,7 +3103,7 @@
                 },
                 "dereferencesTo": "sanity.imageAsset"
               },
-              "optional": true
+              "optional": false
             },
             "hotspot": {
               "type": "objectAttribute",
@@ -3247,7 +3247,7 @@
                 },
                 "dereferencesTo": "sanity.imageAsset"
               },
-              "optional": true
+              "optional": false
             },
             "hotspot": {
               "type": "objectAttribute",
@@ -3281,7 +3281,7 @@
             }
           }
         },
-        "optional": true
+        "optional": false
       },
       "text": {
         "type": "objectAttribute",

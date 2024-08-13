@@ -533,7 +533,7 @@ export type Event = {
   imageMask?: ImageMask;
   slug: Slug;
   svgTitle: {
-    asset?: {
+    asset: {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
@@ -552,8 +552,8 @@ export type Event = {
     _key: string;
   }>;
   duration: string;
-  image?: {
-    asset?: {
+  image: {
+    asset: {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
@@ -635,7 +635,7 @@ export type ARTICLES_QUERYResult = Array<{
   title: string;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current==$id && language==$lang][0]{    title,     slug,     metaTitle,     metaDescription,     colorCombinationsDay,     image,     text[]{...,       _type=="video" => {        title, muxVideo{asset->{playbackId}        }      }    },     video{      title,       muxVideo{        asset->{          playbackId}        }    },    'event': event->{slug},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      slug,      language,      }    }
+// Query: *[_type=="article" && slug.current=="$id" && language=="$lang"][0]{    title,     slug,     metaTitle,     metaDescription,     colorCombinationsDay,     image,     text[]{...,       _type=="video" => {        title, muxVideo{asset->{playbackId}        }      }    },     video{      title,       muxVideo{        asset->{          playbackId}        }    },    'event': event->{slug},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      slug,      language,      }    }
 export type ARTICLE_QUERYResult = {
   title: string;
   slug: Slug;
@@ -710,13 +710,13 @@ export type EVENTS_QUERYResult = Array<{
   title: string;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    metaTitle,    metaDescription,    title,     image,    imageMask,     colorCombinationsNight,     dates,     labels,    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      name,       persons[]{      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
+// Query: *[_type=="event" && language=="$lang" && slug.current=="$id}"][0]{    metaTitle,    metaDescription,    title,     image,    imageMask,     colorCombinationsNight,     dates,     labels,    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      name,       persons[]{      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
   title: string;
   image: {
-    asset?: {
+    asset: {
       _ref: string;
       _type: "reference";
       _weak?: boolean;
@@ -726,7 +726,7 @@ export type EVENT_QUERYResult = {
     crop?: SanityImageCrop;
     alt: string;
     _type: "customImage";
-  } | null;
+  };
   imageMask: ImageMask | null;
   colorCombinationsNight: ColorCombinationsNight;
   dates: Array<{
@@ -835,7 +835,7 @@ export type FRONTPAGE_QUERYResult = {
     title: string;
     text: Content | null;
     image: {
-      asset?: {
+      asset: {
         _ref: string;
         _type: "reference";
         _weak?: boolean;
@@ -845,12 +845,12 @@ export type FRONTPAGE_QUERYResult = {
       crop?: SanityImageCrop;
       alt: string;
       _type: "customImage";
-    } | null;
+    };
     slug: Slug;
     metaTitle: MetaTitle;
     metaDescription: MetaDescription;
     svgTitle: {
-      asset?: {
+      asset: {
         _ref: string;
         _type: "reference";
         _weak?: boolean;

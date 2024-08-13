@@ -12,8 +12,8 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../sanity/loader";
 
 export async function loader({ params }: LoaderFunctionArgs) {
-  const query = getProgramPageQuery(params);
-  const initial = await loadQuery<PROGRAMPAGE_QUERYResult>(query, params);
+  const { query, params: queryParams } = getProgramPageQuery(params);
+  const initial = await loadQuery<PROGRAMPAGE_QUERYResult>(query, queryParams);
   const programPage = initial.data;
 
   if (!programPage) {
@@ -22,7 +22,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     });
   }
 
-  return { initial, query: query, sanityParams: params };
+  return { initial, query: query, queryParams: queryParams };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
@@ -59,13 +59,13 @@ export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
 };
 
 export default function Program() {
-  const { initial, query, sanityParams } = useLoaderData<typeof loader>() as {
+  const { initial, query, queryParams } = useLoaderData<typeof loader>() as {
     initial: QueryResponseInitial<PROGRAMPAGE_QUERYResult>;
     query: string;
-    sanityParams: Record<string, string>;
+    queryParams: Record<string, string>;
   };
 
-  const { data } = useQuery<typeof initial.data>(query, sanityParams, {
+  const { data } = useQuery<typeof initial.data>(query, queryParams, {
     initial,
   });
   const { setColor } = useBackgroundColor();
