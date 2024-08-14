@@ -83,7 +83,7 @@ export default function Program() {
 
   const { data } = useQuery<typeof initial.data>(query, queryParams, {
     initial,
-  }, );
+  });
   const { setColor } = useBackgroundColor();
   const { t } = useTranslation();
   const gifUrl = urlFor(data?.gif?.asset?._ref || "");

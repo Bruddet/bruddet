@@ -21,6 +21,34 @@ const SANITY_STUDIO_PREVIEW_URL =
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID ?? '0chpibsu'
 const DATASET = process.env.SANITY_STUDIO_DATASET ?? 'production'
 
+async function getDocumentPreviewUrl(document, client){
+
+  const {language, slug} = await client.fetch(
+    `*[_id == $id][0]{"language": language,"slug": slug.current}`,
+      {id: document._id}
+  ) 
+  const basePath = "/presentation?preview="
+  const languagePrefix = language === "nb" ? "" : "en/"
+
+  switch(document._type) {
+    case "article": {
+      const typeSlug = language === "nb" ? "artikler/" : "artikler/"
+      return basePath+languagePrefix+typeSlug+slug
+    } case "event": {
+      const typeSlug = language === "nb" ? "event/" : "event/"
+      return basePath+languagePrefix+typeSlug+slug
+    } case "frontpage": {
+      return basePath+languagePrefix+"/"
+    } case "infopage": { 
+        return basePath+languagePrefix+"/info"
+    } case "programpage" : {
+      return basePath + languagePrefix+ "program"
+    }
+  }
+
+  return ""
+}
+
 export default defineConfig({
   name: 'default',
   title: 'Bruddet',
@@ -63,25 +91,10 @@ export default defineConfig({
         ? input.filter(({action}) => action && singletonActions.has(action))
         : input
     },
-    productionUrl: async (prev, context) => {
-      // context includes the client and other details
-      const {getClient, dataset, document} = context
+    productionUrl: async (_, context) => {
+      const {getClient, document} = context
       const client = getClient({apiVersion: '2023-05-31'})
-
-      if (document._type === 'post') {
-        const slug = await client.fetch(
-          `*[_type == 'routeInfo' && post._ref == $postId][0].slug.current`,
-          {postId: document._id}
-        )
-
-        const params = new URLSearchParams()
-        params.set('preview', 'true')
-        params.set('dataset', dataset)
-
-        return `https://my-site.com/posts/${slug}?${params}`
-      }
-      return "https://example.com"
-
+      return getDocumentPreviewUrl(document, client)
   },
 }
 })

@@ -47,7 +47,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const session = await getSession(request.headers.get("Cookie"));
   await session.set("projectId", client.config().projectId);
 
-  return redirect("/", {
+  return redirect(redirectTo, {
     headers: {
       "Set-Cookie": await commitSession(session),
     },

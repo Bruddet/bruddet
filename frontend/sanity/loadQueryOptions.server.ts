@@ -1,11 +1,7 @@
 import type { loadQuery } from "@sanity/react-loader";
-
 import { destroySession, getSession } from "~/sessions";
 import { client } from "./clientConfig";
 
-// I wish I could do this in middleware
-// Or move this to server.ts
-// But it's simplest, for now, to do it in *every* loader
 export async function loadQueryOptions(
   headers: Headers
 ): Promise<{ preview: boolean; options: Parameters<typeof loadQuery>[2] }> {
