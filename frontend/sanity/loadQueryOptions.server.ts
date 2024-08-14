@@ -24,7 +24,7 @@ export async function loadQueryOptions(
   return {
     preview,
     options: {
-      perspective: preview ? "published" : "published",
+      perspective: preview ? "previewDrafts" : "published",
       stega: preview
         ? { enabled: true, studioUrl: "https://localhost:3333" }
         : undefined,

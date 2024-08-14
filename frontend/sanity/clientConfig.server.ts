@@ -6,6 +6,7 @@ export const client = createClient({
   apiVersion: "2024-06-24",
   useCdn: import.meta.env.VITE_SANITY_STUDIO_USE_CDN ?? true,
   token: import.meta.env.VITE_SANITY_READ_TOKEN,
+  perspective: "published",
   stega: {
     enabled: import.meta.env.VITE_SANITY_STUDIO_STEGA_ENABLED === "true",
     studioUrl:

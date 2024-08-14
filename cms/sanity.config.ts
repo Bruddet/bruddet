@@ -40,26 +40,6 @@ export default defineConfig({
           enable: SANITY_STUDIO_PREVIEW_URL + '/resource/preview',
         },
       },
-      /*       resolve: {
-        locations: {
-          record: defineLocations({
-            select: {
-              title: 'title',
-              slug: 'slug.current',
-              type: '_type',
-            },
-            resolve: (doc) => ({
-              locations: [
-                {
-                  title: doc?.title || 'Untitled',
-                  href: `/records/${doc?.slug}`,
-                },
-                {title: 'Home', href: `/`},
-              ],
-            }),
-          }),
-        },
-      }, */
     }),
   ],
 
@@ -83,5 +63,25 @@ export default defineConfig({
         ? input.filter(({action}) => action && singletonActions.has(action))
         : input
     },
+    productionUrl: async (prev, context) => {
+      // context includes the client and other details
+      const {getClient, dataset, document} = context
+      const client = getClient({apiVersion: '2023-05-31'})
+
+      if (document._type === 'post') {
+        const slug = await client.fetch(
+          `*[_type == 'routeInfo' && post._ref == $postId][0].slug.current`,
+          {postId: document._id}
+        )
+
+        const params = new URLSearchParams()
+        params.set('preview', 'true')
+        params.set('dataset', dataset)
+
+        return `https://my-site.com/posts/${slug}?${params}`
+      }
+      return "https://example.com"
+
   },
+}
 })

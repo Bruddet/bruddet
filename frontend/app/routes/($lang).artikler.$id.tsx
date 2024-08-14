@@ -18,7 +18,11 @@ import { loadQueryOptions } from "../../sanity/loadQueryOptions.server";
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
   const { query, params: queryParams } = getArticleQuery(params);
-  const initial = await loadQuery<Custom_ARTICLE_QUERYResult>(query, params);
+  const initial = await loadQuery<Custom_ARTICLE_QUERYResult>(
+    query,
+    params,
+    options
+  );
   console.log(query);
   const article = initial.data;
 

@@ -5,10 +5,10 @@ import {
   redirect,
 } from "@remix-run/node";
 import { validatePreviewUrl } from "@sanity/preview-url-secret";
+import { preview } from "vite";
 import { client } from "../../sanity/clientConfig";
 
 import { commitSession, destroySession, getSession } from "../sessions";
-import { s } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
 
 // A `POST` request to this route will exit preview mode
 export const action: ActionFunction = async ({ request }) => {
@@ -38,13 +38,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const {
     isValid,
     redirectTo = "/",
-    studioOrigin,
   } = await validatePreviewUrl(clientWithToken, request.url);
-  console.log("token", process.env.SANITY_READ_TOKEN);
-  console.log("isValid", isValid);
-  console.log("redirectTo", redirectTo);
-  console.log("studioOrigin", studioOrigin);
-  console.log("previewUrl", request.url);
 
   if (!isValid) {
     throw new Response("Invalid secret", { status: 401 });
@@ -55,7 +49,8 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const session = await getSession(request.headers.get("Cookie"));
   await session.set("projectId", client.config().projectId);
 
-  return redirect(redirectTo, {
+  console.log(redirectTo)
+  return redirect("/", {
     headers: {
       "Set-Cookie": await commitSession(session),
     },
