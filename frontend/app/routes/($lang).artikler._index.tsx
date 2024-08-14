@@ -7,10 +7,16 @@ import { useEffect } from "react";
 import { loadQuery } from "../../sanity/loader.server";
 import { QueryResponseInitial, useQuery } from "@sanity/react-loader";
 import { createTexts, useTranslation } from "../utils/i18n";
+import { loadQueryOptions } from "sanity/loadQueryOptions.server";
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
+  const { options } = await loadQueryOptions(request.headers);
   const { query, params: queryParams } = getArticlesQuery(params);
-  const initial = await loadQuery<ARTICLES_QUERYResult>(query, queryParams);
+  const initial = await loadQuery<ARTICLES_QUERYResult>(
+    query,
+    queryParams,
+    options
+  );
   const articles = initial.data;
 
   if (!articles) {

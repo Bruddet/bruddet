@@ -34,8 +34,6 @@ if (typeof document === "undefined") {
   apiVersion = window.ENV.VITE_SANITY_API_VERSION ?? defaultApiVersion;
 }
 
-console.log("Project ID", projectId);
-
 export { apiVersion, dataset, projectId };
 
 export const projectDetails = () => ({

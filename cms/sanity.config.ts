@@ -11,7 +11,7 @@ import {PluginConfig} from './structure/documentInternationalization'
 import {muxInput} from 'sanity-plugin-mux-input'
 import {userGuide} from './structure/UserGuide'
 import {media} from 'sanity-plugin-media'
-import {defineLocations, presentationTool} from 'sanity/presentation'
+import { presentationTool} from 'sanity/presentation'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])

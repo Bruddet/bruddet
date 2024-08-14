@@ -44,12 +44,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     throw new Response("Invalid secret", { status: 401 });
   }
 
-  console.log("Entering preview mode");
-
   const session = await getSession(request.headers.get("Cookie"));
   await session.set("projectId", client.config().projectId);
 
-  console.log(redirectTo)
   return redirect("/", {
     headers: {
       "Set-Cookie": await commitSession(session),

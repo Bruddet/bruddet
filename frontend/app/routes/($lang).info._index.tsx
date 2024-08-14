@@ -8,10 +8,16 @@ import { useTranslation } from "../utils/i18n";
 import { loadQuery } from "../../sanity/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../sanity/loader";
+import { loadQueryOptions } from "sanity/loadQueryOptions.server";
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
+  const { options } = await loadQueryOptions(request.headers);
   const { query, params: queryParams } = getInfoPageQuery(params);
-  const initial = await loadQuery<INFOPAGE_QUERYResult>(query, queryParams);
+  const initial = await loadQuery<INFOPAGE_QUERYResult>(
+    query,
+    queryParams,
+    options
+  );
   const informationPage = initial.data;
 
   if (!informationPage) {

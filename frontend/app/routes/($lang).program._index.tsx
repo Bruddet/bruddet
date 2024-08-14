@@ -11,7 +11,6 @@ import { loadQuery } from "../../sanity/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../sanity/loader";
 import { loadQueryOptions } from "sanity/loadQueryOptions.server";
-import { ResponseQueryOptions } from "@sanity/client/stega";
 
 <<<<<<< HEAD
 export async function loader({ params }: LoaderFunctionArgs) {
@@ -20,12 +19,10 @@ export async function loader({ params }: LoaderFunctionArgs) {
 =======
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const query = getProgramPageQuery(params);
-  const {preview, options} = await loadQueryOptions(request.headers)
+  const {options} = await loadQueryOptions(request.headers)
   const initial = await loadQuery<PROGRAMPAGE_QUERYResult>(query, params, options);
 >>>>>>> 8e5d52f (Add working preview in presentation mode.)
   const programPage = initial.data;
-
-  console.log("options: ", options)
 
   if (!programPage) {
     throw new Response("Not Found", {
@@ -71,10 +68,14 @@ export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
 
 export default function Program() {
 <<<<<<< HEAD
+<<<<<<< HEAD
   const { initial, query, queryParams } = useLoaderData<typeof loader>() as {
 =======
   const { initial, query, sanityParams, options } = useLoaderData<typeof loader>() as {
 >>>>>>> 8e5d52f (Add working preview in presentation mode.)
+=======
+  const { initial, query, sanityParams } = useLoaderData<typeof loader>() as {
+>>>>>>> 8335d59 (Clean up code for PR.)
     initial: QueryResponseInitial<PROGRAMPAGE_QUERYResult>;
     query: string;
     queryParams: Record<string, string>;
@@ -83,8 +84,6 @@ export default function Program() {
   const { data } = useQuery<typeof initial.data>(query, queryParams, {
     initial,
   }, );
-  console.log("data: ", data)
-  console.log("Sanity params: ", sanityParams)
   const { setColor } = useBackgroundColor();
   const { t } = useTranslation();
   const gifUrl = urlFor(data?.gif?.asset?._ref || "");

@@ -7,7 +7,6 @@ export function ExitPreview() {
   }, []);
 
 
-  console.log("should show exit", !inIframe);
   return inIframe ? null : (
     <div className="pointer-events-none fixed z-50 inset-0 flex h-screen w-screen items-end justify-end p-2">
       <form

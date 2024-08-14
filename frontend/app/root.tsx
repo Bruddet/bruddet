@@ -67,7 +67,7 @@ export function ErrorBoundary() {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { pathname, search } = new URL(request.url);
-  const {preview, options} = await loadQueryOptions(request.headers)
+  const {preview} = await loadQueryOptions(request.headers)
 
   const newPathname = pathname.replace(/\/nb/g, "");
 
@@ -83,12 +83,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return {
     language: language,
-    isIframe: isIframe,
-    ENV: {
-      VITE_SANITY_PROJECT_ID: import.meta.env.VITE_SANITY_PROJECT_ID!,
-      VITE_SANITY_DATASET: import.meta.env.VITE_SANITY_DATASET!,
-      VITE_SANITY_API_VERSION: import.meta.env.VITE_SANITY_API_VERSION!,
-    },
     preview: preview
   };
 };
@@ -117,7 +111,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
-  const { language, isIframe, ENV, preview } = useRouteLoaderData<typeof loader>("root");
+  const { language, preview } = useRouteLoaderData<typeof loader>("root");
   return (
     <LanguageProvider language={language}>
       <BackgroundColorProvider>
@@ -128,11 +122,6 @@ export default function App() {
               <ExitPreview />
             </Suspense>
           )}
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `window.ENV = ${JSON.stringify(ENV)}`,
-            }}
-          />
           <Header />
           <LanguageButton />
           <motion.div
