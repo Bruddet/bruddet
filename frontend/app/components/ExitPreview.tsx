@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "~/utils/i18n";
 
 export function ExitPreview() {
   const [inIframe, setInIframe] = useState(true);
   useEffect(() => {
     setInIframe(window.self !== window.top);
   }, []);
+  const {t} = useTranslation();
 
 
   return inIframe ? null : (
@@ -18,9 +20,16 @@ export function ExitPreview() {
           className="bg-black p-4 leading-none font-bold text-white"
           type="submit"
         >
-          Exit Preview Mode
+          {t(exitText.tickets)}
         </button>
       </form>
     </div>
   );
 }
+
+const exitText = {
+  tickets: {
+    en: "Exit preview mode",
+    nb: "Avlsutt forhåndsvisning",
+  },
+};
