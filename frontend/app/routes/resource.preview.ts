@@ -47,7 +47,11 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   const session = await getSession(request.headers.get("Cookie"));
   await session.set("projectId", client.config().projectId);
 
-  return redirect(redirectTo, {
+  const invalidUrlStart = ["structure", "presentation"]
+  //Sanity often adds a redirect URL when we don't want to redirect. This code ignores these generated redirect urls.
+  const shouldRedirect = !(invalidUrlStart.includes(redirectTo.split("/")[1]));
+
+  return redirect(shouldRedirect ? redirectTo : "/", {
     headers: {
       "Set-Cookie": await commitSession(session),
     },

@@ -11,7 +11,7 @@ import {PluginConfig} from './structure/documentInternationalization'
 import {muxInput} from 'sanity-plugin-mux-input'
 import {userGuide} from './structure/UserGuide'
 import {media} from 'sanity-plugin-media'
-import { presentationTool} from 'sanity/presentation'
+import {presentationTool} from 'sanity/presentation'
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const singletonActions = new Set(['publish', 'discardChanges', 'restore'])
@@ -21,39 +21,39 @@ const SANITY_STUDIO_PREVIEW_URL =
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID ?? '0chpibsu'
 const DATASET = process.env.SANITY_STUDIO_DATASET ?? 'production'
 
-async function getDocumentPreviewUrl(document, client){
-
-  const res =  await client.fetch(
-    `*[_id == $id][0]{"language": language,"slug": slug.current}`,
-      {id: document._id}
-  ) 
+async function getDocumentPreviewUrl(document, client) {
+  const res = await client.fetch(`*[_id == $id][0]{"language": language,"slug": slug.current}`, {
+    id: document._id,
+  })
 
   if (!res) {
-    return ""
+    return ''
   }
 
-  const basePath = "/presentation?preview="
-  const languagePrefix = res?.language === "nb" ? "" : "en/"
+  const basePath = '/presentation?preview='
+  const languagePrefix = res?.language === 'nb' ? '' : 'en/'
 
-  const shouldRouteParamater = "&shouldRoute=1"
-
-  switch(document._type) {
-    case "article": {
-      const typeSlug = res.language === "nb" ? "artikler/" : "artikler/"
-      return basePath+languagePrefix+typeSlug+res.slug+shouldRouteParamater
-    } case "event": {
-      const typeSlug = res.language === "nb" ? "event/" : "event/"
-      return basePath+languagePrefix+typeSlug+res.slug
-    } case "frontpage": {
-      return basePath+languagePrefix+"/"
-    } case "infopage": { 
-        return basePath+languagePrefix+"/info"
-    } case "programpage" : {
-      return basePath + languagePrefix+ "program"
+  switch (document._type) {
+    case 'article': {
+      const typeSlug = res.language === 'nb' ? 'artikler/' : 'artikler/'
+      return basePath + languagePrefix + typeSlug + res.slug
+    }
+    case 'event': {
+      const typeSlug = res.language === 'nb' ? 'event/' : 'event/'
+      return basePath + languagePrefix + typeSlug + res.slug
+    }
+    case 'frontpage': {
+      return basePath + languagePrefix + '/'
+    }
+    case 'infopage': {
+      return basePath + languagePrefix + '/info'
+    }
+    case 'programpage': {
+      return basePath + languagePrefix + 'program'
     }
   }
 
-  return ""
+  return ''
 }
 
 export default defineConfig({
@@ -102,6 +102,6 @@ export default defineConfig({
       const {getClient, document} = context
       const client = getClient({apiVersion: '2023-05-31'})
       return getDocumentPreviewUrl(document, client)
+    },
   },
-}
 })
