@@ -5,6 +5,7 @@ import urlFor from "../utils/imageUrlBuilder";
 import { QuoteComponent } from "./QuoteComponent";
 import { ReviewComponent } from "./ReviewComponent";
 import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
+import { stegaClean } from "@sanity/client/stega";
 
 interface QuoteStyle {
   styleBlock?: string;
@@ -49,7 +50,7 @@ export default function PortableTextComponent({
         return value.muxVideo.asset ? (
           <MuxPlayer
             disableCookies={true}
-            playbackId={value.muxVideo.asset.playbackId}
+            playbackId={stegaClean(value.muxVideo.asset.playbackId)}
             metadata={value.title ? { video_title: value.title } : undefined}
           />
         ) : null;
