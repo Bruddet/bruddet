@@ -20,10 +20,9 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
   const { query, params: queryParams } = getArticleQuery(params);
   const initial = await loadQuery<Custom_ARTICLE_QUERYResult>(
     query,
-    params,
+    queryParams,
     options
   );
-  console.log(query);
   const article = initial.data;
 
   if (!article) {

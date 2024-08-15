@@ -12,16 +12,14 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../sanity/loader";
 import { loadQueryOptions } from "sanity/loadQueryOptions.server";
 
-<<<<<<< HEAD
-export async function loader({ params }: LoaderFunctionArgs) {
-  const { query, params: queryParams } = getProgramPageQuery(params);
-  const initial = await loadQuery<PROGRAMPAGE_QUERYResult>(query, queryParams);
-=======
 export async function loader({ params, request }: LoaderFunctionArgs) {
-  const query = getProgramPageQuery(params);
-  const {options} = await loadQueryOptions(request.headers)
-  const initial = await loadQuery<PROGRAMPAGE_QUERYResult>(query, params, options);
->>>>>>> 8e5d52f (Add working preview in presentation mode.)
+  const { options } = await loadQueryOptions(request.headers);
+  const { query, params: queryParams } = getProgramPageQuery(params);
+  const initial = await loadQuery<PROGRAMPAGE_QUERYResult>(
+    query,
+    queryParams,
+    options
+  );
   const programPage = initial.data;
 
   if (!programPage) {
@@ -67,15 +65,7 @@ export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
 };
 
 export default function Program() {
-<<<<<<< HEAD
-<<<<<<< HEAD
   const { initial, query, queryParams } = useLoaderData<typeof loader>() as {
-=======
-  const { initial, query, sanityParams, options } = useLoaderData<typeof loader>() as {
->>>>>>> 8e5d52f (Add working preview in presentation mode.)
-=======
-  const { initial, query, sanityParams } = useLoaderData<typeof loader>() as {
->>>>>>> 8335d59 (Clean up code for PR.)
     initial: QueryResponseInitial<PROGRAMPAGE_QUERYResult>;
     query: string;
     queryParams: Record<string, string>;
