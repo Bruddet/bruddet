@@ -23,20 +23,27 @@ const DATASET = process.env.SANITY_STUDIO_DATASET ?? 'production'
 
 async function getDocumentPreviewUrl(document, client){
 
-  const {language, slug} = await client.fetch(
+  const res =  await client.fetch(
     `*[_id == $id][0]{"language": language,"slug": slug.current}`,
       {id: document._id}
   ) 
+
+  if (!res) {
+    return ""
+  }
+
   const basePath = "/presentation?preview="
-  const languagePrefix = language === "nb" ? "" : "en/"
+  const languagePrefix = res?.language === "nb" ? "" : "en/"
+
+  const shouldRouteParamater = "&shouldRoute=1"
 
   switch(document._type) {
     case "article": {
-      const typeSlug = language === "nb" ? "artikler/" : "artikler/"
-      return basePath+languagePrefix+typeSlug+slug
+      const typeSlug = res.language === "nb" ? "artikler/" : "artikler/"
+      return basePath+languagePrefix+typeSlug+res.slug+shouldRouteParamater
     } case "event": {
-      const typeSlug = language === "nb" ? "event/" : "event/"
-      return basePath+languagePrefix+typeSlug+slug
+      const typeSlug = res.language === "nb" ? "event/" : "event/"
+      return basePath+languagePrefix+typeSlug+res.slug
     } case "frontpage": {
       return basePath+languagePrefix+"/"
     } case "infopage": { 
