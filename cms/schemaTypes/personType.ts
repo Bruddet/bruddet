@@ -6,6 +6,12 @@ export const personType = defineType({
   title: 'Person',
   type: 'document',
   icon: UserIcon,
+  preview: {
+    select: {
+      title: 'name',
+      media: 'image',
+    },
+  },
   fields: [
     defineField({
       name: 'name',

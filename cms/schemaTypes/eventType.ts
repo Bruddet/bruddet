@@ -11,6 +11,12 @@ export const eventType = defineType({
     {title: 'Visuelt', name: 'visual'},
     {title: 'SEO', name: 'seo'},
   ],
+  preview: {
+    select: {
+      title: 'title',
+      media: 'image',
+    },
+  },
   fields: [
     defineField({
       name: 'title',
