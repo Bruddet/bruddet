@@ -14,6 +14,7 @@ export function userGuide() {
           flexDirection: 'column',
           width: '80%',
           margin: '20px auto',
+          maxWidth: '1200px',
         }}
       >
         <Card style={CardCSS}>
@@ -61,6 +62,9 @@ export function userGuide() {
               </li>
               <li>
                 <a href="#SEO">SEO - Search Engine Optimization</a>
+              </li>
+              <li>
+                <a href="#preview">Preview og Presentation mode</a>
               </li>
             </ul>
           </Text>
@@ -377,6 +381,49 @@ export function userGuide() {
               style={{width: '80%'}}
               src="https://cdn.sanity.io/images/0chpibsu/development/95aa8a63c49893cadafdd3d8e02e6e692a71ae4c-632x498.png"
               alt="SEO ALT"
+            />
+          </Text>
+        </Card>
+        <Card style={CardCSS}>
+          <Text>
+            <h2 id="preview">Preview og Presetentation Mode</h2>
+            <p>
+              Preview og Presentation Mode er to funksjoner i Sanity, som er lagt til for å forbedre
+              redaktøropplevelsen ved opprettelse og endring av sider.
+            </p>
+            <h3>Presentation Mode</h3>
+            <p>
+              {' '}
+              Presenation mode lar web redakøterer se hvordan nettsiden blir seende ut etter endring
+              av innhold. Dette skjer live, slik at web redaktører får umiddelbar tilbakemelding.
+            </p>
+            <p>
+              For å gå til Presentation mode, kan man klikke på Presentation i menyen øverst i
+              Sanity Studio. Her blir man tatt til forsiden, i Editing Mode. I presentation mode vil
+              man alltid enten ha Editing skrudd av eller på. Når den er skrudd på, vil musetrykk på
+              innhold, som kommer fra Sanity, føre deg til siden hvor innholdet kommer fra. Hvis
+              Editing er skrudd av, vil nettsiden fungere som en vanlig nettside.
+            </p>
+            <p>
+              Det er også mulig å endre fra å se Drafts til å se Published, ved å trykke på
+              “Drafts”.
+            </p>
+            <img
+              style={{width: '80%'}}
+              src="https://cdn.sanity.io/images/0chpibsu/development/847581c0c45596c7c21d9046735471780b26d9f6-1725x1392.png"
+              alt="Eksempelbilde av presentation mode"
+            />
+
+            <h2>Preview</h2>
+            <p>
+              For å forhåndsvise en side før den er publisert, kan man trykke på “Preview” knappen
+              inne på siden i Sanity Studio. Denne tar deg til en forhåndsvisning av siden i
+              presentation mode, slik den vil se ut på nettsiden.{' '}
+            </p>
+            <img
+              style={{width: '80%'}}
+              src="https://cdn.sanity.io/images/0chpibsu/development/8abf166f93b65ac99759de8b69f8a1858c02c438-1119x672.png"
+              alt="Visualisering av hvor preview knappen er plassert"
             />
           </Text>
         </Card>

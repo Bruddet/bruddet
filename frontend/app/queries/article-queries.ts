@@ -50,5 +50,5 @@ export function getArticleQuery(params: Params<string>) {
       language,
       }
     }`;
-  return { query: ARTICLE_QUERY, params: { lang, id } };
+  return { query: ARTICLE_QUERY, params };
 }

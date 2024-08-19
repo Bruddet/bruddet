@@ -28,6 +28,8 @@ import LanguageButton from "./components/LanguageButton";
 import { SlugProvider } from "./utils/i18n/SlugProvider";
 import NoTranslation from "./components/NoTranslation";
 import { lazy, Suspense } from "react";
+import { ExitPreview } from "./components/ExitPreview";
+import { loadQueryOptions } from "sanity/loadQueryOptions.server";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
@@ -65,6 +67,7 @@ export function ErrorBoundary() {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { pathname, search } = new URL(request.url);
+  const {preview} = await loadQueryOptions(request.headers)
 
   const newPathname = pathname.replace(/\/nb/g, "");
 
@@ -78,7 +81,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   const language = getLanguageFromPath(pathname);
   const isIframe = request.headers.get("sec-fetch-dest") === "iframe";
 
-  return { language: language, isIframe: isIframe };
+  return {
+    language: language,
+    preview: preview
+  };
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -105,14 +111,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
-  const { language, isIframe } = useRouteLoaderData<typeof loader>("root");
+  const { language, preview } = useRouteLoaderData<typeof loader>("root");
   return (
     <LanguageProvider language={language}>
       <BackgroundColorProvider>
         <SlugProvider>
-          {isIframe && (
+          {preview && (
             <Suspense>
               <LiveVisualEditing />
+              <ExitPreview />
             </Suspense>
           )}
           <Header />

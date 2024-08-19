@@ -1,4 +1,4 @@
-import {defineConfig} from 'sanity'
+import {defineConfig, SanityClient, SanityDocumentLike} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
@@ -21,6 +21,39 @@ const SANITY_STUDIO_PREVIEW_URL =
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID ?? '0chpibsu'
 const DATASET = process.env.SANITY_STUDIO_DATASET ?? 'production'
 
+async function getDocumentPreviewUrl(document: SanityDocumentLike, client: SanityClient) {
+  const res = await client.fetch(`*[_id == $id][0]{"language": language,"slug": slug.current}`, {
+    id: document._id,
+  })
+
+  if (!res) {
+    return ''
+  }
+
+  const basePath = '/presentation?preview='
+  const languagePrefix = res?.language === 'nb' ? '' : 'en/'
+
+  switch (document._type) {
+    case 'article': {
+      return basePath + languagePrefix + 'artikler/' + res.slug
+    }
+    case 'event': {
+      return basePath + languagePrefix + 'event/' + res.slug
+    }
+    case 'frontpage': {
+      return basePath + languagePrefix + '/'
+    }
+    case 'infopage': {
+      return basePath + languagePrefix + '/info'
+    }
+    case 'programpage': {
+      return basePath + languagePrefix + 'program'
+    }
+  }
+
+  return ''
+}
+
 export default defineConfig({
   name: 'default',
   title: 'Bruddet',
@@ -35,7 +68,11 @@ export default defineConfig({
     muxInput(),
     media(),
     presentationTool({
-      previewUrl: SANITY_STUDIO_PREVIEW_URL,
+      previewUrl: {
+        previewMode: {
+          enable: SANITY_STUDIO_PREVIEW_URL + '/resource/preview',
+        },
+      },
     }),
   ],
 
@@ -58,6 +95,11 @@ export default defineConfig({
       return singletonTypes.has(context.schemaType)
         ? input.filter(({action}) => action && singletonActions.has(action))
         : input
+    },
+    productionUrl: async (_, context) => {
+      const {getClient, document} = context
+      const client = getClient({apiVersion: '2023-05-31'})
+      return getDocumentPreviewUrl(document, client)
     },
   },
 })

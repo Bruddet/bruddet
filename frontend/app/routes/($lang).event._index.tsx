@@ -9,10 +9,16 @@ import { useBackgroundColor } from "../utils/backgroundColor";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../sanity/loader.server";
 import { useQuery } from "../../sanity/loader";
+import { loadQueryOptions } from "sanity/loadQueryOptions.server";
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
+  const { options } = await loadQueryOptions(request.headers);
   const { query, params: queryParams } = getEventsQuery(params);
-  const initial = await loadQuery<EVENTS_QUERYResult>(query, queryParams);
+  const initial = await loadQuery<EVENTS_QUERYResult>(
+    query,
+    queryParams,
+    options
+  );
   const event = initial.data;
 
   if (!event) {

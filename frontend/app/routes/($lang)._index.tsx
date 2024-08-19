@@ -12,10 +12,16 @@ import { useEffect } from "react";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../sanity/loader.server";
 import { useQuery } from "../../sanity/loader";
+import { loadQueryOptions } from "sanity/loadQueryOptions.server";
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
+  const { options } = await loadQueryOptions(request.headers);
   const { query, params: queryParams } = getFrontpageQuery(params);
-  const initial = await loadQuery<FRONTPAGE_QUERYResult>(query, queryParams);
+  const initial = await loadQuery<FRONTPAGE_QUERYResult>(
+    query,
+    queryParams,
+    options
+  );
   const event = initial.data;
 
   if (!event) {

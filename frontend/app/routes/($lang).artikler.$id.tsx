@@ -13,12 +13,15 @@ import { useSlugContext } from "../utils/i18n/SlugProvider";
 import { loadQuery } from "../../sanity/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../sanity/loader";
+import { loadQueryOptions } from "../../sanity/loadQueryOptions.server";
 
-export async function loader({ params }: LoaderFunctionArgs) {
+export async function loader({ params, request }: LoaderFunctionArgs) {
+  const { options } = await loadQueryOptions(request.headers);
   const { query, params: queryParams } = getArticleQuery(params);
   const initial = await loadQuery<Custom_ARTICLE_QUERYResult>(
     query,
-    queryParams
+    queryParams,
+    options
   );
   const article = initial.data;
 
