@@ -1,4 +1,4 @@
-import {} from "./types";
+import {} from "../../sanity.types";
 
 /***
  * This file is a custom type definition for the Sanity schema.

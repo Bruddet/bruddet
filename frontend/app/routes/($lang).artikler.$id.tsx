@@ -1,6 +1,6 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { Custom_ARTICLE_QUERYResult } from "../../sanity/types";
+import { Custom_ARTICLE_QUERYResult } from "../../cms/sanity/customTypes";
 import { getBackgroundColor, getColor } from "../utils/colorCombinations";
 import { getArticleQuery } from "../queries/article-queries";
 import PortableTextComponent from "../components/PortableTextComponent";
@@ -10,10 +10,10 @@ import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
 import { useTranslation } from "../utils/i18n";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
-import { loadQuery } from "../../sanity/loader.server";
+import { loadQuery } from "../../cms/sanity/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
-import { useQuery } from "../../sanity/loader";
-import { loadQueryOptions } from "../../sanity/loadQueryOptions.server";
+import { useQuery } from "../../cms/sanity/loader";
+import { loadQueryOptions } from "../../cms/sanity/loadQueryOptions.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);

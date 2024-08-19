@@ -7,6 +7,7 @@ import {
   useRouteError,
   redirect,
   useRouteLoaderData,
+  useLocation,
 } from "@remix-run/react";
 import "./styles/app.css";
 import StickyFooter from "./components/StickyFooter";
@@ -29,7 +30,7 @@ import { SlugProvider } from "./utils/i18n/SlugProvider";
 import NoTranslation from "./components/NoTranslation";
 import { lazy, Suspense } from "react";
 import { ExitPreview } from "./components/ExitPreview";
-import { loadQueryOptions } from "sanity/loadQueryOptions.server";
+import { loadQueryOptions } from "./cms/sanity/loadQueryOptions.server";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
@@ -67,7 +68,7 @@ export function ErrorBoundary() {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { pathname, search } = new URL(request.url);
-  const {preview} = await loadQueryOptions(request.headers)
+  const { preview } = await loadQueryOptions(request.headers);
 
   const newPathname = pathname.replace(/\/nb/g, "");
 
@@ -83,7 +84,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   return {
     language: language,
-    preview: preview
+    preview: preview,
   };
 };
 
@@ -112,6 +113,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const { slideDirection, pathname } = usePageTransition();
   const { language, preview } = useRouteLoaderData<typeof loader>("root");
+  const location = useLocation();
+
+  if (location.pathname.startsWith("/studio")) {
+    return <Outlet />;
+  }
   return (
     <LanguageProvider language={language}>
       <BackgroundColorProvider>

@@ -5,7 +5,7 @@ import {
   redirect,
 } from "@remix-run/node";
 import { validatePreviewUrl } from "@sanity/preview-url-secret";
-import { client } from "../../sanity/clientConfig";
+import { client } from "../../cms/sanity/clientConfig";
 
 import { commitSession, destroySession, getSession } from "../sessions";
 
