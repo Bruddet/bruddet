@@ -5,7 +5,6 @@ import {
   redirect,
 } from "@remix-run/node";
 import { validatePreviewUrl } from "@sanity/preview-url-secret";
-import { preview } from "vite";
 import { client } from "../../sanity/clientConfig";
 
 import { commitSession, destroySession, getSession } from "../sessions";
@@ -35,21 +34,21 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     token: process.env.SANITY_READ_TOKEN,
   });
 
-  const {
-    isValid,
-    redirectTo = "/",
-  } = await validatePreviewUrl(clientWithToken, request.url);
+  const { isValid, redirectTo = "/" } = await validatePreviewUrl(
+    clientWithToken,
+    request.url
+  );
 
   if (!isValid) {
     throw new Response("Invalid secret", { status: 401 });
   }
 
   const session = await getSession(request.headers.get("Cookie"));
-  await session.set("projectId", client.config().projectId);
+  session.set("projectId", client.config().projectId);
 
-  const invalidUrlStart = ["structure", "presentation"]
+  const invalidUrlStart = ["structure", "presentation"];
   //Sanity often adds a redirect URL when we don't want to redirect. This code ignores these generated redirect urls.
-  const shouldRedirect = !(invalidUrlStart.includes(redirectTo.split("/")[1]));
+  const shouldRedirect = !invalidUrlStart.includes(redirectTo.split("/")[1]);
 
   return redirect(shouldRedirect ? redirectTo : "/", {
     headers: {

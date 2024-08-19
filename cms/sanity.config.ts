@@ -1,4 +1,4 @@
-import {defineConfig} from 'sanity'
+import {defineConfig, SanityClient, SanityDocumentLike} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
@@ -21,7 +21,7 @@ const SANITY_STUDIO_PREVIEW_URL =
 const PROJECT_ID = process.env.SANITY_STUDIO_PROJECT_ID ?? '0chpibsu'
 const DATASET = process.env.SANITY_STUDIO_DATASET ?? 'production'
 
-async function getDocumentPreviewUrl(document, client) {
+async function getDocumentPreviewUrl(document: SanityDocumentLike, client: SanityClient) {
   const res = await client.fetch(`*[_id == $id][0]{"language": language,"slug": slug.current}`, {
     id: document._id,
   })
@@ -35,12 +35,10 @@ async function getDocumentPreviewUrl(document, client) {
 
   switch (document._type) {
     case 'article': {
-      const typeSlug = res.language === 'nb' ? 'artikler/' : 'artikler/'
-      return basePath + languagePrefix + typeSlug + res.slug
+      return basePath + languagePrefix + 'artikler/' + res.slug
     }
     case 'event': {
-      const typeSlug = res.language === 'nb' ? 'event/' : 'event/'
-      return basePath + languagePrefix + typeSlug + res.slug
+      return basePath + languagePrefix + 'event/' + res.slug
     }
     case 'frontpage': {
       return basePath + languagePrefix + '/'

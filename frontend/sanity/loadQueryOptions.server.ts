@@ -8,6 +8,8 @@ export async function loadQueryOptions(
   const previewSession = await getSession(headers.get("Cookie"));
   await destroySession(previewSession);
   const preview = previewSession.get("projectId") === client.config().projectId;
+  const studioUrl =
+    process.env.VITE_SANITY_STUDIO_URL || "https://localhost:3333";
 
   if (preview && !process.env.SANITY_READ_TOKEN) {
     throw new Error(
@@ -21,9 +23,7 @@ export async function loadQueryOptions(
     preview,
     options: {
       perspective: preview ? "previewDrafts" : "published",
-      stega: preview
-        ? { enabled: true, studioUrl: "https://localhost:3333" }
-        : undefined,
+      stega: preview ? { enabled: true, studioUrl: studioUrl } : undefined,
     },
   };
 }
