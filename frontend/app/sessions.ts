@@ -12,6 +12,7 @@ const { getSession, commitSession, destroySession } =
       name: PREVIEW_SESSION_NAME,
       secrets: [process.env.SANITY_SESSION_SECRET],
       sameSite: "none",
+      secure: true,
     },
   });
 
