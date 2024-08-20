@@ -1,12 +1,6 @@
 import { Params } from "@remix-run/react";
 import groq from "groq";
 
-export function getEventsQuery(params: Params<string>) {
-  const lang = params.lang ?? "nb";
-  const EVENTS_QUERY = groq`*[_type=="event" && language==$lang]{_id, slug, title}`;
-  return { query: EVENTS_QUERY, params: { lang } };
-}
-
 export function getEventQuery(params: Params<string>) {
   const id = params.id;
   const lang = params.lang ?? "nb";
