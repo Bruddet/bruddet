@@ -30,7 +30,7 @@ import { SlugProvider } from "./utils/i18n/SlugProvider";
 import NoTranslation from "./components/NoTranslation";
 import { lazy, Suspense } from "react";
 import { ExitPreview } from "./components/ExitPreview";
-import { loadQueryOptions } from "./cms/sanity/loadQueryOptions.server";
+import { loadQueryOptions } from "../cms/sanity/loadQueryOptions.server";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
