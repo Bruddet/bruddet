@@ -8,8 +8,7 @@ export async function loadQueryOptions(
   const previewSession = await getSession(headers.get("Cookie"));
   await destroySession(previewSession);
   const preview = previewSession.get("projectId") === client.config().projectId;
-  const studioUrl =
-    process.env.VITE_SANITY_STUDIO_URL || "https://localhost:3333";
+  const studioUrl = "/studio";
 
   if (preview && !process.env.SANITY_READ_TOKEN) {
     throw new Error(
