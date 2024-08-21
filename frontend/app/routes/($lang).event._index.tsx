@@ -2,14 +2,14 @@ import { LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { useEffect } from "react";
 import { createTexts, useTranslation } from "../utils/i18n";
-import { EVENTS_QUERYResult } from "../../cms/sanity/types";
+import { EVENTS_QUERYResult } from "../../cms/types";
 import Newsletter from "../components/Newsletter";
 import { getEventsQuery } from "../queries/event-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { QueryResponseInitial } from "@sanity/react-loader";
-import { loadQuery } from "../../cms/sanity/loader.server";
-import { useQuery } from "../../cms/sanity/loader";
-import { loadQueryOptions } from "../../cms/sanity/loadQueryOptions.server";
+import { loadQuery } from "../../cms/loader.server";
+import { useQuery } from "../../cms/loader";
+import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);

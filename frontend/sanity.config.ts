@@ -3,15 +3,15 @@ import { visionTool } from "@sanity/vision";
 import { muxInput } from "sanity-plugin-mux-input";
 import { media } from "sanity-plugin-media";
 import { structureTool } from "sanity/structure";
-import { deskStructure } from "./cms/sanity/structure";
-import { schemaTypes } from "./cms/sanity/schemaTypes";
+import { deskStructure } from "./cms/structure";
+import { schemaTypes } from "./cms/schemaTypes";
 import { presentationTool } from "sanity/presentation";
 import {
   documentInternationalization,
   DeleteTranslationAction,
 } from "@sanity/document-internationalization";
-import { PluginConfig } from "cms/sanity/structure/documentInternationalization";
-import { userGuide } from "cms/sanity/structure/UserGuide";
+import { PluginConfig } from "cms/structure/documentInternationalization";
+import { userGuide } from "cms/structure/UserGuide";
 
 const singletonTypes = new Set(["frontpage"]);
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);

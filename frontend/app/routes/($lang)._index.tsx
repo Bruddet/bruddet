@@ -1,6 +1,6 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData, Link, useParams } from "@remix-run/react";
-import { FRONTPAGE_QUERYResult } from "../../cms/sanity/types";
+import { FRONTPAGE_QUERYResult } from "../../cms/types";
 import { getFrontpageQuery } from "../queries/frontpage-queries";
 import urlFor from "../utils/imageUrlBuilder";
 import PurpleDot from "../assets/PurpleDot";
@@ -10,9 +10,9 @@ import { createTexts, useTranslation } from "../utils/i18n";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
 import { QueryResponseInitial } from "@sanity/react-loader";
-import { loadQuery } from "../../cms/sanity/loader.server";
-import { useQuery } from "../../cms/sanity/loader";
-import { loadQueryOptions } from "../../cms/sanity/loadQueryOptions.server";
+import { loadQuery } from "../../cms/loader.server";
+import { useQuery } from "../../cms/loader";
+import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
