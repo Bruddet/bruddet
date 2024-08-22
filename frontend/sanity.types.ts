@@ -68,6 +68,37 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Programpage = {
+  _id: string;
+  _type: "programpage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  language?: string;
+  metaTitle: string;
+  metaDescription: string;
+  links?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "event";
+  }>;
+  gif?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+  };
+};
+
 export type EventGenre = "Konsert" | "Skuespill";
 
 export type Review = {
@@ -149,29 +180,31 @@ export type Content = Array<{
   _type: "customImage";
   _key: string;
 } | {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
+  title?: string;
+  muxVideo: MuxVideo;
+  _type: "video";
   _key: string;
-  [internalGroqTypeReferenceTo]?: "video";
 } | {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
+  content: string;
+  source: string;
+  company?: string;
+  date?: string;
+  _type: "quote";
   _key: string;
-  [internalGroqTypeReferenceTo]?: "quote";
 } | {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
+  score?: number;
+  content: string;
+  source: string;
+  company?: string;
+  link?: string;
+  date?: string;
+  _type: "review";
   _key: string;
-  [internalGroqTypeReferenceTo]?: "review";
 } | {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
+  title: string;
+  content: string;
+  _type: "expandableBlock";
   _key: string;
-  [internalGroqTypeReferenceTo]?: "expandableBlock";
 }>;
 
 export type ExpandableBlock = {
@@ -194,6 +227,25 @@ export type Quote = {
   source: string;
   company?: string;
   date?: string;
+};
+
+export type Infopage = {
+  _id: string;
+  _type: "infopage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  language?: string;
+  metaTitle: MetaTitle;
+  metaDescription: MetaDescription;
+  links?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "article";
+  }>;
 };
 
 export type SanityImageCrop = {
@@ -251,192 +303,6 @@ export type SanityImageMetadata = {
   blurHash?: string;
   hasAlpha?: boolean;
   isOpaque?: boolean;
-};
-
-export type MediaTag = {
-  _id: string;
-  _type: "media.tag";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: Slug;
-};
-
-export type MuxVideo = {
-  _type: "mux.video";
-  asset?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "mux.videoAsset";
-  };
-};
-
-export type MuxVideoAsset = {
-  _type: "mux.videoAsset";
-  status?: string;
-  assetId?: string;
-  playbackId?: string;
-  filename?: string;
-  thumbTime?: number;
-  data?: MuxAssetData;
-};
-
-export type MuxAssetData = {
-  _type: "mux.assetData";
-  resolution_tier?: string;
-  upload_id?: string;
-  created_at?: string;
-  id?: string;
-  status?: string;
-  max_stored_resolution?: string;
-  passthrough?: string;
-  encoding_tier?: string;
-  master_access?: string;
-  aspect_ratio?: string;
-  duration?: number;
-  max_stored_frame_rate?: number;
-  mp4_support?: string;
-  max_resolution_tier?: string;
-  tracks?: Array<{
-    _key: string;
-  } & MuxTrack>;
-  playback_ids?: Array<{
-    _key: string;
-  } & MuxPlaybackId>;
-  static_renditions?: MuxStaticRenditions;
-};
-
-export type MuxStaticRenditions = {
-  _type: "mux.staticRenditions";
-  status?: string;
-  files?: Array<{
-    _key: string;
-  } & MuxStaticRenditionFile>;
-};
-
-export type MuxStaticRenditionFile = {
-  _type: "mux.staticRenditionFile";
-  ext?: string;
-  name?: string;
-  width?: number;
-  bitrate?: number;
-  filesize?: number;
-  height?: number;
-};
-
-export type MuxPlaybackId = {
-  _type: "mux.playbackId";
-  id?: string;
-  policy?: string;
-};
-
-export type MuxTrack = {
-  _type: "mux.track";
-  id?: string;
-  type?: string;
-  max_width?: number;
-  max_frame_rate?: number;
-  duration?: number;
-  max_height?: number;
-};
-
-export type TranslationMetadata = {
-  _id: string;
-  _type: "translation.metadata";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  translations?: Array<{
-    _key: string;
-  } & InternationalizedArrayReferenceValue>;
-  schemaTypes?: Array<string>;
-  slug?: Slug;
-};
-
-export type InternationalizedArrayReferenceValue = {
-  _type: "internationalizedArrayReferenceValue";
-  value?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "article";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "event";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "frontpage";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "infopage";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "person";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "programpage";
-  };
-};
-
-export type Programpage = {
-  _id: string;
-  _type: "programpage";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  language?: string;
-  metaTitle: MetaTitle;
-  metaDescription: MetaDescription;
-  links?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "event";
-  }>;
-  gif?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-  };
-};
-
-export type Infopage = {
-  _id: string;
-  _type: "infopage";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title: string;
-  language?: string;
-  metaTitle: MetaTitle;
-  metaDescription: MetaDescription;
-  links?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "article";
-  }>;
 };
 
 export type Frontpage = {
@@ -505,10 +371,9 @@ export type Article = {
     _type: "customImage";
   };
   video?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "video";
+    title?: string;
+    muxVideo: MuxVideo;
+    _type: "video";
   };
   event?: {
     _ref: string;
@@ -595,12 +460,6 @@ export type Person = {
   text?: string;
 };
 
-export type Document = {
-  _type: "reference";
-  _ref: string;
-  _weak?: boolean;
-};
-
 export type CustomImage = {
   _type: "customImage";
   asset?: {
@@ -614,19 +473,103 @@ export type CustomImage = {
   alt: string;
 };
 
+export type MediaTag = {
+  _id: string;
+  _type: "media.tag";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: Slug;
+};
+
 export type Slug = {
   _type: "slug";
   current: string;
   source?: string;
 };
 
-export type InternationalizedArrayReference = Array<{
-  _key: string;
-} & InternationalizedArrayReferenceValue>;
+export type MuxVideo = {
+  _type: "mux.video";
+  asset?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "mux.videoAsset";
+  };
+};
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | ExpandableBlock | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Infopage | Frontpage | Article | Event | Person | Document | CustomImage | Slug | InternationalizedArrayReference;
+export type MuxVideoAsset = {
+  _type: "mux.videoAsset";
+  status?: string;
+  assetId?: string;
+  playbackId?: string;
+  filename?: string;
+  thumbTime?: number;
+  data?: MuxAssetData;
+};
+
+export type MuxAssetData = {
+  _type: "mux.assetData";
+  resolution_tier?: string;
+  upload_id?: string;
+  created_at?: string;
+  id?: string;
+  status?: string;
+  max_stored_resolution?: string;
+  passthrough?: string;
+  encoding_tier?: string;
+  master_access?: string;
+  aspect_ratio?: string;
+  duration?: number;
+  max_stored_frame_rate?: number;
+  mp4_support?: string;
+  max_resolution_tier?: string;
+  tracks?: Array<{
+    _key: string;
+  } & MuxTrack>;
+  playback_ids?: Array<{
+    _key: string;
+  } & MuxPlaybackId>;
+  static_renditions?: MuxStaticRenditions;
+};
+
+export type MuxStaticRenditions = {
+  _type: "mux.staticRenditions";
+  status?: string;
+  files?: Array<{
+    _key: string;
+  } & MuxStaticRenditionFile>;
+};
+
+export type MuxStaticRenditionFile = {
+  _type: "mux.staticRenditionFile";
+  ext?: string;
+  name?: string;
+  width?: number;
+  bitrate?: number;
+  filesize?: number;
+  height?: number;
+};
+
+export type MuxPlaybackId = {
+  _type: "mux.playbackId";
+  id?: string;
+  policy?: string;
+};
+
+export type MuxTrack = {
+  _type: "mux.track";
+  id?: string;
+  type?: string;
+  max_width?: number;
+  max_frame_rate?: number;
+  duration?: number;
+  max_height?: number;
+};
+
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | Programpage | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | ExpandableBlock | Quote | Infopage | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | Frontpage | Article | Event | Person | CustomImage | MediaTag | Slug | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ../frontend/app/queries/article-queries.ts
+// Source: ./app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
 // Query: *[_type=="article" && language==$lang]{_id, slug, title}
 export type ARTICLES_QUERYResult = Array<{
@@ -635,7 +578,7 @@ export type ARTICLES_QUERYResult = Array<{
   title: string;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current=="$id" && language=="$lang"][0]{    title,     slug,     metaTitle,     metaDescription,     colorCombinationsDay,     image,     text[]{...,       _type=="video" => {        title, muxVideo{asset->{playbackId}        }      }    },     video{      title,       muxVideo{        asset->{          playbackId}        }    },    'event': event->{slug},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      slug,      language,      }    }
+// Query: *[_type=="article" && slug.current==$id && language==$lang][0]{    title,     slug,     metaTitle,     metaDescription,     colorCombinationsDay,     image,     text[]{...,       _type=="video" => {        title, muxVideo{asset->{playbackId}        }      }    },     video{      title,       muxVideo{        asset->{          playbackId}        }    },    'event': event->{slug},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      slug,      language,      }    }
 export type ARTICLE_QUERYResult = {
   title: string;
   slug: Slug;
@@ -655,21 +598,6 @@ export type ARTICLE_QUERYResult = {
     _type: "customImage";
   } | null;
   text: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-  } | {
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -685,23 +613,61 @@ export type ARTICLE_QUERYResult = {
     }>;
     level?: number;
     _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+    _key: string;
+  } | {
+    title: string;
+    content: string;
+    _type: "expandableBlock";
+    _key: string;
+  } | {
+    content: string;
+    source: string;
+    company?: string;
+    date?: string;
+    _type: "quote";
+    _key: string;
+  } | {
+    score?: number;
+    content: string;
+    source: string;
+    company?: string;
+    link?: string;
+    date?: string;
+    _type: "review";
+    _key: string;
+  } | {
+    title: string | null;
+    muxVideo: {
+      asset: null;
+    };
+    _type: "video";
+    _key: string;
   }> | null;
   video: {
-    title: null;
-    muxVideo: null;
+    title: string | null;
+    muxVideo: {
+      asset: null;
+    };
   } | null;
   event: {
     slug: Slug;
   } | null;
-  _translations: Array<{
-    slug: Slug;
-    language: string | null;
-  } | {
-    slug: null;
-    language: string | null;
-  } | null>;
+  _translations: Array<never>;
 } | null;
-// Source: ../frontend/app/queries/event-queries.ts
+
+// Source: ./app/queries/event-queries.ts
 // Variable: EVENTS_QUERY
 // Query: *[_type=="event" && language==$lang]{_id, slug, title}
 export type EVENTS_QUERYResult = Array<{
@@ -710,7 +676,7 @@ export type EVENTS_QUERYResult = Array<{
   title: string;
 }>;
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language=="$lang" && slug.current=="$id}"][0]{    metaTitle,    metaDescription,    title,     image,    imageMask,     colorCombinationsNight,     dates,     labels,    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      name,       persons[]{      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
+// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    metaTitle,    metaDescription,    title,     image,    imageMask,     colorCombinationsNight,     dates,     labels,    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      name,       persons[]{      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
   metaTitle: MetaTitle;
   metaDescription: MetaDescription;
@@ -737,21 +703,6 @@ export type EVENT_QUERYResult = {
   }>;
   labels: Array<string> | null;
   text: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt: string;
-    _type: "customImage";
-  } | {
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -767,6 +718,47 @@ export type EVENT_QUERYResult = {
     }>;
     level?: number;
     _type: "block";
+    _key: string;
+  } | {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt: string;
+    _type: "customImage";
+    _key: string;
+  } | {
+    title: string;
+    content: string;
+    _type: "expandableBlock";
+    _key: string;
+  } | {
+    content: string;
+    source: string;
+    company?: string;
+    date?: string;
+    _type: "quote";
+    _key: string;
+  } | {
+    score?: number;
+    content: string;
+    source: string;
+    company?: string;
+    link?: string;
+    date?: string;
+    _type: "review";
+    _key: string;
+  } | {
+    title: string | null;
+    muxVideo: {
+      asset: null;
+    };
+    _type: "video";
+    _key: string;
   }> | null;
   eventGenre: EventGenre | null;
   roleGroups: Array<{
@@ -791,15 +783,10 @@ export type EVENT_QUERYResult = {
       } | null;
     }> | null;
   }> | null;
-  _translations: Array<{
-    slug: Slug;
-    language: string | null;
-  } | {
-    slug: null;
-    language: string | null;
-  } | null>;
+  _translations: Array<never>;
 } | null;
-// Source: ../frontend/app/queries/frontpage-queries.ts
+
+// Source: ./app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
 // Query: *[_type=="frontpage" && language==$lang][0]{  title,   image,   language,  svgTitle,   metaTitle,   metaDescription,   event->{    title,     text,     image,     slug,     metaTitle,     metaDescription,     svgTitle    }  }
 export type FRONTPAGE_QUERYResult = {
@@ -863,7 +850,8 @@ export type FRONTPAGE_QUERYResult = {
     };
   } | null;
 } | null;
-// Source: ../frontend/app/queries/info-queries.ts
+
+// Source: ./app/queries/info-queries.ts
 // Variable: INFOPAGE_QUERY
 // Query: *[_type=="infopage" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]
 export type INFOPAGE_QUERYResult = {
@@ -876,12 +864,13 @@ export type INFOPAGE_QUERYResult = {
     slug: Slug;
   }> | null;
 } | null;
-// Source: ../frontend/app/queries/program-queries.ts
+
+// Source: ./app/queries/program-queries.ts
 // Variable: PROGRAMPAGE_QUERY
 // Query: *[_type=="programpage" && language==$lang]{metaTitle, metaDescription, title, text,gif, links[]->{title, slug}}[0]
 export type PROGRAMPAGE_QUERYResult = {
-  metaTitle: MetaTitle;
-  metaDescription: MetaDescription;
+  metaTitle: string;
+  metaDescription: string;
   title: string;
   text: null;
   gif: {
@@ -901,3 +890,4 @@ export type PROGRAMPAGE_QUERYResult = {
     slug: Slug;
   }> | null;
 } | null;
+

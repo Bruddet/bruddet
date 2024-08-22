@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Custom_EVENT_QUERYResult } from "../../sanity/types";
+import { Custom_EVENT_QUERYResult } from "../../cms/customTypes";
 import { getColor } from "../utils/colorCombinations";
 import PortableTextComponent from "../components/PortableTextComponent";
 import urlFor from "../utils/imageUrlBuilder";
@@ -16,9 +16,9 @@ import { useTranslation } from "../utils/i18n";
 import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
 import { ExpandableBlockComponent } from "~/components/ExpandableBlockComponent";
 import { QueryResponseInitial } from "@sanity/react-loader";
-import { loadQuery } from "../../sanity/loader.server";
-import { useQuery } from "../../sanity/loader";
-import { loadQueryOptions } from "sanity/loadQueryOptions.server";
+import { loadQuery } from "../../cms/loader.server";
+import { useQuery } from "../../cms/loader";
+import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);

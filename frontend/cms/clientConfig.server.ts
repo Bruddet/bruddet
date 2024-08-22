@@ -9,7 +9,6 @@ export const client = createClient({
   perspective: "published",
   stega: {
     enabled: import.meta.env.VITE_SANITY_STUDIO_STEGA_ENABLED === "true",
-    studioUrl:
-      import.meta.env.VITE_SANITY_STUDIO_URL ?? "http://bruddet.sanity.studio",
+    studioUrl: "/studio",
   },
 });
