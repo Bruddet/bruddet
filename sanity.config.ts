@@ -10,8 +10,8 @@ import {
   documentInternationalization,
   DeleteTranslationAction,
 } from "@sanity/document-internationalization";
-import { PluginConfig } from "cms/structure/documentInternationalization";
-import { userGuide } from "cms/structure/UserGuide";
+import { PluginConfig } from "./cms/structure/documentInternationalization";
+import { userGuide } from "./cms/structure/UserGuide";
 
 const singletonTypes = new Set(["frontpage"]);
 const singletonActions = new Set(["publish", "discardChanges", "restore"]);
