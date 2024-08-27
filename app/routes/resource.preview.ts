@@ -40,7 +40,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
   );
 
   if (!isValid) {
-    throw new Response("Invalid secret", { status: 401 });
+    throw new Response(
+      "Invalid secret:" + process.env.SANITY_SESSION_SECRET[0],
+      {
+        status: 401,
+      }
+    );
   }
 
   const session = await getSession(request.headers.get("Cookie"));
