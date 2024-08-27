@@ -1,6 +1,6 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData, Link, useParams } from "@remix-run/react";
-import { FRONTPAGE_QUERYResult } from "../../cms/types";
+import { FRONTPAGE_QUERYResult } from "../../sanity.types";
 import { getFrontpageQuery } from "../queries/frontpage-queries";
 import urlFor from "../utils/imageUrlBuilder";
 import PurpleDot from "../assets/PurpleDot";

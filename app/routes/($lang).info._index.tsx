@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
-import { INFOPAGE_QUERYResult } from "../../cms/types";
+import { INFOPAGE_QUERYResult } from "../../sanity.types";
 import { getInfoPageQuery } from "../queries/info-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { useTranslation } from "../utils/i18n";
