@@ -1,8 +1,8 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createTexts, useTranslation } from "../utils/i18n";
-import { PROGRAMPAGE_QUERYResult } from "../../cms/types";
+import { PROGRAMPAGE_QUERYResult } from "../../sanity.types";
 import Newsletter from "../components/Newsletter";
 import { getProgramPageQuery } from "../queries/program-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
@@ -76,7 +76,7 @@ export default function Program() {
   });
   const { setColor } = useBackgroundColor();
   const { t } = useTranslation();
-  const gifUrl = urlFor(data?.gif?.asset?._ref || "");
+  const [gifUrl, setGifUrl] = useState(urlFor(data?.gif?.asset?._ref || ""));
   useEffect(() => {
     setColor("bg-strongblue");
   }, [setColor]);
@@ -103,6 +103,14 @@ export default function Program() {
                   }`
                 : ""
             }
+            onMouseEnter={() => {
+              setGifUrl(
+                urlFor(link.gif?.asset?._ref ?? link.image.asset?._ref ?? "")
+              );
+            }}
+            onMouseOut={() => {
+              data?.gif && setGifUrl(urlFor(data.gif.asset?._ref ?? ""));
+            }}
             className="z-10"
             aria-label={`${t(texts.labelText)} ${link.title}`}
           >
