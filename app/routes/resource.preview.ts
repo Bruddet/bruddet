@@ -26,13 +26,20 @@ export const action: ActionFunction = async ({ request }) => {
 
 // A `GET` request to this route will enter preview mode
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  if (!process.env.SANITY_READ_TOKEN) {
+  if (!process.env.SANITY_API_READ_TOKEN) {
     throw new Response("Preview mode missing token", { status: 401 });
   }
 
   const clientWithToken = client.withConfig({
-    token: process.env.SANITY_READ_TOKEN,
+    token: process.env.SANITY_API_READ_TOKEN,
   });
+
+  const test =
+    "http://localhost:5173/resource/preview?sanity-preview-secret=NzMxMTJiNGVmZDJhODU1ZmFhMjE1ZjkwZTRkMDY5NjI&sanity-preview-pathname=%2F";
+
+  console.log("clientWithToken", clientWithToken.config());
+  console.log("Sanity session secret ", process.env.SANITY_SESSION_SECRET);
+  console.log("test", test);
 
   const { isValid, redirectTo = "/" } = await validatePreviewUrl(
     clientWithToken,
