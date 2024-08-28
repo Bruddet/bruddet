@@ -13,7 +13,11 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
+<<<<<<< HEAD
 import GreenTriangle from "~/assets/GreenTriangle";
+=======
+import Footer from "~/components/Footer";
+>>>>>>> f3fc364 (Add footer with marquee effect.)
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -184,6 +188,7 @@ export default function Index() {
             </div>
           )}
         </div>
+        <Footer />
       </div>
     </div>
   );
