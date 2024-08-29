@@ -11,7 +11,8 @@ const { getSession, commitSession, destroySession } =
     cookie: {
       name: PREVIEW_SESSION_NAME,
       secrets: [process.env.SANITY_SESSION_SECRET],
-      sameSite: "strict",
+      sameSite: "none",
+      secure: true,
     },
   });
 
