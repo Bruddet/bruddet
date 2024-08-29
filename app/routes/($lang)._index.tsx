@@ -13,6 +13,7 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
+import GreenTriangle from "~/assets/GreenTriangle";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -116,30 +117,56 @@ export default function Index() {
           <Newsletter />
         </div>
 
-        <div className={`flex flex-1 flex-col items-center ${styling} mx-4`}>
-          <img
-            className="lg:w-1/3"
-            src={SvgUrl}
-            alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
-          />
-
+        <div
+          className={`flex flex-1 flex-col items-center justify-center mx-4`}
+        >
           <div className="flex flex-row justify-center content-center w-full mt-4">
             <Link
               to={params.lang == "en" ? "/en/info" : "/info"}
-              className="text-white w-48  text-right px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl"
+              className="text-white w-1/5  text-left px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl hidden md:flex flex-row content-start"
               aria-label={t(texts.infoText)}
             >
-              Info
+              <div className="self-center animate-horizontal-bounce-left ">
+                <GreenTriangle direction="left" />
+              </div>
+              <div className="px-4">Info</div>
             </Link>
-            <div className="mb-4 mt-4 lg:mt-5 mx-1">
-              <PurpleDot />
-            </div>
+            <img
+              className="md:w-1/2"
+              src={SvgUrl}
+              alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
+            />
             <Link
               to={params.lang == "en" ? "/en/program" : "/program"}
-              className="text-white w-48 px-4 py-2 text-left rounded self-center font-serif text-2xl lg:text-4xl"
+              className="text-white w-1/5 px-4 py-2 text-right rounded self-center font-serif text-2xl lg:text-4xl flex-row content-end hidden md:flex"
               aria-label={t(texts.programText)}
             >
-              Program
+              <div className="px-4 ml-auto">Program</div>
+              <div className="self-center animate-horizontal-bounce-right">
+                <GreenTriangle direction="right" />
+              </div>
+            </Link>
+          </div>
+          <div className="flex md:hidden flex-row  w-full mt-4">
+            <Link
+              to={params.lang == "en" ? "/en/info" : "/info"}
+              className="text-white w-1/2  text-left py-2 rounded self-center font-serif text-2xl lg:text-4xl flex flex-row content-start"
+              aria-label={t(texts.infoText)}
+            >
+              <div className="self-center ml-auto animate-horizontal-bounce-left ">
+                <GreenTriangle direction="left" />
+              </div>
+              <div className="px-4">{t(texts.infoButton)}</div>
+            </Link>
+            <Link
+              to={params.lang == "en" ? "/en/program" : "/program"}
+              className="text-white w-1/2 py-2 text-right rounded self-center font-serif text-2xl lg:text-4xl flex-row content-end flex"
+              aria-label={t(texts.programText)}
+            >
+              <div className="px-4">Program</div>
+              <div className="self-center animate-horizontal-bounce-right">
+                <GreenTriangle direction="right" />
+              </div>
             </Link>
           </div>
 
@@ -174,5 +201,9 @@ const texts = createTexts({
   buyTicket: {
     nb: "Kjøp \nBillett",
     en: "Buy \nTicket",
+  },
+  infoButton: {
+    nb: "Meny",
+    en: "Menu",
   },
 });

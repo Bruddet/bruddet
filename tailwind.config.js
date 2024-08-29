@@ -7,6 +7,30 @@ export default {
       sans: ["calibri"],
     },
     extend: {
+      animation: {
+        "horizontal-bounce-left":
+          "horizontal-bounce-left ease-in-out 1s infinite",
+        "horizontal-bounce-right":
+          "horizontal-bounce-right ease-in-out 1s infinite",
+      },
+      keyframes: {
+        "horizontal-bounce-left": {
+          "0%, 100%": {
+            transform: "translateX(0)",
+          },
+          "50%": {
+            transform: "translateX(-20px)",
+          },
+        },
+        "horizontal-bounce-right": {
+          "0%, 100%": {
+            transform: "translateX(0)",
+          },
+          "50%": {
+            transform: "translateX(20px)",
+          },
+        },
+      },
       colors: {
         dayThemeBlueBlack: {
           primary: "#B6E3FD",
