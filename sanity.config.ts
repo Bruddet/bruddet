@@ -20,6 +20,8 @@ const STUDIO_BASE_PATH = "/studio";
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const PROJECT_ID = "0chpibsu";
 const DATASET = "development";
+const SANITY_STUDIO_FRONTEND_URL =
+  process.env.SANITY_STUDIO_FRONTEND_URL ?? "https://bruddet.vercel.app";
 
 async function getDocumentPreviewUrl(
   document: SanityDocumentLike,
@@ -76,7 +78,7 @@ export default defineConfig({
     presentationTool({
       previewUrl: {
         previewMode: {
-          enable: "/resource/preview",
+          enable: SANITY_STUDIO_FRONTEND_URL + "/resource/preview",
         },
       },
     }),
