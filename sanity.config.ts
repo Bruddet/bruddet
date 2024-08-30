@@ -19,9 +19,10 @@ const STUDIO_BASE_PATH = "/studio";
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const PROJECT_ID = "0chpibsu";
-const DATASET = "development";
+const DATASET = import.meta.env.VITE_SANITY_STUDIO_DATASET ?? "production";
 const SANITY_STUDIO_FRONTEND_URL =
-  process.env.SANITY_STUDIO_FRONTEND_URL ?? "https://bruddet.vercel.app";
+  import.meta.env.VITE_SANITY_STUDIO_FRONTEND_URL ??
+  "https://bruddet.vercel.app";
 
 async function getDocumentPreviewUrl(
   document: SanityDocumentLike,
@@ -38,7 +39,7 @@ async function getDocumentPreviewUrl(
     return "";
   }
 
-  const basePath = "/presentation?preview=";
+  const basePath = "/studio/presentation?preview=";
   const languagePrefix = res?.language === "nb" ? "" : "en/";
 
   switch (document._type) {
