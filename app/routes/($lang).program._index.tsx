@@ -11,6 +11,7 @@ import { loadQuery } from "../../cms/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
+import EventDateLabel from "~/components/EventLabels/EventDateLabel";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -70,23 +71,24 @@ export default function Program() {
     query: string;
     queryParams: Record<string, string>;
   };
-
   const { data } = useQuery<typeof initial.data>(query, queryParams, {
     initial,
   });
+
   const { setColor } = useBackgroundColor();
   const { t } = useTranslation();
   const [gifUrl, setGifUrl] = useState(urlFor(data?.gif?.asset?._ref || ""));
+
   useEffect(() => {
     setColor("bg-strongblue");
   }, [setColor]);
   const params = useParams();
   return (
-    <div className="flex flex-col grow items-center text-white font-serif">
+    <div className="flex flex-col grow items-center text-black font-serif">
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
-      <div className="flex md:flex-row flex-wrap w-[90vw] ">
+      <div className="flex md:flex-row flex-wrap w-[90vw]">
         <div className="w-full md:w-1/3 max-sm:hidden"></div>
-        <div className="w-full md:w-1/3 vertical-align: middle;">
+        <div className="w-3/4 md:w-1/3 vertical-align: middle; mx-auto">
           {data?.links?.map((link, index) => (
             <>
               <Link
@@ -108,19 +110,23 @@ export default function Program() {
                 onMouseOut={() => {
                   data?.gif && setGifUrl(urlFor(data.gif.asset?._ref ?? ""));
                 }}
-                className="z-10 align-middle w-full md:w-1/3 text-center"
+                className=" align-middle md:w-1/3 md:text-center "
                 aria-label={`${t(texts.labelText)} ${link.title}`}
               >
-                <p className="p-4 hover:underline text-2xl lg:text-4xl">
-                  {link.title}
-                </p>
-                <div className="md:hidden w-full">
+                <div className="md:hidden aspect-square w-full">
                   <img
-                    className="inline-block"
+                    className="inline-block object-cover w-full h-full"
                     src={urlFor(link?.image?.asset?._ref ?? "")}
                     alt={link?.image?.alt ?? ""}
+                    key={index}
                   />
                 </div>
+                <p className="hover:underline text-2xl lg:text-4xl mt-4 mb-2">
+                  {link.title}
+                </p>
+                {link.dates.length > 0 && (
+                  <EventDateLabel dateObj={link.dates} />
+                )}
               </Link>
             </>
           ))}

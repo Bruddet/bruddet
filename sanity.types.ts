@@ -929,7 +929,7 @@ export type INFOPAGE_QUERYResult = {
 
 // Source: ./app/queries/program-queries.ts
 // Variable: PROGRAMPAGE_QUERY
-// Query: *[_type=="programpage" && language==$lang]{metaTitle, metaDescription, title, text,gif, links[]->{title, slug, gif, image}}[0]
+// Query: *[_type=="programpage" && language==$lang]{metaTitle, metaDescription, title, text,gif, links[]->{title, slug, gif, image, dates} }[0]
 export type PROGRAMPAGE_QUERYResult = {
   metaTitle: MetaTitle | null;
   metaDescription: MetaDescription | null;
@@ -963,6 +963,12 @@ export type PROGRAMPAGE_QUERYResult = {
       alt?: string;
       _type: "customImage";
     } | null;
+    dates: Array<{
+      date: string;
+      url: string;
+      status: 1 | 2 | 3;
+      _key: string;
+    }>;
   }> | null;
 } | null;
 
@@ -975,6 +981,6 @@ declare module "@sanity/client" {
     "*[_type==\"event\" && language==$lang && slug.current==$id][0]{\n    metaTitle,\n    metaDescription,\n    title, \n    image,\n    imageMask, \n    colorCombinationsNight, \n    dates, \n    labels,\n    text[]{..., _type==\"video\" => {title, muxVideo{asset->{playbackId}}}},\n    eventGenre, \n    roleGroups[]{\n      name, \n      persons[]{\n      occupation, \n      person->{name, image, text}\n      }\n    },\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n    slug,\n    language,\n    }\n  }": EVENT_QUERYResult;
     "*[_type==\"frontpage\" && language==$lang][0]{\n  title, \n  image, \n  language,\n  svgTitle, \n  metaTitle, \n  metaDescription, \n  event->{\n    title, \n    text, \n    image, \n    slug, \n    metaTitle, \n    metaDescription, \n    svgTitle,\n    colorCombinationsNight\n    }\n  }": FRONTPAGE_QUERYResult;
     "*[_type==\"infopage\" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]": INFOPAGE_QUERYResult;
-    "*[_type==\"programpage\" && language==$lang]{metaTitle, metaDescription, title, text,gif, links[]->{title, slug, gif, image}}[0]": PROGRAMPAGE_QUERYResult;
+    "*[_type==\"programpage\" && language==$lang]{metaTitle, metaDescription, title, text,gif, links[]->{title, slug, gif, image, dates} }[0]": PROGRAMPAGE_QUERYResult;
   }
 }
