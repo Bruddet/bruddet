@@ -14,10 +14,12 @@ export const action: ActionFunction = async ({ request }) => {
   if (request.method !== "POST") {
     return json({ message: "Method not allowed" }, 405);
   }
+  const formData = await request.formData();
+  const redirectUrl = formData.get("redirectUrl") as string;
 
   const session = await getSession(request.headers.get("Cookie"));
 
-  return redirect("/", {
+  return redirect(redirectUrl ?? "/", {
     headers: {
       "Set-Cookie": await destroySession(session),
     },
