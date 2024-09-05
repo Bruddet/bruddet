@@ -3,14 +3,20 @@ import { useState } from "react";
 import PurpleDot from "~/assets/PurpleDot";
 import { createTexts, useTranslation } from "~/utils/i18n";
 
-export function Footer() {
+type FooterProps = {
+  bgColor?: string;
+};
+
+export function Footer({ bgColor }: FooterProps) {
   const [displayText, setDisplayText] = useState(true);
   const { t } = useTranslation();
   return (
     <>
       <button
         className={`overflow-x-hidden sticky bottom-0 text-white border-t-2 hidden sm:flex ${
-          displayText ? "border-t-white" : "border-t-[#24ED15] bg-[#24ED15]"
+          displayText
+            ? `border-t-white ${bgColor}`
+            : "border-t-[#24ED15] bg-[#24ED15]"
         }`}
         onFocus={() => {
           setDisplayText(false);

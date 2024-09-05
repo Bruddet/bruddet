@@ -18,7 +18,8 @@ export function getFrontpageQuery(params: Params<string>) {
     slug, 
     metaTitle, 
     metaDescription, 
-    svgTitle
+    svgTitle,
+    colorCombinationsNight
     }
   }`;
 

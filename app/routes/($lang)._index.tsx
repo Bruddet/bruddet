@@ -13,11 +13,9 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
-<<<<<<< HEAD
 import GreenTriangle from "~/assets/GreenTriangle";
-=======
 import Footer from "~/components/Footer";
->>>>>>> f3fc364 (Add footer with marquee effect.)
+import { getColor } from "~/utils/colorCombinations";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -105,6 +103,17 @@ export default function Index() {
   const params = useParams();
   const styling = data?.event ? "justify-end mb-6" : "justify-center";
 
+  const {
+    bgColor,
+    primaryText,
+    secondaryBgColor,
+    secondaryBorder,
+    textColor,
+    textColorBorder,
+    portabletextStyle,
+    quoteStyle,
+  } = getColor(data?.event?.colorCombinationsNight);
+
   return (
     <div
       className="bg-cover bg-center bg-no-repeat h-[100dvh] w-full font-serif"
@@ -188,7 +197,7 @@ export default function Index() {
             </div>
           )}
         </div>
-        <Footer />
+        <Footer bgColor={bgColor} />
       </div>
     </div>
   );

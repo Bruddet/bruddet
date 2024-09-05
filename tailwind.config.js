@@ -56,8 +56,8 @@ export default {
         lightblue: "#83D2FF",
       },
       animation: {
-        marquee: "marquee 60s linear infinite",
-        marquee2: "marquee2 60s linear infinite",
+        marquee: "marquee 120s linear infinite",
+        marquee2: "marquee2 120s linear infinite",
       },
       keyframes: {
         marquee: {
