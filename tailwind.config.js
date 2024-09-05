@@ -55,6 +55,20 @@ export default {
         strongblue: "#59A1B6",
         lightblue: "#83D2FF",
       },
+      animation: {
+        marquee: "marquee 120s linear infinite",
+        marquee2: "marquee2 120s linear infinite",
+      },
+      keyframes: {
+        marquee: {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
+        marquee2: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],

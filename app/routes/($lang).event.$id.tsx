@@ -19,6 +19,7 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
+import { c } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
