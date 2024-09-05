@@ -6,6 +6,7 @@ import { QuoteComponent } from "./QuoteComponent";
 import { ReviewComponent } from "./ReviewComponent";
 import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { stegaClean } from "@sanity/client/stega";
+import Dice from "./Dice";
 
 interface QuoteStyle {
   styleBlock?: string;
@@ -70,6 +71,14 @@ export default function PortableTextComponent({
             fillColor={fillColor}
           />
         );
+      },
+      dice: ({
+        value,
+      }: PortableTextComponentProps<{
+        content: string;
+        diceValue: number;
+      }>) => {
+        return <Dice content={value.content} dice={value.diceValue} />;
       },
       review: ({
         value,

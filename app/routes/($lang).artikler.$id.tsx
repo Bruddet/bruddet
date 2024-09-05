@@ -95,7 +95,7 @@ export default function Article() {
     initial,
   });
 
-  const bgColor = getBackgroundColor(data?.colorCombinationsDay);
+  const bgColor = "bg-[#FFF8E8]";
   const { setColor } = useBackgroundColor();
   const { portabletextStyle, quoteStyle } = getColor(
     data?.colorCombinationsDay
@@ -110,9 +110,7 @@ export default function Article() {
 
   return (
     <div
-      className={`${getBackgroundColor(
-        data.colorCombinationsDay
-      )} flex flex-col items-center grow mx-6 self-center md:w-full lg:w-1/2`}
+      className={`bg-[#FFF8E8] flex flex-col items-center grow mx-6 self-center md:w-full lg:w-1/2`}
     >
       <h1 className="text-4xl">{data.title}</h1>
       {data.image && (

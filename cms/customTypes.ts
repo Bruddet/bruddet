@@ -1,4 +1,8 @@
-import {} from "../sanity.types";
+import {
+  ARTICLE_QUERYResult,
+  Content,
+  EVENT_QUERYResult,
+} from "../sanity.types";
 
 /***
  * This file is a custom type definition for the Sanity schema.
@@ -10,7 +14,7 @@ import {} from "../sanity.types";
  * Import the custom types through sanity/types in the frontend.
  */
 
-declare module "sanity/types" {
+declare module "lokalsanity/types" {
   export type CustomContent = Omit<
     NonNullable<Content>,
     "video" & {
