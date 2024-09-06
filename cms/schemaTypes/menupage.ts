@@ -1,8 +1,8 @@
 import { defineType, defineField } from "sanity";
 
-export const programpage = defineType({
-  name: "programpage",
-  title: "Programside",
+export const menuPage = defineType({
+  name: "menupage",
+  title: "Informasjonsside",
   type: "document",
   fields: [
     defineField({
@@ -36,13 +36,14 @@ export const programpage = defineType({
     }),
     defineField({
       name: "links",
-      title: "Forestillinger",
-      description: "Velg forestillinger som skal vises på programsiden",
+      title: "Undersider",
       type: "array",
+      description:
+        "Velg hvilke undersider, av typen Artikler, som skal vises på Menysiden",
       of: [
         {
           type: "reference",
-          to: [{ type: "event" }],
+          to: [{ type: "article" }],
           options: {
             filter: ({ document }) => {
               return {
@@ -57,15 +58,6 @@ export const programpage = defineType({
         documentInternationalization: {
           exclude: true,
         },
-      },
-    }),
-    defineField({
-      name: "gif",
-      title: "GIF",
-      type: "customImage",
-      description: "GIF som ligger bak listen med forestillinger",
-      options: {
-        accept: ".gif",
       },
     }),
   ],

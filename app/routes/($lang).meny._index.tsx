@@ -1,8 +1,8 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect } from "react";
-import { INFOPAGE_QUERYResult } from "../../sanity.types";
-import { getInfoPageQuery } from "../queries/info-queries";
+import { MENUPAGE_QUERYResult } from "../../sanity.types";
+import { getMenuPageQuery } from "../queries/menu-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { useTranslation } from "../utils/i18n";
 import { loadQuery } from "../../cms/loader.server";
@@ -12,15 +12,15 @@ import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
-  const { query, params: queryParams } = getInfoPageQuery(params);
-  const initial = await loadQuery<INFOPAGE_QUERYResult>(
+  const { query, params: queryParams } = getMenuPageQuery(params);
+  const initial = await loadQuery<MENUPAGE_QUERYResult>(
     query,
     queryParams,
     options
   );
-  const informationPage = initial.data;
+  const menuPage = initial.data;
 
-  if (!informationPage) {
+  if (!menuPage) {
     throw new Response("Not Found", {
       status: 404,
     });
@@ -47,7 +47,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
 
   if (!sanityData) {
     return [
-      { title: "Info" },
+      { title: "Meny" },
       {
         property: "og:description",
         content: description,
@@ -56,7 +56,7 @@ export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
   }
 
   return [
-    { title: sanityData.metaTitle ?? "Info" },
+    { title: sanityData.metaTitle ?? "Meny" },
     {
       property: "og:description",
       content: sanityData.metaDescription ?? description,
@@ -76,7 +76,7 @@ function RedirectType(type: string) {
 
 export default function Info() {
   const { initial, query, queryParams } = useLoaderData<typeof loader>() as {
-    initial: QueryResponseInitial<INFOPAGE_QUERYResult>;
+    initial: QueryResponseInitial<MENUPAGE_QUERYResult>;
     query: string;
     queryParams: Record<string, string>;
   };

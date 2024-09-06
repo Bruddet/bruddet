@@ -146,7 +146,7 @@ export default function App() {
               <Outlet />
             </div>
           </motion.div>
-          <StickyFooter infoUrl="/info" programUrl="/program" />
+          <StickyFooter menyUrl="/meny" programUrl="/program" />
         </SlugProvider>
       </BackgroundColorProvider>
     </LanguageProvider>

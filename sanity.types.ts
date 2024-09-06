@@ -379,7 +379,7 @@ export type InternationalizedArrayReferenceValue = {
     _ref: string;
     _type: "reference";
     _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "infopage";
+    [internalGroqTypeReferenceTo]?: "menupage";
   } | {
     _ref: string;
     _type: "reference";
@@ -424,9 +424,9 @@ export type Programpage = {
   };
 };
 
-export type Infopage = {
+export type Menupage = {
   _id: string;
-  _type: "infopage";
+  _type: "menupage";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -621,7 +621,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | ExpandableBlock | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Infopage | Frontpage | Article | Event | Person | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinationsNight | ColorCombinationsDay | MetaDescription | MetaTitle | Video | RoleGroups | Content | ExpandableBlock | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Menupage | Frontpage | Article | Event | Person | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -913,10 +913,10 @@ export type FRONTPAGE_QUERYResult = {
   } | null;
 } | null;
 
-// Source: ./app/queries/info-queries.ts
-// Variable: INFOPAGE_QUERY
-// Query: *[_type=="infopage" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]
-export type INFOPAGE_QUERYResult = {
+// Source: ./app/queries/menu-queries.ts
+// Variable: MENUPAGE_QUERY
+// Query: *[_type=="menupage" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]
+export type MENUPAGE_QUERYResult = {
   title: string | null;
   metaTitle: MetaTitle | null;
   metaDescription: MetaDescription | null;
@@ -964,11 +964,11 @@ export type PROGRAMPAGE_QUERYResult = {
       _type: "customImage";
     } | null;
     dates: Array<{
-      date: string;
-      url: string;
-      status: 1 | 2 | 3;
+      date?: string;
+      url?: string;
+      status?: 1 | 2 | 3;
       _key: string;
-    }>;
+    }> | null;
   }> | null;
 } | null;
 
@@ -980,7 +980,7 @@ declare module "@sanity/client" {
     "*[_type==\"article\" && slug.current==$id && language==$lang][0]{\n    title, \n    slug, \n    metaTitle, \n    metaDescription, \n    colorCombinationsDay, \n    image, \n    text[]{..., \n      _type==\"video\" => {\n        title, muxVideo{asset->{playbackId}\n        }\n      }\n    }, \n    video{\n      title, \n      muxVideo{\n        asset->{\n          playbackId}\n        }\n    },\n    'event': event->{slug},\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      slug,\n      language,\n      }\n    }": ARTICLE_QUERYResult;
     "*[_type==\"event\" && language==$lang && slug.current==$id][0]{\n    metaTitle,\n    metaDescription,\n    title, \n    image,\n    imageMask, \n    colorCombinationsNight, \n    dates, \n    labels,\n    text[]{..., _type==\"video\" => {title, muxVideo{asset->{playbackId}}}},\n    eventGenre, \n    roleGroups[]{\n      name, \n      persons[]{\n      occupation, \n      person->{name, image, text}\n      }\n    },\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n    slug,\n    language,\n    }\n  }": EVENT_QUERYResult;
     "*[_type==\"frontpage\" && language==$lang][0]{\n  title, \n  image, \n  language,\n  svgTitle, \n  metaTitle, \n  metaDescription, \n  event->{\n    title, \n    text, \n    image, \n    slug, \n    metaTitle, \n    metaDescription, \n    svgTitle,\n    colorCombinationsNight\n    }\n  }": FRONTPAGE_QUERYResult;
-    "*[_type==\"infopage\" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]": INFOPAGE_QUERYResult;
+    "*[_type==\"menupage\" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]": MENUPAGE_QUERYResult;
     "*[_type==\"programpage\" && language==$lang]{metaTitle, metaDescription, title, text,gif, links[]->{title, slug, gif, image, dates} }[0]": PROGRAMPAGE_QUERYResult;
   }
 }
