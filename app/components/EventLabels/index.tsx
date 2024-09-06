@@ -1,10 +1,10 @@
-import { EventGenre } from "../../sanity/types";
+import { EventGenre } from "../../../sanity/types";
 import {
   formatDayAndDate,
   formatTimestamp,
   getMonth,
-} from "../utils/dateAndTimeConverters";
-import { useTranslation, TranslationObject } from "../utils/i18n";
+} from "../../utils/dateAndTimeConverters";
+import { useTranslation, TranslationObject } from "../../utils/i18n";
 
 type DateObject = {
   date?: string | undefined;
@@ -36,10 +36,10 @@ type LabelProps = {
   datesOnlyLast: string;
   firstDate: string;
   language: string;
-  t: (text: TranslationObject) => string;
+  t?: (text: TranslationObject) => string;
 };
 
-const getDateLabel = ({
+export const getDateLabel = ({
   dateObj,
   formattedDate,
   datesOnlyFirst,
@@ -59,9 +59,9 @@ const getDateLabel = ({
     return formattedDate.toUpperCase();
   }
 
-  return `${t(
-    texts.plays
-  ).toUpperCase()} ${datesOnlyFirst}.- ${datesOnlyLast}. ${getMonth(
+  return `${
+    t ? t(texts.plays).toUpperCase() : ""
+  } ${datesOnlyFirst}.- ${datesOnlyLast}. ${getMonth(
     firstDate,
     language
   )?.toLocaleUpperCase()}`;
