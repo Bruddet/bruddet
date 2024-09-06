@@ -52,8 +52,8 @@ async function getDocumentPreviewUrl(
     case "frontpage": {
       return basePath + languagePrefix + "/";
     }
-    case "infopage": {
-      return basePath + languagePrefix + "/info";
+    case "menupage": {
+      return basePath + languagePrefix + "meny";
     }
     case "programpage": {
       return basePath + languagePrefix + "program";

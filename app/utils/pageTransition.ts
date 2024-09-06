@@ -18,7 +18,7 @@ export const usePageTransition = () => {
   if (previousLocation && previousLocation !== location.pathname) {
     if (previousLocation === "/" && location.pathname.includes("/event/"))
       slideDirection = 0;
-    else if (location.pathname.includes("/info")) {
+    else if (location.pathname.includes("/meny")) {
       if (previousLocation.includes("/artikler")) slideDirection = 1;
       else slideDirection = -1;
     } else if (location.pathname.includes("/artikler")) {
@@ -31,7 +31,7 @@ export const usePageTransition = () => {
       else slideDirection = 1;
     } else if (location.pathname === "/" || location.pathname === "/en") {
       if (
-        previousLocation.includes("/info") ||
+        previousLocation.includes("/meny") ||
         previousLocation.includes("/artikler")
       )
         slideDirection = 1;
@@ -48,6 +48,6 @@ export const usePageTransition = () => {
 
 export const backgroundColour: { [key: string]: string } = {
   "/": "",
-  "/info": "#83D2FF",
+  "/meny": "#83D2FF",
   "/event": "#strongblue",
 };

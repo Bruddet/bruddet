@@ -8,7 +8,7 @@ export default function LanguageButton() {
   const location = useLocation();
   const blackText =
     location.pathname.includes("/artikler") ||
-    location.pathname.includes("/info");
+    location.pathname.includes("/meny");
   const textColor = blackText ? "text-black" : "text-white";
   const { slug } = useSlugContext();
   useEffect(() => {

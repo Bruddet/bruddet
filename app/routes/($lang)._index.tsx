@@ -135,14 +135,14 @@ export default function Index() {
         >
           <div className="flex flex-row justify-center content-center w-full mt-4">
             <Link
-              to={params.lang == "en" ? "/en/info" : "/info"}
+              to={params.lang == "en" ? "/en/meny" : "/meny"}
               className="text-white w-1/5  text-left px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl hidden md:flex flex-row content-start"
-              aria-label={t(texts.infoText)}
+              aria-label={t(texts.menuText)}
             >
               <div className="self-center animate-horizontal-bounce-left ">
                 <GreenTriangle direction="left" />
               </div>
-              <div className="px-4">Info</div>
+              <div className="px-4">{t(texts.menuButton)}</div>
             </Link>
             <img
               className="md:w-1/2"
@@ -162,14 +162,14 @@ export default function Index() {
           </div>
           <div className="flex md:hidden flex-row  w-full mt-4">
             <Link
-              to={params.lang == "en" ? "/en/info" : "/info"}
+              to={params.lang == "en" ? "/en/meny" : "/meny"}
               className="text-white w-1/2  text-left py-2 rounded self-center font-serif text-2xl lg:text-4xl flex flex-row content-start"
-              aria-label={t(texts.infoText)}
+              aria-label={t(texts.menuText)}
             >
               <div className="self-center ml-auto animate-horizontal-bounce-left ">
                 <GreenTriangle direction="left" />
               </div>
-              <div className="px-4">{t(texts.infoButton)}</div>
+              <div className="px-4">{t(texts.menuButton)}</div>
             </Link>
             <Link
               to={params.lang == "en" ? "/en/program" : "/program"}
@@ -208,15 +208,15 @@ const texts = createTexts({
     nb: "Gå til programside",
     en: "Go to program page",
   },
-  infoText: {
-    nb: "Gå til informasjonsside",
-    en: "Go to information page",
+  menuText: {
+    nb: "Gå til menyside",
+    en: "Go to menu page",
   },
   buyTicket: {
     nb: "Kjøp \nBillett",
     en: "Buy \nTicket",
   },
-  infoButton: {
+  menuButton: {
     nb: "Meny",
     en: "Menu",
   },

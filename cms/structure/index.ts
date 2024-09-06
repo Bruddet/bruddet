@@ -11,11 +11,11 @@ import {
 const SINGLETONS = [
   {id: 'frontpage', title: 'Forside', _type: 'frontpage', icon: HomeIcon, schemaType: 'frontpage'},
   {
-    id: 'infopage',
-    title: 'Informasjonsside',
+    id: 'menupage',
+    title: 'Menyside',
     _type: 'document',
     icon: InfoOutlineIcon,
-    schemaType: 'infopage',
+    schemaType: 'menupage',
   },
   {
     id: 'programpage',

@@ -2,15 +2,14 @@ import { Link, useLocation } from "@remix-run/react";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { useBackgroundColor } from "../utils/backgroundColor";
 
-
 interface StickyFooterProps {
   programUrl: string;
-  infoUrl: string;
+  menyUrl: string;
 }
 
 export default function StickyFooter({
   programUrl,
-  infoUrl,
+  menyUrl,
 }: StickyFooterProps) {
   let textcolor = "black";
   const location = useLocation();
@@ -31,7 +30,7 @@ export default function StickyFooter({
     textcolor = "white";
   }
 
-  if (location.pathname.includes("/info")) {
+  if (location.pathname.includes("/meny")) {
     textcolor = "black";
   }
   if (location.pathname.includes("/artikler")) {
@@ -45,17 +44,17 @@ export default function StickyFooter({
       <ul className="flex flex-row justify-center">
         <li>
           <Link
-            to={isEnglish ? "/en" + infoUrl : infoUrl}
-            aria-label={t(texts.infoText)}
+            to={isEnglish ? "/en" + menyUrl : menyUrl}
+            aria-label={t(texts.menuText)}
             className="hover:underline me-12 w-1/2 "
           >
-            INFO
+            MENY
           </Link>
         </li>
         <li>
           <Link
             to={isEnglish ? "/en" + programUrl : programUrl}
-            aria-label={t(texts.infoText)}
+            aria-label={t(texts.menuText)}
             className="hover:underline me-6 w-1/2"
           >
             PROGRAM
@@ -71,8 +70,8 @@ const texts = createTexts({
     nb: "Gå til programside",
     en: "Go to program page",
   },
-  infoText: {
-    nb: "Gå til informasjonsside",
-    en: "Go to information page",
+  menuText: {
+    nb: "Gå til menyside",
+    en: "Go to menu page",
   },
 });
