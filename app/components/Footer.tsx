@@ -15,7 +15,7 @@ export function Footer({ bgColor }: FooterProps) {
       <button
         className={`overflow-x-hidden sticky bottom-0 text-white border-t-2 hidden sm:flex ${
           displayText
-            ? `border-t-white ${bgColor}`
+            ? `border-t-white ${bgColor !== "bg-white" ? bgColor : "bg-black"}`
             : "border-t-[#24ED15] bg-[#24ED15]"
         }`}
         onFocus={() => {
