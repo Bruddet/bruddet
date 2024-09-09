@@ -34,6 +34,28 @@ export const eventType = defineType({
       ],
     }),
     defineField({
+      name: "slug",
+      title: "slug",
+      type: "slug",
+      options: { source: "title", isUnique: isUniqueOtherThanLanguage },
+      hidden: ({ document }) => !document?.title,
+      description: "Url: bruddet.no/xxx",
+      group: "seo",
+      validation: (rule) => [rule.required().error("Må ha en slug")],
+    }),
+    defineField({
+      name: "image",
+      title: "Bilde",
+      type: "customImage",
+      group: "visual",
+      options: {
+        hotspot: true,
+      },
+      validation: (rule) => [
+        rule.required().assetRequired().error("Bilde er påkrevd."),
+      ],
+    }),
+    defineField({
       name: "language",
       type: "string",
       readOnly: true,
@@ -57,16 +79,6 @@ export const eventType = defineType({
       title: "Visning av bildet",
       type: "imageMask",
       group: "visual",
-    }),
-    defineField({
-      name: "slug",
-      title: "slug",
-      type: "slug",
-      options: { source: "title", isUnique: isUniqueOtherThanLanguage },
-      hidden: ({ document }) => !document?.title,
-      description: "Url: bruddet.no/xxx",
-      group: "seo",
-      validation: (rule) => [rule.required().error("Må ha en slug")],
     }),
     defineField({
       name: "svgTitle",
@@ -151,18 +163,6 @@ export const eventType = defineType({
       type: "string",
       placeholder: "e.g 1 time og 30 minutter",
       group: "content",
-    }),
-    defineField({
-      name: "image",
-      title: "Bilde",
-      type: "customImage",
-      group: "visual",
-      options: {
-        hotspot: true,
-      },
-      validation: (rule) => [
-        rule.required().assetRequired().error("Bilde er påkrevd."),
-      ],
     }),
     defineField({
       name: "text",
