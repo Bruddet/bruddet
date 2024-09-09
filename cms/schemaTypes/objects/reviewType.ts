@@ -52,7 +52,7 @@ export const reviewType = defineType({
     defineField({
       name: "company",
       type: "string",
-      title: "Selskap",
+      title: "Medie",
       placeholder: "e.g. Aftenposten",
     }),
     defineField({
