@@ -48,14 +48,6 @@ export const reviewType = defineType({
       type: "string",
       title: "Kilde",
       placeholder: "e.g. Ola Nordmann",
-      validation: (rule) => [
-        rule
-          .required()
-          .min(2)
-          .error(
-            `Kilde er påkrevd for å poste et sitat, minimum lengde på 2 tegn`
-          ),
-      ],
     }),
     defineField({
       name: "company",
