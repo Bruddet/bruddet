@@ -82,7 +82,7 @@ Inside the `cms` folder, run these commands:
 #### 1. Schema extraction
 
 ```
-npx sanity schema extract --enforce-required-fields
+npx sanity schema extract
 ```
 
 ##### 2. Generate types from schema

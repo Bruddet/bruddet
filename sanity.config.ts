@@ -19,9 +19,9 @@ const STUDIO_BASE_PATH = "/studio";
 
 //singleton pages. Before you add the type to singletontypes, the page should be created, since create is not a valid action for singleton types
 const PROJECT_ID = "0chpibsu";
-const DATASET = import.meta.env.VITE_SANITY_STUDIO_DATASET ?? "production";
+const DATASET = import.meta?.env?.VITE_SANITY_STUDIO_DATASET ?? "production";
 const SANITY_STUDIO_FRONTEND_URL =
-  import.meta.env.VITE_SANITY_STUDIO_FRONTEND_URL ??
+  import.meta?.env?.VITE_SANITY_STUDIO_FRONTEND_URL ??
   "https://bruddet.vercel.app";
 
 async function getDocumentPreviewUrl(
