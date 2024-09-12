@@ -1,10 +1,10 @@
-import {defineField} from 'sanity'
-import {ImageIcon} from '@sanity/icons'
+import { defineField } from "sanity";
+import { ImageIcon } from "@sanity/icons";
 
 export default {
-  name: 'customImage',
-  title: 'Bilde',
-  type: 'image',
+  name: "customImage",
+  title: "Bilde",
+  type: "image",
   icon: ImageIcon,
   options: {
     hotspot: true,
@@ -12,10 +12,14 @@ export default {
 
   fields: [
     defineField({
-      title: 'Alternativ Tekst',
-      name: 'alt',
-      type: 'string',
-      validation: (rule) => [rule.required().min(1).error('Bildetekst er påkrevd')],
+      title: "Alternativ Tekst",
+      name: "alt",
+      type: "string",
+      description:
+        "Beskriv bildet for skjermlesere. Dette er påkrevd for å oppfylle webtilgjengelighetsstandarder(UU).",
+      validation: (rule) => [
+        rule.required().min(1).error("Bildetekst er påkrevd"),
+      ],
     }),
   ],
-}
+};
