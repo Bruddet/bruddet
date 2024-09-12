@@ -34,6 +34,16 @@ export const eventType = defineType({
       ],
     }),
     defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: { source: "title", isUnique: isUniqueOtherThanLanguage },
+      hidden: ({ document }) => !document?.title,
+      description: "Url: bruddet.no/xxx",
+      group: "seo",
+      validation: (rule) => [rule.required().error("Må ha en slug")],
+    }),
+    defineField({
       name: "language",
       type: "string",
       readOnly: true,
@@ -46,11 +56,16 @@ export const eventType = defineType({
       group: "content",
     }),
     defineField({
-      name: "colorCombinationsNight",
-      title: "Fargekombinasjon",
-      type: "colorCombinationsNight",
+      name: "image",
+      title: "Bilde i header",
+      type: "customImage",
       group: "visual",
-      validation: (rule) => [rule.required().error("Må velge farger")],
+      options: {
+        hotspot: true,
+      },
+      validation: (rule) => [
+        rule.required().assetRequired().error("Bilde er påkrevd."),
+      ],
     }),
     defineField({
       name: "imageMask",
@@ -59,19 +74,16 @@ export const eventType = defineType({
       group: "visual",
     }),
     defineField({
-      name: "slug",
-      title: "slug",
-      type: "slug",
-      options: { source: "title", isUnique: isUniqueOtherThanLanguage },
-      hidden: ({ document }) => !document?.title,
-      description: "Url: bruddet.no/xxx",
-      group: "seo",
-      validation: (rule) => [rule.required().error("Må ha en slug")],
+      name: "colorCombinationsNight",
+      title: "Fargekombinasjon",
+      type: "colorCombinationsNight",
+      group: "visual",
+      validation: (rule) => [rule.required().error("Må velge farger")],
     }),
     defineField({
       name: "svgTitle",
       title: "Stor grafisk tittel",
-      description: "SVG file av tittel",
+      description: "SVG fil med tittel",
       type: "customImage",
       group: "visual",
       validation: (rule) => [
@@ -82,24 +94,10 @@ export const eventType = defineType({
       },
     }),
     defineField({
-      name: "labels",
-      title: "Vaskelapper",
-      description: "Tagger som kommer i bokser under tittel",
-      type: "array",
-      group: "content",
-      of: [
-        {
-          type: "string",
-          validation: (rule) => [
-            rule.required().min(2).error(`Minimum lengde 2 tegn`),
-            rule.max(20).warning("Anbefaler kortere tekst."),
-          ],
-        },
-      ],
-    }),
-    defineField({
       name: "dates",
       title: "Datoer",
+      description:
+        "Datoer for forestilling, med billettlink. Spilledatoer blir vist i tekstboksene (vaskelappene).",
       type: "array",
       group: "content",
       of: [
@@ -151,18 +149,24 @@ export const eventType = defineType({
       type: "string",
       placeholder: "e.g 1 time og 30 minutter",
       group: "content",
-      validation: (rule) => [rule.required().error("Varighet er påkrevd.")],
+      description:
+        "Varighet på forestillingen. Blir vist i tekstboksene (vaskelappene).",
     }),
     defineField({
-      name: "image",
-      title: "Bilde",
-      type: "customImage",
-      group: "visual",
-      options: {
-        hotspot: true,
-      },
-      validation: (rule) => [
-        rule.required().assetRequired().error("Bilde er påkrevd."),
+      name: "labels",
+      title: "Vaskelapper",
+      description:
+        "Fritekstfelt for tagger som kommer i bokser under tittel. Kan inneholde stikkord det er ønske om å fremheve, f.eks. pauser.",
+      type: "array",
+      group: "content",
+      of: [
+        {
+          type: "string",
+          validation: (rule) => [
+            rule.required().min(2).error(`Minimum lengde 2 tegn`),
+            rule.max(20).warning("Anbefaler kortere tekst."),
+          ],
+        },
       ],
     }),
     defineField({
