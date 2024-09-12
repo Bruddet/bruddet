@@ -530,31 +530,9 @@ export type Event = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  slug?: Slug;
   language?: string;
   eventGenre?: EventGenre;
-  colorCombinationsNight?: ColorCombinationsNight;
-  imageMask?: ImageMask;
-  slug?: Slug;
-  svgTitle?: {
-    asset: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    _type: "customImage";
-  };
-  labels?: Array<string>;
-  dates?: Array<{
-    date?: string;
-    url?: string;
-    status?: 1 | 2 | 3;
-    _key: string;
-  }>;
-  duration?: string;
   image?: {
     asset: {
       _ref: string;
@@ -567,6 +545,28 @@ export type Event = {
     alt?: string;
     _type: "customImage";
   };
+  imageMask?: ImageMask;
+  colorCombinationsNight?: ColorCombinationsNight;
+  svgTitle?: {
+    asset: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "customImage";
+  };
+  dates?: Array<{
+    date?: string;
+    url?: string;
+    status?: 1 | 2 | 3;
+    _key: string;
+  }>;
+  duration?: string;
+  labels?: Array<string>;
   text?: Content;
   roleGroups?: Array<{
     _key: string;

@@ -21,6 +21,7 @@ type Props = {
   textColorBorder?: string;
   genre?: EventGenre | null;
   customLabels: null | string[];
+  duration?: string;
 };
 
 export function formatDateOnly(dateString: string): string {
@@ -76,6 +77,7 @@ export const EventLabels = ({
   textColor,
   textColorBorder,
   customLabels,
+  duration,
 }: Props) => {
   const { language, t } = useTranslation();
 
@@ -117,6 +119,7 @@ export const EventLabels = ({
     ...(customLabels ?? []),
     dateLabel,
     formattedTimestamp,
+    duration,
     getGenre(),
   ];
 
