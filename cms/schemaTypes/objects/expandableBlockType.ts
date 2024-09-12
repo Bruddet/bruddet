@@ -11,7 +11,10 @@ export const expandableBlockType = defineType({
       name: "title",
       type: "text",
       title: "Tittel",
-      validation: (rule) => [rule.required().min(2).error(`Tittel er påkrevd`)],
+      validation: (rule) => [
+        rule.required().min(2).error(`Tittel er påkrevd`),
+        rule.required().max(100).warning(`Anbefaler kortere innhold.`),
+      ],
     }),
     defineField({
       name: "content",
@@ -19,7 +22,6 @@ export const expandableBlockType = defineType({
       title: "Innhold",
       validation: (rule) => [
         rule.required().min(2).error(`Innhold er påkrevd`),
-        rule.required().max(100).warning(`Anbefaler kortere innhold.`),
       ],
     }),
   ],
