@@ -3,7 +3,6 @@ import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { PROGRAMPAGE_QUERYResult } from "../../sanity.types";
-import Newsletter from "../components/Newsletter";
 import { getProgramPageQuery } from "../queries/program-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import urlFor from "../utils/imageUrlBuilder";
@@ -142,7 +141,6 @@ export default function Program() {
           />
         )}
       </div>
-      <div className="mt-auto flex flex-col items-center text-lg lg:text-xl w-4/5 lg:w-2/3 z-10"></div>
     </div>
   );
 }

@@ -10,7 +10,6 @@ import {
   useLocation,
 } from "@remix-run/react";
 import "./styles/app.css";
-import StickyFooter from "./components/StickyFooter";
 import Header from "./components/Header/Header";
 import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
@@ -102,7 +101,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={color}>
+      <body className={`${color} min-h-screen h-full flex flex-col`}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -116,7 +115,7 @@ export default function App() {
   const { language, preview } = useRouteLoaderData<typeof loader>("root");
   const location = useLocation();
 
-  const newsletterPathNames = ["/", "/meny", "/program", "/meny", "/en"];
+  const pathsWithNewsletter = ["/", "/meny", "/program", "/meny", "/en"];
 
   if (location.pathname.startsWith("/studio")) {
     return <Outlet />;
@@ -134,7 +133,7 @@ export default function App() {
           <Header />
           <LanguageButton />
           <motion.div
-            className="flex flex-col min-h-[100vh]"
+            className="flex flex-col grow"
             key={pathname}
             initial={{ x: slideDirection * 100 + "%" }}
             animate={{ x: 0 }}
@@ -145,11 +144,11 @@ export default function App() {
               duration: 0.5,
             }}
           >
-            <div id="main">
+            <div className="flex grow" id="main">
               <Outlet />
             </div>
           </motion.div>
-          {newsletterPathNames.includes(location.pathname) && (
+          {pathsWithNewsletter.includes(location.pathname) && (
             <NewsletterMarquee />
           )}
         </SlugProvider>
