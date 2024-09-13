@@ -88,9 +88,8 @@ export default function Program() {
   return (
     <div className="flex flex-col grow items-center text-black font-serif">
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
-      <div className="flex md:flex-row flex-wrap w-[90vw]">
-        <div className="w-full md:w-1/3 max-sm:hidden"></div>
-        <div className="w-3/4 md:w-1/3 vertical-align: middle; mx-auto">
+      <div className="flex flex-column w-[90vw]">
+        <div className="w-3/4 vertical-align: middle; mx-auto">
           {data?.links?.map((link, index) => (
             <>
               <Link
@@ -137,7 +136,7 @@ export default function Program() {
           <img
             src={gifUrl}
             alt={data.gif.alt}
-            className=" hidden md:block w-1/3 max-h-[500px] object-cover top-0 right-0"
+            className="hidden absolute md:block w-1/3 max-h-[500px] object-cover top-0 right-0"
           />
         )}
       </div>
