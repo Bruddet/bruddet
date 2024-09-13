@@ -34,6 +34,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
   const sanityData = data?.initial.data;
+
   if (!sanityData) {
     return [
       { title: "Program" },
@@ -76,6 +77,7 @@ export default function Program() {
   });
 
   const { setColor } = useBackgroundColor();
+
   const { t } = useTranslation();
   const [gifUrl, setGifUrl] = useState(urlFor(data?.gif?.asset?._ref || ""));
 
@@ -139,9 +141,7 @@ export default function Program() {
           />
         )}
       </div>
-      <div className="mt-auto flex flex-col items-center text-lg lg:text-xl w-4/5 lg:w-2/3 z-10">
-        <Newsletter />
-      </div>
+      <div className="mt-auto flex flex-col items-center text-lg lg:text-xl w-4/5 lg:w-2/3 z-10"></div>
     </div>
   );
 }

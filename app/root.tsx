@@ -31,6 +31,7 @@ import NoTranslation from "./components/NoTranslation";
 import { lazy, Suspense } from "react";
 import { ExitPreview } from "./components/ExitPreview";
 import { loadQueryOptions } from "../cms/loadQueryOptions.server";
+import NewsletterMarquee from "./components/NewsletterMarquee";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
@@ -115,6 +116,9 @@ export default function App() {
   const { language, preview } = useRouteLoaderData<typeof loader>("root");
   const location = useLocation();
 
+  // TODO: change footer background color according to design
+  const footerbgcolor = "#182D39";
+
   if (location.pathname.startsWith("/studio")) {
     return <Outlet />;
   }
@@ -146,6 +150,10 @@ export default function App() {
               <Outlet />
             </div>
           </motion.div>
+          {(location.pathname === "/meny" ||
+            location.pathname === "/program") && (
+            <NewsletterMarquee bgColor={footerbgcolor} />
+          )}
           <StickyFooter menyUrl="/meny" programUrl="/program" />
         </SlugProvider>
       </BackgroundColorProvider>

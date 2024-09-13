@@ -3,11 +3,11 @@ import { useState } from "react";
 import PurpleDot from "~/assets/PurpleDot";
 import { createTexts, useTranslation } from "~/utils/i18n";
 
-type FooterProps = {
+type Props = {
   bgColor?: string;
 };
 
-export function Footer({ bgColor }: FooterProps) {
+export function NewsletterMarquee({ bgColor }: Props) {
   const [displayText, setDisplayText] = useState(true);
   const { t } = useTranslation();
   return (
@@ -84,4 +84,4 @@ const texts = createTexts({
   },
 });
 
-export default Footer;
+export default NewsletterMarquee;

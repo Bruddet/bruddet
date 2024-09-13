@@ -14,7 +14,7 @@ import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import GreenTriangle from "~/assets/GreenTriangle";
-import Footer from "~/components/Footer";
+import NewsletterMarquee from "~/components/NewsletterMarquee";
 import { getColor } from "~/utils/colorCombinations";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -197,7 +197,7 @@ export default function Index() {
             </div>
           )}
         </div>
-        <Footer bgColor={bgColor} />
+        <NewsletterMarquee bgColor={bgColor} />
       </div>
     </div>
   );
