@@ -197,7 +197,6 @@ export default function Index() {
             </div>
           )}
         </div>
-        <NewsletterMarquee bgColor={bgColor} />
       </div>
     </div>
   );

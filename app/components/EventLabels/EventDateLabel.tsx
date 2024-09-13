@@ -29,7 +29,7 @@ function EventDateLabel({ dateObj }: Props) {
   });
 
   return (
-    <div className=" mb-16 border p-2 border-black text-black inline-block italic md:hidden">
+    <div className="mb-16 border p-2 border-black text-black inline-block italic">
       {dateLabel}
     </div>
   );

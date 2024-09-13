@@ -1,21 +1,20 @@
 import React from "react";
 import { useState } from "react";
 import PurpleDot from "~/assets/PurpleDot";
+import { useBackgroundColor } from "~/utils/backgroundColor";
 import { createTexts, useTranslation } from "~/utils/i18n";
 
-type Props = {
-  bgColor?: string;
-};
-
-export function NewsletterMarquee({ bgColor }: Props) {
+export function NewsletterMarquee() {
   const [displayText, setDisplayText] = useState(true);
-  const { t } = useTranslation();
+
+  const { color } = useBackgroundColor();
+
   return (
     <>
       <button
-        className={`overflow-x-hidden sticky bottom-0 text-white border-t-2 hidden sm:flex ${
+        className={`overflow-x-hidden hidden md:visible sticky bottom-0 text-white border-t-2 md:flex ${
           displayText
-            ? `border-t-white ${bgColor !== "bg-white" ? bgColor : "bg-black"}`
+            ? `border-t-white ${color !== "bg-white" ? color : "bg-black"}`
             : "border-t-[#24ED15] bg-[#24ED15]"
         }`}
         onFocus={() => {
@@ -31,43 +30,50 @@ export function NewsletterMarquee({ bgColor }: Props) {
           setDisplayText(true);
         }}
       >
-        {displayText ? (
-          <>
-            <div className="py-4 whitespace-nowrap animate-marquee ">
-              {Array.from({ length: 30 }).map((_, i) => (
-                <React.Fragment key={i}>
-                  <span className="text-xl mx-4">{t(texts.marqueeText)}</span>
-                  <PurpleDot />
-                </React.Fragment>
-              ))}
-            </div>
-            <div className="absolute top-0 py-4 animate-marquee2 whitespace-nowrap">
-              {Array.from({ length: 30 }).map((_, i) => (
-                <React.Fragment key={i}>
-                  <span className="text-xl mx-4">{t(texts.marqueeText)}</span>
-                  <PurpleDot />
-                </React.Fragment>
-              ))}
-            </div>
-          </>
-        ) : (
-          <div className="text-black py-4 text-xl flex flex-col items-center w-full">
-            <div className=" text-center font-serif">
-              <p className="text-center">{t(texts.newsletterText)}</p>
-            </div>
-          </div>
-        )}
-      </button>
-      <button className="overflow-x-hidden sticky bottom-0 text-white border-t-[#24ED15] border-t-2 flex sm:hidden ">
-        <div className="text-black py-4 text-xl flex flex-col items-center w-full bg-[#24ED15]">
-          <div className=" text-center font-serif">
-            <p className="text-center">{t(texts.newsletterMobile)}</p>
-          </div>
-        </div>
+        <Content displayText={displayText} />
       </button>
     </>
   );
 }
+
+type ContentProps = {
+  displayText?: boolean;
+};
+
+export const Content = ({ displayText }: ContentProps) => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      {displayText ? (
+        <>
+          <div className="py-4 whitespace-nowrap animate-marquee ">
+            {Array.from({ length: 30 }).map((_, i) => (
+              <React.Fragment key={i}>
+                <span className="text-xl mx-4">{t(texts.marqueeText)}</span>
+                <PurpleDot />
+              </React.Fragment>
+            ))}
+          </div>
+          <div className="absolute top-0 py-4 animate-marquee2 whitespace-nowrap">
+            {Array.from({ length: 30 }).map((_, i) => (
+              <React.Fragment key={i}>
+                <span className="text-xl mx-4">{t(texts.marqueeText)}</span>
+                <PurpleDot />
+              </React.Fragment>
+            ))}
+          </div>
+        </>
+      ) : (
+        <div className="text-black py-4 text-xl flex flex-col items-center w-full">
+          <div className=" text-center font-serif">
+            <p className="text-center">{t(texts.newsletterText)}</p>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 const texts = createTexts({
   marqueeText: {

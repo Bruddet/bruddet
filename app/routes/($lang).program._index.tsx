@@ -111,7 +111,7 @@ export default function Program() {
                 onMouseOut={() => {
                   data?.gif && setGifUrl(urlFor(data.gif.asset?._ref ?? ""));
                 }}
-                className=" align-middle md:w-1/3 md:text-center "
+                className="align-middle md:w-1/3 md:text-center "
                 aria-label={`${t(texts.labelText)} ${link.title}`}
               >
                 <div className="md:hidden aspect-square w-full">
@@ -126,7 +126,9 @@ export default function Program() {
                   {link.title}
                 </p>
                 {link.dates.length > 0 && (
-                  <EventDateLabel dateObj={link.dates} />
+                  <div className="md:hidden">
+                    <EventDateLabel dateObj={link.dates} />
+                  </div>
                 )}
               </Link>
             </>

@@ -116,8 +116,7 @@ export default function App() {
   const { language, preview } = useRouteLoaderData<typeof loader>("root");
   const location = useLocation();
 
-  // TODO: change footer background color according to design
-  const footerbgcolor = "#182D39";
+  const newsletterPathNames = ["/", "/meny", "/program", "/meny", "/en"];
 
   if (location.pathname.startsWith("/studio")) {
     return <Outlet />;
@@ -150,11 +149,9 @@ export default function App() {
               <Outlet />
             </div>
           </motion.div>
-          {(location.pathname === "/meny" ||
-            location.pathname === "/program") && (
-            <NewsletterMarquee bgColor={footerbgcolor} />
+          {newsletterPathNames.includes(location.pathname) && (
+            <NewsletterMarquee />
           )}
-          <StickyFooter menyUrl="/meny" programUrl="/program" />
         </SlugProvider>
       </BackgroundColorProvider>
     </LanguageProvider>
