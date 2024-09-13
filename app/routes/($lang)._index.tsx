@@ -3,7 +3,6 @@ import { useLoaderData, Link, useParams } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "../../sanity.types";
 import { getFrontpageQuery } from "../queries/frontpage-queries";
 import urlFor from "../utils/imageUrlBuilder";
-import PurpleDot from "../assets/PurpleDot";
 import GreenButton from "../assets/GreenButton";
 import Newsletter from "../components/Newsletter";
 import { createTexts, useTranslation } from "../utils/i18n";
@@ -14,8 +13,6 @@ import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import GreenTriangle from "~/assets/GreenTriangle";
-import NewsletterMarquee from "~/components/NewsletterMarquee";
-import { getColor } from "~/utils/colorCombinations";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -96,23 +93,13 @@ export default function Index() {
   const SvgUrl = urlFor(
     data?.event?.svgTitle?.asset?._ref || data?.svgTitle?.asset?._ref || ""
   );
+
   const { setColor } = useBackgroundColor();
+
   useEffect(() => {
     setColor("bg-white");
   }, [setColor]);
   const params = useParams();
-  const styling = data?.event ? "justify-end mb-6" : "justify-center";
-
-  const {
-    bgColor,
-    primaryText,
-    secondaryBgColor,
-    secondaryBorder,
-    textColor,
-    textColorBorder,
-    portabletextStyle,
-    quoteStyle,
-  } = getColor(data?.event?.colorCombinationsNight);
 
   return (
     <div

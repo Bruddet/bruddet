@@ -1,10 +1,14 @@
-import { EventGenre } from "../../../sanity/types";
+import { TranslationObject, useTranslation } from "~/utils/i18n";
 import {
   formatDayAndDate,
   formatTimestamp,
   getMonth,
-} from "../../utils/dateAndTimeConverters";
-import { useTranslation, TranslationObject } from "../../utils/i18n";
+} from "~/utils/dateAndTime";
+import { EventGenre } from "sanity.types";
+
+type Props = {
+  dateObj: DateObject[];
+};
 
 type DateObject = {
   date?: string | undefined;
@@ -12,7 +16,30 @@ type DateObject = {
   _key?: string | undefined;
 };
 
-type Props = {
+function EventLabel({ dateObj }: Props) {
+  const { language } = useTranslation();
+  const firstDate = dateObj[0].date ?? "";
+  const lastdate = dateObj[dateObj.length - 1].date ?? "";
+  const formattedDate = formatDayAndDate(firstDate, language);
+  const datesOnlyFirst = formatDateOnly(firstDate);
+  const datesOnlyLast = formatDateOnly(lastdate);
+  const dateLabel = getDateLabel({
+    dateObj,
+    formattedDate,
+    datesOnlyFirst,
+    datesOnlyLast,
+    firstDate,
+    language,
+  });
+
+  return (
+    <div className="mb-16 border p-2 border-black text-black inline-block italic">
+      {dateLabel}
+    </div>
+  );
+}
+
+type EventLabelsProps = {
   dateObj: DateObject[];
   primaryText?: string;
   secondaryBgColor?: string;
@@ -76,7 +103,7 @@ export const EventLabels = ({
   textColor,
   textColorBorder,
   customLabels,
-}: Props) => {
+}: EventLabelsProps) => {
   const { language, t } = useTranslation();
 
   const firstDate = dateObj[0].date ?? "";
@@ -176,3 +203,5 @@ const genres = {
     nb: "Skuespill",
   },
 };
+
+export default EventLabel;

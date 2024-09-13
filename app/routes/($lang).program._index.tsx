@@ -10,7 +10,7 @@ import { loadQuery } from "../../cms/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
-import EventDateLabel from "~/components/EventLabels/EventDateLabel";
+import EventLabel from "~/components/EventLabel";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -126,7 +126,7 @@ export default function Program() {
                 </p>
                 {link.dates.length > 0 && (
                   <div className="md:hidden">
-                    <EventDateLabel dateObj={link.dates} />
+                    <EventLabel dateObj={link.dates} />
                   </div>
                 )}
               </Link>
