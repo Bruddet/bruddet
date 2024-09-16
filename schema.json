@@ -870,6 +870,13 @@
                 },
                 "optional": true
               },
+              "credit": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": true
+              },
               "_type": {
                 "type": "objectAttribute",
                 "value": {
@@ -2487,6 +2494,13 @@
               },
               "optional": true
             },
+            "credit": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
             "_type": {
               "type": "objectAttribute",
               "value": {
@@ -2718,6 +2732,13 @@
               },
               "optional": true
             },
+            "credit": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
             "_type": {
               "type": "objectAttribute",
               "value": {
@@ -2781,6 +2802,13 @@
               "optional": true
             },
             "alt": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "credit": {
               "type": "objectAttribute",
               "value": {
                 "type": "string"
@@ -2971,6 +2999,13 @@
               "optional": true
             },
             "alt": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "credit": {
               "type": "objectAttribute",
               "value": {
                 "type": "string"
@@ -3190,6 +3225,13 @@
               },
               "optional": true
             },
+            "credit": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
             "_type": {
               "type": "objectAttribute",
               "value": {
@@ -3269,6 +3311,13 @@
               "optional": true
             },
             "alt": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "credit": {
               "type": "objectAttribute",
               "value": {
                 "type": "string"
@@ -3516,6 +3565,13 @@
               },
               "optional": true
             },
+            "credit": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
             "_type": {
               "type": "objectAttribute",
               "value": {
@@ -3596,6 +3652,13 @@
           "optional": true
         },
         "alt": {
+          "type": "objectAttribute",
+          "value": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "credit": {
           "type": "objectAttribute",
           "value": {
             "type": "string"

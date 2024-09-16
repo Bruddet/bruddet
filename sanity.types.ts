@@ -147,6 +147,7 @@ export type Content = Array<{
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
   alt?: string;
+  credit?: string;
   _type: "customImage";
   _key: string;
 } | {
@@ -420,6 +421,7 @@ export type Programpage = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
   };
 };
@@ -461,6 +463,7 @@ export type Frontpage = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
   };
   svgTitle?: {
@@ -473,6 +476,7 @@ export type Frontpage = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
   };
   event?: {
@@ -506,6 +510,7 @@ export type Article = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
   };
   video?: {
@@ -543,6 +548,7 @@ export type Event = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
   };
   imageMask?: ImageMask;
@@ -557,6 +563,7 @@ export type Event = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
   };
   dates?: Array<{
@@ -593,6 +600,7 @@ export type Person = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
   };
   text?: string;
@@ -609,6 +617,7 @@ export type CustomImage = {
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
   alt?: string;
+  credit?: string;
 };
 
 export type Slug = {
@@ -649,6 +658,7 @@ export type ARTICLE_QUERYResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
   } | null;
   text: Array<{
@@ -678,6 +688,7 @@ export type ARTICLE_QUERYResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
     _key: string;
   } | {
@@ -745,6 +756,7 @@ export type EVENT_QUERYResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
   } | null;
   imageMask: ImageMask | null;
@@ -784,6 +796,7 @@ export type EVENT_QUERYResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
     _key: string;
   } | {
@@ -833,6 +846,7 @@ export type EVENT_QUERYResult = {
           hotspot?: SanityImageHotspot;
           crop?: SanityImageCrop;
           alt?: string;
+          credit?: string;
           _type: "customImage";
         } | null;
         text: string | null;
@@ -863,6 +877,7 @@ export type FRONTPAGE_QUERYResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
   } | null;
   language: string | null;
@@ -876,6 +891,7 @@ export type FRONTPAGE_QUERYResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
   } | null;
   metaTitle: MetaTitle | null;
@@ -893,6 +909,7 @@ export type FRONTPAGE_QUERYResult = {
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       alt?: string;
+      credit?: string;
       _type: "customImage";
     } | null;
     slug: Slug | null;
@@ -908,6 +925,7 @@ export type FRONTPAGE_QUERYResult = {
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       alt?: string;
+      credit?: string;
       _type: "customImage";
     } | null;
     colorCombinationsNight: ColorCombinationsNight | null;
@@ -946,6 +964,7 @@ export type PROGRAMPAGE_QUERYResult = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
   } | null;
   links: Array<{
@@ -962,6 +981,7 @@ export type PROGRAMPAGE_QUERYResult = {
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       alt?: string;
+      credit?: string;
       _type: "customImage";
     } | null;
     dates: Array<{

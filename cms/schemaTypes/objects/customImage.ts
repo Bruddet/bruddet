@@ -21,5 +21,10 @@ export default {
         rule.required().min(1).error("Bildetekst er påkrevd"),
       ],
     }),
+    defineField({
+      title: "Bildekreditering",
+      name: "credit",
+      type: "string",
+    }),
   ],
 };
