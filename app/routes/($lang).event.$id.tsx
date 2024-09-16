@@ -117,7 +117,7 @@ export default function Event() {
     textColorBorder,
     portabletextStyle,
     quoteStyle,
-  } = getColor(data?.colorCombinationsNight);
+  } = getColor(data?.colorCombination);
 
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();

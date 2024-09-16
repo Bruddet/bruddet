@@ -68,9 +68,9 @@ export const eventType = defineType({
       group: "content",
     }),
     defineField({
-      name: "colorCombinationsNight",
+      name: "colorCombination",
       title: "Fargekombinasjon",
-      type: "colorCombinationsNight",
+      type: "colorCombinations",
       group: "visual",
       validation: (rule) => [rule.required().error("Må velge farger")],
     }),

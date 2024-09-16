@@ -25,7 +25,7 @@ export function getEventQuery(params: Params<string>) {
     title, 
     image,
     imageMask, 
-    colorCombinationsNight, 
+    colorCombination, 
     dates, 
     labels,
     text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},

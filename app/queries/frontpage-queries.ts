@@ -19,7 +19,7 @@ export function getFrontpageQuery(params: Params<string>) {
     metaTitle, 
     metaDescription, 
     svgTitle,
-    colorCombinationsNight
+    colorCombination
     }
   }`;
 

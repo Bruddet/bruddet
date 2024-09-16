@@ -8,10 +8,7 @@ import RichTextEditor from "./objects/RichTextEditor";
 import { videoType } from "./objects/videoType";
 import metaTitle from "./objects/metaTitle";
 import metaDescription from "./objects/metaDescription";
-import {
-  colorCombinationsDay,
-  colorCombinationsNight,
-} from "./objects/colorCombination";
+import { colorCombinations } from "./objects/colorCombination";
 import imageMask from "./objects/imageMask";
 import roleGroups from "./objects/roleGroups";
 import { reviewType } from "./objects/reviewType";
@@ -34,8 +31,7 @@ export const schemaTypes = [
   videoType,
   metaTitle,
   metaDescription,
-  colorCombinationsDay,
-  colorCombinationsNight,
+  colorCombinations,
   imageMask,
   reviewType,
   eventGenre,
