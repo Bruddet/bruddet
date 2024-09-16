@@ -33,6 +33,16 @@ export const articleType = defineType({
           ),
     }),
     defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: { source: "title", isUnique: isUniqueOtherThanLanguage },
+      hidden: ({ document }) => !document?.title,
+      description: "Url: bruddet.no/xxx",
+      group: "seo",
+      validation: (rule) => [rule.required().error("Må ha en slug")],
+    }),
+    defineField({
       name: "language",
       type: "string",
       readOnly: true,
@@ -44,16 +54,6 @@ export const articleType = defineType({
       type: "colorCombinationsDay",
       group: "visual",
       validation: (rule) => [rule.required().error("Må velge farger")],
-    }),
-    defineField({
-      name: "slug",
-      title: "Slug",
-      type: "slug",
-      options: { source: "title", isUnique: isUniqueOtherThanLanguage },
-      hidden: ({ document }) => !document?.title,
-      description: "Url: bruddet.no/xxx",
-      group: "seo",
-      validation: (rule) => [rule.required().error("Må ha en slug")],
     }),
     defineField({
       name: "text",
