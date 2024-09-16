@@ -14,8 +14,6 @@ import StickyFooter from "./components/StickyFooter";
 import Header from "./components/Header/Header";
 import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
-import { motion } from "framer-motion";
-import { usePageTransition } from "./utils/pageTransition";
 import {
   getLanguageFromPath,
   LanguageProvider,
@@ -111,7 +109,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const { slideDirection, pathname } = usePageTransition();
   const { language, preview } = useRouteLoaderData<typeof loader>("root");
   const location = useLocation();
 
@@ -128,25 +125,14 @@ export default function App() {
               <ExitPreview />
             </Suspense>
           )}
-          <Header />
-          <LanguageButton />
-          <motion.div
-            className="flex flex-col min-h-[100vh]"
-            key={pathname}
-            initial={{ x: slideDirection * 100 + "%" }}
-            animate={{ x: 0 }}
-            exit={{
-              x: slideDirection * -100 + "%",
-            }}
-            transition={{
-              duration: 0.5,
-            }}
-          >
+          <div className="min-h-[100vh] flex flex-col">
+            <Header />
+            <LanguageButton />
             <div id="main">
               <Outlet />
             </div>
-          </motion.div>
-          <StickyFooter menyUrl="/meny" programUrl="/program" />
+            <StickyFooter menyUrl="/meny" programUrl="/program" />
+          </div>
         </SlugProvider>
       </BackgroundColorProvider>
     </LanguageProvider>
