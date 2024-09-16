@@ -32,23 +32,23 @@ export default {
         },
       },
       colors: {
-        dayThemeBlueBlack: {
+        blueBlack: {
           primary: "#B6E3FD",
           secondary: "#000000",
         },
-        dayThemePeachBlue: {
+        peachBlue: {
           primary: "#FFD3CE",
           secondary: "#350E94",
         },
-        dayThemeCreamBlue: {
+        creamBlue: {
           primary: "#FFF8E8",
           secondary: "#182E39",
         },
-        nightThemePurpleWhite: {
+        purpleWhite: {
           primary: "#556090",
           secondary: "#FFFFFF",
         },
-        nightThemeBlueYellow: {
+        blueYellow: {
           primary: "#182E39",
           secondary: "#D4FF26",
         },

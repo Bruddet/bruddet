@@ -456,39 +456,30 @@
     }
   },
   {
-    "name": "colorCombinationsNight",
+    "name": "colorCombinations",
     "type": "type",
     "value": {
       "type": "union",
       "of": [
         {
           "type": "string",
-          "value": "nightThemePurpleWhite"
+          "value": "blueBlack"
         },
         {
           "type": "string",
-          "value": "nightThemeBlueYellow"
-        }
-      ]
-    }
-  },
-  {
-    "name": "colorCombinationsDay",
-    "type": "type",
-    "value": {
-      "type": "union",
-      "of": [
-        {
-          "type": "string",
-          "value": "dayThemeBlueBlack"
+          "value": "peachBlue"
         },
         {
           "type": "string",
-          "value": "dayThemePeachBlue"
+          "value": "creamBlue"
         },
         {
           "type": "string",
-          "value": "dayThemeCreamBlue"
+          "value": "purpleWhite"
+        },
+        {
+          "type": "string",
+          "value": "blueYellow"
         }
       ]
     }
@@ -2888,6 +2879,14 @@
         },
         "optional": true
       },
+      "slug": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "slug"
+        },
+        "optional": true
+      },
       "language": {
         "type": "objectAttribute",
         "value": {
@@ -2895,19 +2894,11 @@
         },
         "optional": true
       },
-      "colorCombinationsDay": {
+      "colorCombination": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
-          "name": "colorCombinationsDay"
-        },
-        "optional": true
-      },
-      "slug": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "slug"
+          "name": "colorCombinations"
         },
         "optional": true
       },
@@ -3109,6 +3100,14 @@
         },
         "optional": true
       },
+      "slug": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "slug"
+        },
+        "optional": true
+      },
       "language": {
         "type": "objectAttribute",
         "value": {
@@ -3124,11 +3123,72 @@
         },
         "optional": true
       },
-      "colorCombinationsNight": {
+      "image": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "colorCombinationsNight"
+          "type": "object",
+          "attributes": {
+            "asset": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "object",
+                "attributes": {
+                  "_ref": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "reference"
+                    }
+                  },
+                  "_weak": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "boolean"
+                    },
+                    "optional": true
+                  }
+                },
+                "dereferencesTo": "sanity.imageAsset"
+              },
+              "optional": false
+            },
+            "hotspot": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageHotspot"
+              },
+              "optional": true
+            },
+            "crop": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageCrop"
+              },
+              "optional": true
+            },
+            "alt": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "customImage"
+              }
+            }
+          }
         },
         "optional": true
       },
@@ -3140,11 +3200,11 @@
         },
         "optional": true
       },
-      "slug": {
+      "colorCombination": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
-          "name": "slug"
+          "name": "colorCombinations"
         },
         "optional": true
       },
@@ -3217,16 +3277,6 @@
         },
         "optional": true
       },
-      "labels": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
-            "type": "string"
-          }
-        },
-        "optional": true
-      },
       "dates": {
         "type": "objectAttribute",
         "value": {
@@ -3292,71 +3342,12 @@
         },
         "optional": true
       },
-      "image": {
+      "labels": {
         "type": "objectAttribute",
         "value": {
-          "type": "object",
-          "attributes": {
-            "asset": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "object",
-                "attributes": {
-                  "_ref": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string"
-                    }
-                  },
-                  "_type": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "string",
-                      "value": "reference"
-                    }
-                  },
-                  "_weak": {
-                    "type": "objectAttribute",
-                    "value": {
-                      "type": "boolean"
-                    },
-                    "optional": true
-                  }
-                },
-                "dereferencesTo": "sanity.imageAsset"
-              },
-              "optional": false
-            },
-            "hotspot": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "inline",
-                "name": "sanity.imageHotspot"
-              },
-              "optional": true
-            },
-            "crop": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "inline",
-                "name": "sanity.imageCrop"
-              },
-              "optional": true
-            },
-            "alt": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string"
-              },
-              "optional": true
-            },
-            "_type": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string",
-                "value": "customImage"
-              }
-            }
+          "type": "array",
+          "of": {
+            "type": "string"
           }
         },
         "optional": true

@@ -36,7 +36,7 @@ export default function PortableTextComponent({
       }>) => {
         return (
           <img
-            src={urlFor(value.asset._ref)}
+            src={urlFor(value.asset?._ref)}
             alt={value.alt}
             style={{ maxWidth: "100%" }}
           />
@@ -48,10 +48,10 @@ export default function PortableTextComponent({
         muxVideo: { asset: { playbackId: string } };
         title: string;
       }>) => {
-        return value.muxVideo.asset ? (
+        return value.muxVideo?.asset ? (
           <MuxPlayer
             disableCookies={true}
-            playbackId={stegaClean(value.muxVideo.asset.playbackId)}
+            playbackId={stegaClean(value.muxVideo.asset?.playbackId)}
             metadata={value.title ? { video_title: value.title } : undefined}
           />
         ) : null;

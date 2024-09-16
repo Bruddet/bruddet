@@ -29,7 +29,7 @@ export function getArticleQuery(params: Params<string>) {
     slug, 
     metaTitle, 
     metaDescription, 
-    colorCombinationsDay, 
+    colorCombination, 
     image, 
     text[]{..., 
       _type=="video" => {

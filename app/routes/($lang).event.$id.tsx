@@ -117,7 +117,7 @@ export default function Event() {
     textColorBorder,
     portabletextStyle,
     quoteStyle,
-  } = getColor(data?.colorCombinationsNight);
+  } = getColor(data?.colorCombination);
 
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();
@@ -176,6 +176,7 @@ export default function Event() {
             dates={data.dates}
             customLabels={data.labels}
             genre={data.eventGenre}
+            duration={data.duration}
             primaryText={primaryText}
             secondaryBgColor={secondaryBgColor}
             secondaryBorder={secondaryBorder}
