@@ -14,7 +14,7 @@ interface QuoteStyle {
   fillColor?: string;
 }
 
-interface PortableTextProps extends QuoteStyle {
+export interface PortableTextProps extends QuoteStyle {
   textData: CustomContent;
   textStyle?: string;
 }
@@ -105,11 +105,17 @@ export default function PortableTextComponent({
       },
       expandableBlock: ({
         value,
-      }: PortableTextComponentProps<{ title: string; content: string }>) => {
+      }: PortableTextComponentProps<{
+        title: string;
+        content: string;
+        textStyle: string;
+      }>) => {
         return (
-          <ExpandableBlockComponent title={value.title}>
-            {value.content}
-          </ExpandableBlockComponent>
+          <ExpandableBlockComponent
+            title={value.title}
+            textStyle={textStyle}
+            content={value.content}
+          ></ExpandableBlockComponent>
         );
       },
     },
