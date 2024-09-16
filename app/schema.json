@@ -456,39 +456,30 @@
     }
   },
   {
-    "name": "colorCombinationsNight",
+    "name": "colorCombinations",
     "type": "type",
     "value": {
       "type": "union",
       "of": [
         {
           "type": "string",
-          "value": "nightThemePurpleWhite"
+          "value": "purpleWhite"
         },
         {
           "type": "string",
-          "value": "nightThemeBlueYellow"
-        }
-      ]
-    }
-  },
-  {
-    "name": "colorCombinationsDay",
-    "type": "type",
-    "value": {
-      "type": "union",
-      "of": [
-        {
-          "type": "string",
-          "value": "dayThemeBlueBlack"
+          "value": "blueYellow"
         },
         {
           "type": "string",
-          "value": "dayThemePeachBlue"
+          "value": "blueBlack"
         },
         {
           "type": "string",
-          "value": "dayThemeCreamBlue"
+          "value": "peachBlue"
+        },
+        {
+          "type": "string",
+          "value": "creamBlue"
         }
       ]
     }
@@ -3124,11 +3115,11 @@
         },
         "optional": true
       },
-      "colorCombinationsNight": {
+      "colorCombinations": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
-          "name": "colorCombinationsNight"
+          "name": "colorCombinations"
         },
         "optional": false
       },
