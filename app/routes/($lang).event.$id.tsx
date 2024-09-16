@@ -174,6 +174,7 @@ export default function Event() {
             dateObj={data.dates}
             customLabels={data.labels}
             genre={data.eventGenre}
+            duration={data.duration}
             primaryText={primaryText}
             secondaryBgColor={secondaryBgColor}
             secondaryBorder={secondaryBorder}

@@ -7,7 +7,7 @@ export const articleType = defineType({
   title: "Artikkel",
   type: "document",
   groups: [
-    { title: "Innhold", name: "content", default: true },
+    { title: "Innhold", name: "content" },
     { title: "Visuelt", name: "visual" },
     { title: "SEO", name: "seo" },
   ],
@@ -43,16 +43,6 @@ export const articleType = defineType({
       validation: (rule) => [rule.required().error("Må ha en slug")],
     }),
     defineField({
-      name: "image",
-      title: "Hovedbilde",
-      type: "customImage",
-      description: "Bildet som plasseres øverst på siden",
-      group: "visual",
-      options: {
-        hotspot: true,
-      },
-    }),
-    defineField({
       name: "language",
       type: "string",
       readOnly: true,
@@ -76,6 +66,16 @@ export const articleType = defineType({
         documentInternationalization: {
           exclude: true,
         },
+      },
+    }),
+    defineField({
+      name: "image",
+      title: "Hovedbilde",
+      type: "customImage",
+      description: "Bildet som plasseres øverst på siden",
+      group: "visual",
+      options: {
+        hotspot: true,
       },
     }),
     defineField({

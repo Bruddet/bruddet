@@ -2887,6 +2887,29 @@
         },
         "optional": true
       },
+      "language": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "colorCombination": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "colorCombinations"
+        },
+        "optional": true
+      },
+      "text": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "content"
+        },
+        "optional": true
+      },
       "image": {
         "type": "objectAttribute",
         "value": {
@@ -2953,29 +2976,6 @@
               }
             }
           }
-        },
-        "optional": true
-      },
-      "language": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "colorCombination": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "colorCombinations"
-        },
-        "optional": true
-      },
-      "text": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "content"
         },
         "optional": true
       },
@@ -3108,6 +3108,21 @@
         },
         "optional": true
       },
+      "language": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "eventGenre": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "eventGenre"
+        },
+        "optional": true
+      },
       "image": {
         "type": "objectAttribute",
         "value": {
@@ -3177,18 +3192,11 @@
         },
         "optional": true
       },
-      "language": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "string"
-        },
-        "optional": true
-      },
-      "eventGenre": {
+      "imageMask": {
         "type": "objectAttribute",
         "value": {
           "type": "inline",
-          "name": "eventGenre"
+          "name": "imageMask"
         },
         "optional": true
       },
@@ -3197,14 +3205,6 @@
         "value": {
           "type": "inline",
           "name": "colorCombinations"
-        },
-        "optional": true
-      },
-      "imageMask": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "inline",
-          "name": "imageMask"
         },
         "optional": true
       },
@@ -3277,16 +3277,6 @@
         },
         "optional": true
       },
-      "labels": {
-        "type": "objectAttribute",
-        "value": {
-          "type": "array",
-          "of": {
-            "type": "string"
-          }
-        },
-        "optional": true
-      },
       "dates": {
         "type": "objectAttribute",
         "value": {
@@ -3349,6 +3339,16 @@
         "type": "objectAttribute",
         "value": {
           "type": "string"
+        },
+        "optional": true
+      },
+      "labels": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "string"
+          }
         },
         "optional": true
       },
