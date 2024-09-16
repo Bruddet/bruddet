@@ -97,9 +97,7 @@ export default function Article() {
 
   const bgColor = "bg-[#FFF8E8]";
   const { setColor } = useBackgroundColor();
-  const { portabletextStyle, quoteStyle } = getColor(
-    data?.colorCombinationsDay
-  );
+  const { portabletextStyle, quoteStyle } = getColor(data?.colorCombination);
   const { setSlug } = useSlugContext();
 
   useEffect(() => {

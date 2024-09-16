@@ -2,16 +2,16 @@ import { stegaClean } from "@sanity/client/stega";
 
 export function getBackgroundColor(colorCombination: string | undefined) {
   switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "bg-dayThemeBlueBlack-primary";
-    case "dayThemePeachBlue":
-      return "bg-dayThemePeachBlue-primary";
-    case "nightThemePurpleWhite":
-      return "bg-nightThemePurpleWhite-primary";
-    case "nightThemeBlueYellow":
-      return "bg-nightThemeBlueYellow-primary";
-    case "dayThemeCreamBlue":
-      return "bg-dayThemeCreamBlue-primary";
+    case "blueBlack":
+      return "bg-blueBlack-primary";
+    case "peachBlue":
+      return "bg-peachBlue-primary";
+    case "purpleWhite":
+      return "bg-purpleWhite-primary";
+    case "blueYellow":
+      return "bg-blueYellow-primary";
+    case "creamBlue":
+      return "bg-creamBlue-primary";
     default:
       return "bg-white";
   }
@@ -19,16 +19,16 @@ export function getBackgroundColor(colorCombination: string | undefined) {
 
 export function getPrimaryBorderColor(colorCombination: string | undefined) {
   switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "border-dayThemeBlueBlack-primary";
-    case "dayThemePeachBlue":
-      return "border-dayThemePeachBlue-primary";
-    case "nightThemePurpleWhite":
-      return "border-nightThemePurpleWhite-primary";
-    case "nightThemeBlueYellow":
-      return "border-nightThemeBlueYellow-primary";
-    case "dayThemeCreamBlue":
-      return "border-dayThemeCreamBlue-primary";
+    case "blueBlack":
+      return "border-blueBlack-primary";
+    case "peachBlue":
+      return "border-peachBlue-primary";
+    case "purpleWhite":
+      return "border-purpleWhite-primary";
+    case "blueYellow":
+      return "border-blueYellow-primary";
+    case "creamBlue":
+      return "border-creamBlue-primary";
     default:
       return "border-white";
   }
@@ -36,16 +36,16 @@ export function getPrimaryBorderColor(colorCombination: string | undefined) {
 
 export function getPrimaryTextColor(colorCombination: string | undefined) {
   switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "text-dayThemeBlueBlack-primary";
-    case "dayThemePeachBlue":
-      return "text-dayThemePeachBlue-primary";
-    case "nightThemePurpleWhite":
-      return "text-nightThemePurpleWhite-primary";
-    case "nightThemeBlueYellow":
-      return "text-nightThemeBlueYellow-primary";
-    case "dayThemeCreamBlue":
-      return "text-dayThemeCreamBlue-primary";
+    case "blueBlack":
+      return "text-blueBlack-primary";
+    case "peachBlue":
+      return "text-peachBlue-primary";
+    case "purpleWhite":
+      return "text-purpleWhite-primary";
+    case "blueYellow":
+      return "text-blueYellow-primary";
+    case "creamBlue":
+      return "text-creamBlue-primary";
     default:
       return "text-white";
   }
@@ -55,32 +55,32 @@ export function getSecondaryBackgroundColor(
   colorCombination: string | undefined
 ) {
   switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "bg-dayThemeBlueBlack-secondary";
-    case "dayThemePeachBlue":
-      return "bg-dayThemePeachBlue-secondary";
-    case "nightThemePurpleWhite":
-      return "bg-nightThemePurpleWhite-secondary";
-    case "nightThemeBlueYellow":
-      return "bg-nightThemeBlueYellow-secondary";
-    case "dayThemeCreamBlue":
-      return "bg-dayThemeCreamBlue-secondary";
+    case "blueBlack":
+      return "bg-blueBlack-secondary";
+    case "peachBlue":
+      return "bg-peachBlue-secondary";
+    case "purpleWhite":
+      return "bg-purpleWhite-secondary";
+    case "blueYellow":
+      return "bg-blueYellow-secondary";
+    case "creamBlue":
+      return "bg-creamBlue-secondary";
     default:
       return "bg-white";
   }
 }
 export function getSecondaryBorderColor(colorCombination: string | undefined) {
   switch (colorCombination) {
-    case "dayThemeBlueBlack":
-      return "border-dayThemeBlueBlack-secondary";
-    case "dayThemePeachBlue":
-      return "border-dayThemePeachBlue-secondary";
-    case "nightThemePurpleWhite":
-      return "border-nightThemePurpleWhite-secondary";
-    case "nightThemeBlueYellow":
-      return "border-nightThemeBlueYellow-secondary";
-    case "dayThemeCreamBlue":
-      return "border-dayThemeCreamBlue-secondary";
+    case "blueBlack":
+      return "border-blueBlack-secondary";
+    case "peachBlue":
+      return "border-peachBlue-secondary";
+    case "purpleWhite":
+      return "border-purpleWhite-secondary";
+    case "blueYellow":
+      return "border-blueYellow-secondary";
+    case "creamBlue":
+      return "border-creamBlue-secondary";
     default:
       return "border-white";
   }
@@ -88,15 +88,15 @@ export function getSecondaryBorderColor(colorCombination: string | undefined) {
 
 export function getTextColor(colorCombination: string | undefined) {
   switch (colorCombination) {
-    case "dayThemeBlueBlack":
+    case "blueBlack":
       return "text-black";
-    case "dayThemePeachBlue":
+    case "peachBlue":
       return "text-black";
-    case "nightThemePurpleWhite":
+    case "purpleWhite":
       return "text-white";
-    case "nightThemeBlueYellow":
+    case "blueYellow":
       return "text-white";
-    case "dayThemeCreamBlue":
+    case "creamBlue":
       return "text-black";
     default:
       return "text-black";
@@ -105,15 +105,15 @@ export function getTextColor(colorCombination: string | undefined) {
 
 export function getTextColorBorder(colorCombination: string | undefined) {
   switch (colorCombination) {
-    case "dayThemeBlueBlack":
+    case "blueBlack":
       return "border-black";
-    case "dayThemePeachBlue":
+    case "peachBlue":
       return "border-black";
-    case "nightThemePurpleWhite":
+    case "purpleWhite":
       return "border-white";
-    case "nightThemeBlueYellow":
+    case "blueYellow":
       return "border-white";
-    case "dayThemeCreamBlue":
+    case "creamBlue":
       return "border-black";
     default:
       return "border-black";
@@ -122,15 +122,15 @@ export function getTextColorBorder(colorCombination: string | undefined) {
 
 export function getPortabletextStyle(colorCombination: string | undefined) {
   switch (colorCombination) {
-    case "dayThemeBlueBlack":
+    case "blueBlack":
       return " text-black";
-    case "dayThemePeachBlue":
+    case "peachBlue":
       return "text-black";
-    case "nightThemePurpleWhite":
+    case "purpleWhite":
       return "prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white";
-    case "nightThemeBlueYellow":
+    case "blueYellow":
       return "prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white ";
-    case "dayThemeCreamBlue":
+    case "creamBlue":
       return "text-black";
     default:
       return " text-black";
@@ -139,35 +139,35 @@ export function getPortabletextStyle(colorCombination: string | undefined) {
 
 export function getQuoteStyle(colorCombination: string | undefined) {
   switch (colorCombination) {
-    case "dayThemeBlueBlack":
+    case "blueBlack":
       return {
         styleBlock:
           "border-none grid grid-flow-row place-items-center text-center text-black",
         styleLink: "not-italic text-black",
         fillColor: "#000000",
       };
-    case "dayThemePeachBlue":
+    case "peachBlue":
       return {
         styleBlock:
           "border-none grid grid-flow-row place-items-center text-center text-black",
         styleLink: "not-italic text-black",
         fillColor: "#000000",
       };
-    case "nightThemePurpleWhite":
+    case "purpleWhite":
       return {
         styleBlock:
           "border-none grid grid-flow-row place-items-center text-center text-white",
         styleLink: "not-italic text-white",
         fillColor: "#FFFFFF",
       };
-    case "nightThemeBlueYellow":
+    case "blueYellow":
       return {
         styleBlock:
           "border-none grid grid-flow-row place-items-center text-center text-white",
         styleLink: "not-italic text-white",
         fillColor: "#FFFFFF",
       };
-    case "dayThemeCreamBlue":
+    case "creamBlue":
       return {
         styleBlock:
           "border-none grid grid-flow-row place-items-center text-center text-black",

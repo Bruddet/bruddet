@@ -112,7 +112,7 @@ export default function Index() {
     textColorBorder,
     portabletextStyle,
     quoteStyle,
-  } = getColor(data?.event?.colorCombinationsNight);
+  } = getColor(data?.event?.colorCombination);
 
   return (
     <div

@@ -49,9 +49,9 @@ export const articleType = defineType({
       hidden: true,
     }),
     defineField({
-      name: "colorCombinationsDay",
+      name: "colorCombination",
       title: "Fargekombinasjon",
-      type: "colorCombinationsDay",
+      type: "colorCombinations",
       group: "visual",
       validation: (rule) => [rule.required().error("Må velge farger")],
     }),
