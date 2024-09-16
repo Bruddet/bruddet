@@ -18,7 +18,8 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
-import { EventLabels } from "~/components/EventLabel";
+import { EventLabels } from "~/components/EventLabels";
+import { Person } from "~/sanity.types";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -152,6 +153,8 @@ export default function Event() {
 
   useBuyButtonObserver();
 
+  console.log("data -->", data);
+
   return (
     <>
       <div
@@ -170,7 +173,7 @@ export default function Event() {
 
         {data.dates && (
           <EventLabels
-            dateObj={data.dates}
+            dates={data.dates}
             customLabels={data.labels}
             genre={data.eventGenre}
             primaryText={primaryText}
@@ -189,9 +192,9 @@ export default function Event() {
             fillColor={quoteStyle.fillColor}
           />
         )}
-        {data.roleGroups?.map((group, i) => (
+        {data.roleGroups?.map((group, i: number) => (
           <ExpandableBlockComponent title={group.name} key={i}>
-            {group.persons?.map((p, k) => (
+            {group.persons?.map((p: Person, k) => (
               <div key={k} className="flex flex-row mt-4 gap-6">
                 <img
                   src={urlFor(p.person?.image?.asset?._ref ?? "")}

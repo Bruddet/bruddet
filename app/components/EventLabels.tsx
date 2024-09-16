@@ -5,9 +5,12 @@ import {
   getMonth,
 } from "~/utils/dateAndTime";
 import { EventGenre } from "sanity.types";
+import { Label } from "./Label";
 
-type Props = {
-  dateObj: DateObject[];
+type DatesLabelProps = {
+  dates: DateObject[];
+  textColorBorder?: string | undefined;
+  textColor?: string | undefined;
 };
 
 type DateObject = {
@@ -16,31 +19,8 @@ type DateObject = {
   _key?: string | undefined;
 };
 
-function EventLabel({ dateObj }: Props) {
-  const { language } = useTranslation();
-  const firstDate = dateObj[0].date ?? "";
-  const lastdate = dateObj[dateObj.length - 1].date ?? "";
-  const formattedDate = formatDayAndDate(firstDate, language);
-  const datesOnlyFirst = formatDateOnly(firstDate);
-  const datesOnlyLast = formatDateOnly(lastdate);
-  const dateLabel = getDateLabel({
-    dateObj,
-    formattedDate,
-    datesOnlyFirst,
-    datesOnlyLast,
-    firstDate,
-    language,
-  });
-
-  return (
-    <div className="mb-16 border p-2 border-black text-black inline-block italic">
-      {dateLabel}
-    </div>
-  );
-}
-
 type EventLabelsProps = {
-  dateObj: DateObject[];
+  dates: DateObject[];
   primaryText?: string;
   secondaryBgColor?: string;
   secondaryBorder?: string;
@@ -57,7 +37,7 @@ export function formatDateOnly(dateString: string): string {
 }
 
 type LabelProps = {
-  dateObj: DateObject[];
+  dates: DateObject[];
   formattedDate: string;
   datesOnlyFirst: string;
   datesOnlyLast: string;
@@ -67,7 +47,7 @@ type LabelProps = {
 };
 
 export const getDateLabel = ({
-  dateObj,
+  dates,
   formattedDate,
   datesOnlyFirst,
   datesOnlyLast,
@@ -75,13 +55,12 @@ export const getDateLabel = ({
   language,
   t,
 }: LabelProps) => {
-  if (dateObj.length === 1) {
+  if (dates.length === 1) {
     return formattedDate.toUpperCase();
   }
 
   if (
-    dateObj[dateObj.length - 1].date?.split("T")[0] ===
-    dateObj[0].date?.split("T")[0]
+    dates[dates.length - 1].date?.split("T")[0] === dates[0].date?.split("T")[0]
   ) {
     return formattedDate.toUpperCase();
   }
@@ -95,7 +74,7 @@ export const getDateLabel = ({
 };
 
 export const EventLabels = ({
-  dateObj,
+  dates,
   genre,
   primaryText,
   secondaryBgColor,
@@ -106,15 +85,15 @@ export const EventLabels = ({
 }: EventLabelsProps) => {
   const { language, t } = useTranslation();
 
-  const firstDate = dateObj[0].date ?? "";
-  const lastdate = dateObj[dateObj.length - 1].date ?? "";
+  const firstDate = dates[0].date ?? "";
+  const lastdate = dates[dates.length - 1].date ?? "";
   const formattedTimestamp = formatTimestamp(firstDate, language);
   const formattedDate = formatDayAndDate(firstDate, language);
   const datesOnlyFirst = formatDateOnly(firstDate);
   const datesOnlyLast = formatDateOnly(lastdate);
 
   const dateLabel = getDateLabel({
-    dateObj,
+    dates,
     formattedDate,
     datesOnlyFirst,
     datesOnlyLast,
@@ -164,12 +143,12 @@ export const EventLabels = ({
           (label, index) =>
             label &&
             label.length > 0 && (
-              <div
+              <Label
                 key={index}
-                className={`p-2 border ${textColorBorder} ${textColor}`}
-              >
-                {label}
-              </div>
+                textColorBorder={textColorBorder}
+                textColor={textColor}
+                label={label}
+              />
             )
         )}
         <button
@@ -180,6 +159,27 @@ export const EventLabels = ({
         </button>
       </div>
     </>
+  );
+};
+
+export const DatesLabel = ({ dates }: DatesLabelProps) => {
+  const { language } = useTranslation();
+  const firstDate = dates[0].date ?? "";
+  const lastdate = dates[dates.length - 1].date ?? "";
+  const formattedDate = formatDayAndDate(firstDate, language);
+  const datesOnlyFirst = formatDateOnly(firstDate);
+  const datesOnlyLast = formatDateOnly(lastdate);
+  const dateLabel = getDateLabel({
+    dates,
+    formattedDate,
+    datesOnlyFirst,
+    datesOnlyLast,
+    firstDate,
+    language,
+  });
+
+  return (
+    <Label label={dateLabel} textColor={"white"} textColorBorder={"black"} />
   );
 };
 
@@ -204,4 +204,4 @@ const genres = {
   },
 };
 
-export default EventLabel;
+//export default EventLabel;

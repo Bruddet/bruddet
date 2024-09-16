@@ -10,7 +10,8 @@ import { loadQuery } from "../../cms/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
-import EventLabel from "~/components/EventLabel";
+import { DatesLabel, EventLabels } from "~/components/EventLabels";
+import { Label } from "~/components/Label";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -124,9 +125,9 @@ export default function Program() {
                 <p className="hover:underline text-2xl lg:text-4xl mt-4 mb-2">
                   {link.title}
                 </p>
-                {link.dates.length > 0 && (
+                {link.dates && link.dates.length > 0 && (
                   <div className="md:hidden">
-                    <EventLabel dateObj={link.dates} />
+                    <DatesLabel dates={link.dates} />
                   </div>
                 )}
               </Link>
