@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import PurpleDot from "~/assets/PurpleDot";
 import { createTexts, useTranslation } from "~/utils/i18n";
@@ -34,19 +33,19 @@ export function Footer({ bgColor }: FooterProps) {
         {displayText ? (
           <>
             <div className="py-4 whitespace-nowrap animate-marquee ">
-              {Array.from({ length: 30 }).map((_, i) => (
-                <React.Fragment key={i}>
+              {Array.from({ length: 30 }).map(() => (
+                <>
                   <span className="text-xl mx-4">{t(texts.marqueeText)}</span>
                   <PurpleDot />
-                </React.Fragment>
+                </>
               ))}
             </div>
             <div className="absolute top-0 py-4 animate-marquee2 whitespace-nowrap">
-              {Array.from({ length: 30 }).map((_, i) => (
-                <React.Fragment key={i}>
+              {Array.from({ length: 30 }).map(() => (
+                <>
                   <span className="text-xl mx-4">{t(texts.marqueeText)}</span>
                   <PurpleDot />
-                </React.Fragment>
+                </>
               ))}
             </div>
           </>
