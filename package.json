@@ -8,7 +8,9 @@
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "remix-serve ./build/server/index.js",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "extract": "npx sanity schema extract",
+    "generate": "npx sanity typegen generate"
   },
   "dependencies": {
     "@mux/mux-player": "^2.7.0",
