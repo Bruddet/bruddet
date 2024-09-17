@@ -93,7 +93,7 @@ export default function Program() {
       <div className="flex flex-column w-[90vw]">
         <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
           {data?.links?.map((link, index) => (
-            <div className="flex w-full justify-center align-middle my-5 md:w-1/3 md:text-center ">
+            <div className="flex justify-center align-middle my-5 md:w-1/3 md:text-center ">
               <Link
                 key={index}
                 to={
@@ -111,7 +111,7 @@ export default function Program() {
                   );
                 }}
                 aria-label={`${t(texts.labelText)} ${link.title}`}
-                className="flex w-full flex-col"
+                className="group flex w-full flex-col"
               >
                 <div className="md:hidden aspect-square w-full">
                   <img
@@ -121,7 +121,7 @@ export default function Program() {
                     key={index}
                   />
                 </div>
-                <p className="hover:underline text-2xl lg:text-4xl mt-4 mb-2">
+                <p className="group-hover:underline text-2xl lg:text-4xl mt-4 mb-2">
                   {link.title}
                 </p>
                 {link.dates && link.dates.length > 0 && (
