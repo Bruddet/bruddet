@@ -10,8 +10,8 @@ import { loadQuery } from "../../cms/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
-import { DatesLabel, EventLabels } from "~/components/EventLabels";
-import { Label } from "~/components/Label";
+import { DatesLabel } from "~/components/EventLabels";
+import { getColor, getPrimaryBorderColor } from "~/utils/colorCombinations";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -89,9 +89,9 @@ export default function Program() {
     <div className="flex flex-col grow items-center text-black font-serif">
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
       <div className="flex flex-column w-[90vw]">
-        <div className="w-3/4 vertical-align: middle; mx-auto">
+        <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
           {data?.links?.map((link, index) => (
-            <>
+            <div className="flex justify-center align-middle my-5 md:w-1/3 md:text-center ">
               <Link
                 key={index}
                 to={
@@ -111,8 +111,8 @@ export default function Program() {
                 onMouseOut={() => {
                   data?.gif && setGifUrl(urlFor(data.gif.asset?._ref ?? ""));
                 }}
-                className="align-middle md:w-1/3 md:text-center "
                 aria-label={`${t(texts.labelText)} ${link.title}`}
+                className="flex flex-col"
               >
                 <div className="md:hidden aspect-square w-full">
                   <img
@@ -126,12 +126,17 @@ export default function Program() {
                   {link.title}
                 </p>
                 {link.dates && link.dates.length > 0 && (
-                  <div className="md:hidden">
-                    <DatesLabel dates={link.dates} />
+                  <div className="md:self-center">
+                    <DatesLabel
+                      dates={link.dates}
+                      borderColor={"border-black"}
+                      fontStyle="italic"
+                      borderStyle="md:border-none"
+                    />
                   </div>
                 )}
               </Link>
-            </>
+            </div>
           ))}
         </div>
         {data?.gif && (

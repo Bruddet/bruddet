@@ -1,24 +1,25 @@
 type Props = {
   key?: number;
-  textColorBorder: string | undefined;
+  borderColor: string | undefined;
   textColor: string | undefined;
+  borderStyle?: string | undefined;
   label: string;
-  textStyle?: string;
+  fontStyle?: string;
   isDate?: boolean;
 };
 
 export const Label = ({
   key,
-  textColorBorder,
+  borderColor,
   textColor,
   label,
-  textStyle,
-  isDate,
+  fontStyle,
+  borderStyle,
 }: Props) => {
   return (
     <div
       key={key}
-      className={`p-2 border ${textColorBorder} ${textColor} ${textStyle}`}
+      className={`p-2 border text-nowrap w-min ${borderColor} ${textColor} ${fontStyle} ${borderStyle}`}
     >
       {label}
     </div>

@@ -9,8 +9,10 @@ import { Label } from "./Label";
 
 type DatesLabelProps = {
   dates: DateObject[];
-  textColorBorder?: string | undefined;
+  borderColor?: string | undefined;
   textColor?: string | undefined;
+  fontStyle?: string;
+  borderStyle?: string;
 };
 
 type DateObject = {
@@ -148,7 +150,7 @@ export const EventLabels = ({
             label.length > 0 && (
               <Label
                 key={index}
-                textColorBorder={textColorBorder}
+                borderColor={textColorBorder}
                 textColor={textColor}
                 label={label}
               />
@@ -165,7 +167,13 @@ export const EventLabels = ({
   );
 };
 
-export const DatesLabel = ({ dates }: DatesLabelProps) => {
+export const DatesLabel = ({
+  dates,
+  borderColor,
+  textColor,
+  fontStyle,
+  borderStyle,
+}: DatesLabelProps) => {
   const { language } = useTranslation();
   const firstDate = dates[0].date ?? "";
   const lastdate = dates[dates.length - 1].date ?? "";
@@ -182,7 +190,13 @@ export const DatesLabel = ({ dates }: DatesLabelProps) => {
   });
 
   return (
-    <Label label={dateLabel} textColor={"white"} textColorBorder={"black"} />
+    <Label
+      label={dateLabel}
+      textColor={textColor}
+      borderColor={borderColor}
+      fontStyle={fontStyle}
+      borderStyle={borderStyle}
+    />
   );
 };
 
@@ -206,5 +220,3 @@ const genres = {
     nb: "Skuespill",
   },
 };
-
-//export default EventLabel;
