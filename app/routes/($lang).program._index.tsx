@@ -84,14 +84,16 @@ export default function Program() {
   useEffect(() => {
     setColor("bg-strongblue");
   }, [setColor]);
+
   const params = useParams();
+
   return (
     <div className="flex flex-col grow items-center text-black font-serif">
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
       <div className="flex flex-column w-[90vw]">
         <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
           {data?.links?.map((link, index) => (
-            <div className="flex justify-center align-middle my-5 md:w-1/3 md:text-center ">
+            <div className="flex w-full justify-center align-middle my-5 md:w-1/3 md:text-center ">
               <Link
                 key={index}
                 to={
@@ -108,11 +110,8 @@ export default function Program() {
                     )
                   );
                 }}
-                onMouseOut={() => {
-                  data?.gif && setGifUrl(urlFor(data.gif.asset?._ref ?? ""));
-                }}
                 aria-label={`${t(texts.labelText)} ${link.title}`}
-                className="flex flex-col"
+                className="flex w-full flex-col"
               >
                 <div className="md:hidden aspect-square w-full">
                   <img
@@ -143,7 +142,7 @@ export default function Program() {
           <img
             src={gifUrl}
             alt={data.gif.alt}
-            className="hidden absolute md:block w-1/3 max-h-[500px] object-cover top-0 right-0"
+            className="hidden absolute md:block w-1/3 max-h-[500px] object-cover right-10"
           />
         )}
       </div>
