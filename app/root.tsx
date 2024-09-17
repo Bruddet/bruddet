@@ -13,8 +13,6 @@ import "./styles/app.css";
 import Header from "./components/Header/Header";
 import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
-import { motion } from "framer-motion";
-import { usePageTransition } from "./utils/pageTransition";
 import {
   getLanguageFromPath,
   LanguageProvider,
@@ -31,6 +29,7 @@ import { lazy, Suspense } from "react";
 import { ExitPreview } from "./components/ExitPreview";
 import { loadQueryOptions } from "../cms/loadQueryOptions.server";
 import NewsletterMarquee from "./components/NewsletterMarquee";
+import { motion } from "framer-motion";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
@@ -111,7 +110,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const { slideDirection, pathname } = usePageTransition();
   const { language, preview } = useRouteLoaderData<typeof loader>("root");
   const location = useLocation();
 
@@ -132,22 +130,10 @@ export default function App() {
           )}
           <Header />
           <LanguageButton />
-          <motion.div
-            className="flex flex-col grow"
-            key={pathname}
-            initial={{ x: slideDirection * 100 + "%" }}
-            animate={{ x: 0 }}
-            exit={{
-              x: slideDirection * -100 + "%",
-            }}
-            transition={{
-              duration: 0.5,
-            }}
-          >
-            <div className="flex grow" id="main">
-              <Outlet />
-            </div>
-          </motion.div>
+
+          <div className="flex grow" id="main">
+            <Outlet />
+          </div>
           {pathsWithNewsletter.includes(location.pathname) && (
             <NewsletterMarquee />
           )}
