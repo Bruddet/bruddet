@@ -153,8 +153,6 @@ export default function Event() {
 
   useBuyButtonObserver();
 
-  console.log("data -->", data);
-
   return (
     <>
       <div
@@ -213,7 +211,7 @@ export default function Event() {
         ))}
         {data.dates && <Tickets dateTickets={data.dates} />}
       </div>
-      <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
+      {/*<FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />*/}
     </>
   );
 }
