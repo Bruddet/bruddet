@@ -33,13 +33,18 @@ export default function PortableTextComponent({
       }: PortableTextComponentProps<{
         asset: { _ref: string; _type: "reference" };
         alt: string;
+        credit: string;
       }>) => {
         return (
-          <img
-            src={urlFor(value.asset?._ref)}
-            alt={value.alt}
-            style={{ maxWidth: "100%" }}
-          />
+          <>
+            <img
+              src={urlFor(value.asset._ref)}
+              alt={value.alt}
+              style={{ maxWidth: "100%" }}
+              className="mb-1"
+            />
+            <p className="mt-1">{value.credit}</p>
+          </>
         );
       },
       video: ({
