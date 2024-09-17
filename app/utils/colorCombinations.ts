@@ -13,7 +13,7 @@ export function getBackgroundColor(colorCombination: string | undefined) {
     case "creamBlue":
       return "bg-creamBlue-primary";
     default:
-      return "bg-white";
+      return "bg-beige";
   }
 }
 
@@ -30,7 +30,7 @@ export function getPrimaryBorderColor(colorCombination: string | undefined) {
     case "creamBlue":
       return "border-creamBlue-primary";
     default:
-      return "border-white";
+      return "border-black";
   }
 }
 
@@ -47,7 +47,7 @@ export function getPrimaryTextColor(colorCombination: string | undefined) {
     case "creamBlue":
       return "text-creamBlue-primary";
     default:
-      return "text-white";
+      return "text-black";
   }
 }
 
@@ -66,10 +66,11 @@ export function getSecondaryBackgroundColor(
     case "creamBlue":
       return "bg-creamBlue-secondary";
     default:
-      return "bg-white";
+      return "bg-beige";
   }
 }
 export function getSecondaryBorderColor(colorCombination: string | undefined) {
+  console.log("colorcombination", colorCombination);
   switch (colorCombination) {
     case "blueBlack":
       return "border-blueBlack-secondary";
@@ -82,7 +83,7 @@ export function getSecondaryBorderColor(colorCombination: string | undefined) {
     case "creamBlue":
       return "border-creamBlue-secondary";
     default:
-      return "border-white";
+      return "border-black";
   }
 }
 
@@ -187,6 +188,10 @@ export function getQuoteStyle(colorCombination: string | undefined) {
 export function getColor(colorCombination: string | undefined) {
   const cleanColorCombination = stegaClean(colorCombination);
   const quoteStyle = getQuoteStyle(cleanColorCombination);
+  console.log(
+    "primary border color",
+    getPrimaryBorderColor(cleanColorCombination)
+  );
   return {
     bgColor: getBackgroundColor(cleanColorCombination),
     primaryBorder: getPrimaryBorderColor(cleanColorCombination),

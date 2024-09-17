@@ -7,9 +7,10 @@ import { useTranslation } from "../utils/i18n";
 
 type Props = {
   dateTicket: DateTicketType;
+  color?: string;
 };
 
-export const DateTicket = ({ dateTicket }: Props) => {
+export const DateTicket = ({ dateTicket, color = "black" }: Props) => {
   const { language, t } = useTranslation();
   const formattedDate = formatDayAndDate(dateTicket.date!, language);
   const formattedTimestamp = formatTimestamp(dateTicket.date!, language);
@@ -20,17 +21,22 @@ export const DateTicket = ({ dateTicket }: Props) => {
       ? t(texts.soldOut)
       : undefined;
 
+  const textColor = `text-${color}`;
+  const borderColor = `border-${color}`;
+
   return (
-    <div className="flex flex-col gap-2 my-4 text-white">
+    <div className={`flex flex-col gap-2 my-4 ${textColor}`}>
       <p className="capitalize text-2xl">{formattedDate}</p>
       <p>{formattedTimestamp}</p>
       {status && <p>{status}</p>}
       <button
         disabled={dateTicket.status === 3}
-        className="py-2 text-base w-32 border disabled:opacity-65 enabled:hover:bg-white enabled:hover:text-black"
+        className={`py-2 text-base w-32 border ${borderColor} disabled:opacity-65 enabled:hover:bg-white enabled:hover:text-black`}
         onClick={() => window.open(dateTicket.url, "_blank")}
       >
-        {dateTicket.status == 3 ? t(texts.soldOut) : t(texts.buy)}
+        {dateTicket.status == 3
+          ? t(texts.soldOut).toLocaleUpperCase()
+          : t(texts.buy).toLocaleUpperCase()}
       </button>
     </div>
   );

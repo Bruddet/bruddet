@@ -98,7 +98,7 @@ export default function Index() {
   );
   const { setColor } = useBackgroundColor();
   useEffect(() => {
-    setColor("bg-white");
+    setColor("bg-beige");
   }, [setColor]);
   const params = useParams();
   const styling = data?.event ? "justify-end mb-6" : "justify-center";

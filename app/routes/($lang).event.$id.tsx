@@ -209,7 +209,7 @@ export default function Event() {
             ))}
           </ExpandableBlockComponent>
         ))}
-        {data.dates && <Tickets dateTickets={data.dates} />}
+        {data.dates && <Tickets color={textColor} dateTickets={data.dates} />}
       </div>
       <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
     </>

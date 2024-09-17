@@ -91,7 +91,7 @@ export default function Articles() {
   }
 
   useEffect(() => {
-    setColor("bg-white");
+    setColor("bg-beige");
   }, [setColor]);
   return (
     <div className="grow">

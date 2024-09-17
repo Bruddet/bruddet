@@ -7,7 +7,7 @@ interface BackgroundColorContextData {
 
 export const BackgroundColorContext = createContext<BackgroundColorContextData>(
   {
-    color: "bg-white",
+    color: "bg-beige",
     setColor: () => {},
   }
 );
