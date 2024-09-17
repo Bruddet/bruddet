@@ -18,7 +18,7 @@ export const personType = defineType({
       title: "Navn",
       type: "string",
       validation: (rule) =>
-        rule.required().min(2).max(50).error(`Må ha navn på minst 2 bokstaver`),
+        rule.required().error(`Må ha navn på minst 2 bokstaver`),
     }),
 
     defineField({

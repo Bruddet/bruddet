@@ -14,30 +14,28 @@ import {
  * Import the custom types through sanity/types in the frontend.
  */
 
-declare module "lokalsanity/types" {
-  export type CustomContent = Omit<
-    NonNullable<Content>,
-    "video" & {
-      video: CustomVideo;
-    }
-  >;
-
-  export type Custom_ARTICLE_QUERYResult = Omit<
-    NonNullable<ARTICLE_QUERYResult>,
-    "video" | "text"
-  > & {
+export type CustomContent = Omit<
+  NonNullable<Content>,
+  "video" & {
     video: CustomVideo;
-    text: CustomContent;
-  };
+  }
+>;
 
-  export type Custom_EVENT_QUERYResult = Omit<
-    NonNullable<EVENT_QUERYResult>,
-    "video" | "text"
-  > & {
-    video: CustomVideo;
-    text: CustomContent;
-  };
-}
+export type Custom_ARTICLE_QUERYResult = Omit<
+  NonNullable<ARTICLE_QUERYResult>,
+  "video" | "text"
+> & {
+  video: CustomVideo;
+  text: CustomContent;
+};
+
+export type Custom_EVENT_QUERYResult = Omit<
+  NonNullable<EVENT_QUERYResult>,
+  "video" | "text"
+> & {
+  video: CustomVideo;
+  text: CustomContent;
+};
 
 type CustomVideo = {
   title: string;

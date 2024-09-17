@@ -85,9 +85,16 @@ export type Review = {
   date?: string;
 };
 
-export type ImageMask = "smallImageNotCoveringScreen" | "bigImageCoveringScreen";
+export type ImageMask =
+  | "smallImageNotCoveringScreen"
+  | "bigImageCoveringScreen";
 
-export type ColorCombinations = "blueBlack" | "peachBlue" | "creamBlue" | "purpleWhite" | "blueYellow";
+export type ColorCombinations =
+  | "blueBlack"
+  | "peachBlue"
+  | "creamBlue"
+  | "purpleWhite"
+  | "blueYellow";
 
 export type MetaDescription = string;
 
@@ -103,8 +110,8 @@ export type Video = {
   muxVideo?: MuxVideo;
 };
 
-export type RoleGroups = {
-  _type: "roleGroups";
+export type RoleGroup = {
+  _type: "roleGroup";
   name?: string;
   persons?: Array<{
     person?: {
@@ -118,64 +125,71 @@ export type RoleGroups = {
   }>;
 };
 
-export type Content = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  }>;
-  style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6";
-  listItem?: "bullet" | "number";
-  markDefs?: Array<{
-    href?: string;
-    _type: "link";
-    _key: string;
-  }>;
-  level?: number;
-  _type: "block";
-  _key: string;
-} | {
-  asset?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-  };
-  hotspot?: SanityImageHotspot;
-  crop?: SanityImageCrop;
-  alt?: string;
-  credit?: string;
-  _type: "customImage";
-  _key: string;
-} | {
-  title?: string;
-  muxVideo?: MuxVideo;
-  _type: "video";
-  _key: string;
-} | {
-  content?: string;
-  source?: string;
-  company?: string;
-  date?: string;
-  _type: "quote";
-  _key: string;
-} | {
-  type?: "dice" | "stars";
-  score?: number;
-  content?: string;
-  source?: string;
-  company?: string;
-  link?: string;
-  date?: string;
-  _type: "review";
-  _key: string;
-} | {
-  title?: string;
-  content?: string;
-  _type: "expandableBlock";
-  _key: string;
-}>;
+export type Content = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h2" | "h3" | "h4" | "h5" | "h6";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }
+  | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      credit?: string;
+      _type: "customImage";
+      _key: string;
+    }
+  | {
+      title?: string;
+      muxVideo?: MuxVideo;
+      _type: "video";
+      _key: string;
+    }
+  | {
+      content?: string;
+      source?: string;
+      company?: string;
+      date?: string;
+      _type: "quote";
+      _key: string;
+    }
+  | {
+      type?: "dice" | "stars";
+      score?: number;
+      content?: string;
+      source?: string;
+      company?: string;
+      link?: string;
+      date?: string;
+      _type: "review";
+      _key: string;
+    }
+  | {
+      title?: string;
+      content?: string;
+      _type: "expandableBlock";
+      _key: string;
+    }
+>;
 
 export type ExpandableBlock = {
   _id: string;
@@ -301,21 +315,27 @@ export type MuxAssetData = {
   max_stored_frame_rate?: number;
   mp4_support?: string;
   max_resolution_tier?: string;
-  tracks?: Array<{
-    _key: string;
-  } & MuxTrack>;
-  playback_ids?: Array<{
-    _key: string;
-  } & MuxPlaybackId>;
+  tracks?: Array<
+    {
+      _key: string;
+    } & MuxTrack
+  >;
+  playback_ids?: Array<
+    {
+      _key: string;
+    } & MuxPlaybackId
+  >;
   static_renditions?: MuxStaticRenditions;
 };
 
 export type MuxStaticRenditions = {
   _type: "mux.staticRenditions";
   status?: string;
-  files?: Array<{
-    _key: string;
-  } & MuxStaticRenditionFile>;
+  files?: Array<
+    {
+      _key: string;
+    } & MuxStaticRenditionFile
+  >;
 };
 
 export type MuxStaticRenditionFile = {
@@ -350,46 +370,54 @@ export type TranslationMetadata = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  translations?: Array<{
-    _key: string;
-  } & InternationalizedArrayReferenceValue>;
+  translations?: Array<
+    {
+      _key: string;
+    } & InternationalizedArrayReferenceValue
+  >;
   schemaTypes?: Array<string>;
   slug?: Slug;
 };
 
 export type InternationalizedArrayReferenceValue = {
   _type: "internationalizedArrayReferenceValue";
-  value?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "article";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "event";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "frontpage";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "menupage";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "person";
-  } | {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "programpage";
-  };
+  value?:
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "article";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "event";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "frontpage";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "menupage";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "person";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "programpage";
+      };
 };
 
 export type Programpage = {
@@ -573,9 +601,11 @@ export type Event = {
   duration?: string;
   labels?: Array<string>;
   text?: Content;
-  roleGroups?: Array<{
-    _key: string;
-  } & RoleGroups>;
+  roleGroups?: Array<
+    {
+      _key: string;
+    } & RoleGroup
+  >;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 };
@@ -624,11 +654,53 @@ export type Slug = {
   source?: string;
 };
 
-export type InternationalizedArrayReference = Array<{
-  _key: string;
-} & InternationalizedArrayReferenceValue>;
+export type InternationalizedArrayReference = Array<
+  {
+    _key: string;
+  } & InternationalizedArrayReferenceValue
+>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinations | MetaDescription | MetaTitle | Video | RoleGroups | Content | ExpandableBlock | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Menupage | Frontpage | Article | Event | Person | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes =
+  | SanityImagePaletteSwatch
+  | SanityImagePalette
+  | SanityImageDimensions
+  | SanityFileAsset
+  | Geopoint
+  | EventGenre
+  | Review
+  | ImageMask
+  | ColorCombinations
+  | MetaDescription
+  | MetaTitle
+  | Video
+  | RoleGroup
+  | Content
+  | ExpandableBlock
+  | Quote
+  | SanityImageCrop
+  | SanityImageHotspot
+  | SanityImageAsset
+  | SanityAssetSourceData
+  | SanityImageMetadata
+  | MediaTag
+  | MuxVideo
+  | MuxVideoAsset
+  | MuxAssetData
+  | MuxStaticRenditions
+  | MuxStaticRenditionFile
+  | MuxPlaybackId
+  | MuxTrack
+  | TranslationMetadata
+  | InternationalizedArrayReferenceValue
+  | Programpage
+  | Menupage
+  | Frontpage
+  | Article
+  | Event
+  | Person
+  | CustomImage
+  | Slug
+  | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -659,66 +731,73 @@ export type ARTICLE_QUERYResult = {
     credit?: string;
     _type: "customImage";
   } | null;
-  text: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    credit?: string;
-    _type: "customImage";
-    _key: string;
-  } | {
-    title?: string;
-    content?: string;
-    _type: "expandableBlock";
-    _key: string;
-  } | {
-    content?: string;
-    source?: string;
-    company?: string;
-    date?: string;
-    _type: "quote";
-    _key: string;
-  } | {
-    type?: "dice" | "stars";
-    score?: number;
-    content?: string;
-    source?: string;
-    company?: string;
-    link?: string;
-    date?: string;
-    _type: "review";
-    _key: string;
-  } | {
-    title: string | null;
-    muxVideo: {
-      asset: null;
-    } | null;
-    _type: "video";
-    _key: string;
-  }> | null;
+  text: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        credit?: string;
+        _type: "customImage";
+        _key: string;
+      }
+    | {
+        title?: string;
+        content?: string;
+        _type: "expandableBlock";
+        _key: string;
+      }
+    | {
+        content?: string;
+        source?: string;
+        company?: string;
+        date?: string;
+        _type: "quote";
+        _key: string;
+      }
+    | {
+        type?: "dice" | "stars";
+        score?: number;
+        content?: string;
+        source?: string;
+        company?: string;
+        link?: string;
+        date?: string;
+        _type: "review";
+        _key: string;
+      }
+    | {
+        title: string | null;
+        muxVideo: {
+          asset: null;
+        } | null;
+        _type: "video";
+        _key: string;
+      }
+  > | null;
   video: {
     title: string | null;
     muxVideo: {
@@ -728,18 +807,22 @@ export type ARTICLE_QUERYResult = {
   event: {
     slug: Slug | null;
   } | null;
-  _translations: Array<{
-    slug: null;
-    language: string | null;
-  } | {
-    slug: Slug | null;
-    language: string | null;
-  } | null>;
+  _translations: Array<
+    | {
+        slug: null;
+        language: string | null;
+      }
+    | {
+        slug: Slug | null;
+        language: string | null;
+      }
+    | null
+  >;
 } | null;
 
 // Source: ./app/queries/event-queries.ts
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    metaTitle,    metaDescription,    title,     image,    imageMask,     colorCombination,     dates,     duration,    labels,    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      name,       persons[]{      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
+// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    metaTitle,    metaDescription,    title,     image,    imageMask,     colorCombination,     dates,     duration,    labels,    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      _type,      name,       persons[]{      _type,      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
   metaTitle: MetaTitle | null;
   metaDescription: MetaDescription | null;
@@ -767,70 +850,79 @@ export type EVENT_QUERYResult = {
   }> | null;
   duration: string | null;
   labels: Array<string> | null;
-  text: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  } | {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    alt?: string;
-    credit?: string;
-    _type: "customImage";
-    _key: string;
-  } | {
-    title?: string;
-    content?: string;
-    _type: "expandableBlock";
-    _key: string;
-  } | {
-    content?: string;
-    source?: string;
-    company?: string;
-    date?: string;
-    _type: "quote";
-    _key: string;
-  } | {
-    type?: "dice" | "stars";
-    score?: number;
-    content?: string;
-    source?: string;
-    company?: string;
-    link?: string;
-    date?: string;
-    _type: "review";
-    _key: string;
-  } | {
-    title: string | null;
-    muxVideo: {
-      asset: null;
-    } | null;
-    _type: "video";
-    _key: string;
-  }> | null;
+  text: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        alt?: string;
+        credit?: string;
+        _type: "customImage";
+        _key: string;
+      }
+    | {
+        title?: string;
+        content?: string;
+        _type: "expandableBlock";
+        _key: string;
+      }
+    | {
+        content?: string;
+        source?: string;
+        company?: string;
+        date?: string;
+        _type: "quote";
+        _key: string;
+      }
+    | {
+        type?: "dice" | "stars";
+        score?: number;
+        content?: string;
+        source?: string;
+        company?: string;
+        link?: string;
+        date?: string;
+        _type: "review";
+        _key: string;
+      }
+    | {
+        title: string | null;
+        muxVideo: {
+          asset: null;
+        } | null;
+        _type: "video";
+        _key: string;
+      }
+  > | null;
   eventGenre: EventGenre | null;
   roleGroups: Array<{
+    _type: "roleGroup";
     name: string | null;
     persons: Array<{
+      _type: null;
       occupation: string | null;
       person: {
         name: string | null;
@@ -851,13 +943,17 @@ export type EVENT_QUERYResult = {
       } | null;
     }> | null;
   }> | null;
-  _translations: Array<{
-    slug: null;
-    language: string | null;
-  } | {
-    slug: Slug | null;
-    language: string | null;
-  } | null>;
+  _translations: Array<
+    | {
+        slug: null;
+        language: string | null;
+      }
+    | {
+        slug: Slug | null;
+        language: string | null;
+      }
+    | null
+  >;
 } | null;
 
 // Source: ./app/queries/frontpage-queries.ts
@@ -995,11 +1091,11 @@ export type PROGRAMPAGE_QUERYResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type==\"article\" && language==$lang]{_id, slug, title}": ARTICLES_QUERYResult;
-    "*[_type==\"article\" && slug.current==$id && language==$lang][0]{\n    title, \n    slug, \n    metaTitle, \n    metaDescription, \n    colorCombination, \n    image, \n    text[]{..., \n      _type==\"video\" => {\n        title, muxVideo{asset->{playbackId}\n        }\n      }\n    }, \n    video{\n      title, \n      muxVideo{\n        asset->{\n          playbackId}\n        }\n    },\n    'event': event->{slug},\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      slug,\n      language,\n      }\n    }": ARTICLE_QUERYResult;
-    "*[_type==\"event\" && language==$lang && slug.current==$id][0]{\n    metaTitle,\n    metaDescription,\n    title, \n    image,\n    imageMask, \n    colorCombination, \n    dates, \n    duration,\n    labels,\n    text[]{..., _type==\"video\" => {title, muxVideo{asset->{playbackId}}}},\n    eventGenre, \n    roleGroups[]{\n      name, \n      persons[]{\n      occupation, \n      person->{name, image, text}\n      }\n    },\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n    slug,\n    language,\n    }\n  }": EVENT_QUERYResult;
-    "*[_type==\"frontpage\" && language==$lang][0]{\n  title, \n  image, \n  language,\n  svgTitle, \n  metaTitle, \n  metaDescription, \n  event->{\n    title, \n    text, \n    image, \n    slug, \n    metaTitle, \n    metaDescription, \n    svgTitle,\n    colorCombination\n    }\n  }": FRONTPAGE_QUERYResult;
-    "*[_type==\"menupage\" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]": MENUPAGE_QUERYResult;
-    "*[_type==\"programpage\" && language==$lang]{metaTitle, metaDescription, title, text,gif, links[]->{title, slug, gif, image, dates} }[0]": PROGRAMPAGE_QUERYResult;
+    '*[_type=="article" && language==$lang]{_id, slug, title}': ARTICLES_QUERYResult;
+    '*[_type=="article" && slug.current==$id && language==$lang][0]{\n    title, \n    slug, \n    metaTitle, \n    metaDescription, \n    colorCombination, \n    image, \n    text[]{..., \n      _type=="video" => {\n        title, muxVideo{asset->{playbackId}\n        }\n      }\n    }, \n    video{\n      title, \n      muxVideo{\n        asset->{\n          playbackId}\n        }\n    },\n    \'event\': event->{slug},\n    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{\n      slug,\n      language,\n      }\n    }': ARTICLE_QUERYResult;
+    '*[_type=="event" && language==$lang && slug.current==$id][0]{\n    metaTitle,\n    metaDescription,\n    title, \n    image,\n    imageMask, \n    colorCombination, \n    dates, \n    duration,\n    labels,\n    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},\n    eventGenre, \n    roleGroups[]{\n      _type,\n      name, \n      persons[]{\n      _type,\n      occupation, \n      person->{name, image, text}\n      }\n    },\n    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{\n    slug,\n    language,\n    }\n  }': EVENT_QUERYResult;
+    '*[_type=="frontpage" && language==$lang][0]{\n  title, \n  image, \n  language,\n  svgTitle, \n  metaTitle, \n  metaDescription, \n  event->{\n    title, \n    text, \n    image, \n    slug, \n    metaTitle, \n    metaDescription, \n    svgTitle,\n    colorCombination\n    }\n  }': FRONTPAGE_QUERYResult;
+    '*[_type=="menupage" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]': MENUPAGE_QUERYResult;
+    '*[_type=="programpage" && language==$lang]{metaTitle, metaDescription, title, text,gif, links[]->{title, slug, gif, image, dates} }[0]': PROGRAMPAGE_QUERYResult;
   }
 }

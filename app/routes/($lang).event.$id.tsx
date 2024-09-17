@@ -20,6 +20,8 @@ import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { c } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
+import { RoleGroups } from "~/sanity.types";
+import { RoleGroup } from "sanity.types";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -191,7 +193,7 @@ export default function Event() {
             fillColor={quoteStyle.fillColor}
           />
         )}
-        {data.roleGroups?.map((group, i) => (
+        {data.roleGroups?.map((group: RoleGroup, i) => (
           <ExpandableBlockComponent title={group.name} key={i}>
             {group.persons?.map((p, k) => (
               <div key={k} className="flex flex-row mt-4 gap-6">

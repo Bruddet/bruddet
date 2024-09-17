@@ -187,7 +187,7 @@ export const eventType = defineType({
       title: "Roller",
       description: "Lag egne rollegrupper",
       type: "array",
-      of: [{ type: "roleGroups" }],
+      of: [{ type: "roleGroup" }],
       group: "content",
       options: {
         documentInternationalization: {

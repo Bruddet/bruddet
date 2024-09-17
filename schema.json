@@ -551,7 +551,7 @@
     }
   },
   {
-    "name": "roleGroups",
+    "name": "roleGroup",
     "type": "type",
     "value": {
       "type": "object",
@@ -560,7 +560,7 @@
           "type": "objectAttribute",
           "value": {
             "type": "string",
-            "value": "roleGroups"
+            "value": "roleGroup"
           }
         },
         "name": {
@@ -3425,7 +3425,7 @@
             },
             "rest": {
               "type": "inline",
-              "name": "roleGroups"
+              "name": "roleGroup"
             }
           }
         },
