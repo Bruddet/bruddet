@@ -39,7 +39,7 @@ export default function StickyFooter({
 
   return (
     <footer
-      className={`w-full bottom-0 sticky border-t text-${textcolor} ${color} font-serif text-2xl border-${textcolor} shadow py-2  z-10 `}
+      className={`w-full bottom-0 mt-auto sticky border-t text-${textcolor} ${color} font-serif text-2xl border-${textcolor} shadow py-2  z-10 `}
     >
       <ul className="flex flex-row justify-center">
         <li>
