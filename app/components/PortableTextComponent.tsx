@@ -7,7 +7,6 @@ import { ReviewComponent } from "./ReviewComponent";
 import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { stegaClean } from "@sanity/client/stega";
 import Dice from "./Dice";
-import classNames from "classnames";
 
 interface QuoteStyle {
   styleBlock?: string;
@@ -39,12 +38,12 @@ export default function PortableTextComponent({
         credit: string;
       }>) => {
         return (
-          <div className={classNames(placedLeft ? "sm:hidden" : "sm:mb-20")}>
+          <div className={placedLeft ? "sm:hidden" : "sm:mb-20"}>
             <img
               src={urlFor(value.asset._ref)}
               alt={value.alt}
               style={{ maxWidth: "100%" }}
-              className={classNames("mb-1")}
+              className="mb-1"
             />
             <p className="mt-1">{value.credit}</p>
           </div>
@@ -56,7 +55,7 @@ export default function PortableTextComponent({
         children: { text: string }[];
       }>) => {
         return (
-          <div className={classNames(!placedLeft && "sm:hidden")}>
+          <div className={!placedLeft && "sm:hidden"}>
             {value.children.map((child, i) => (
               <p key={i}>{child.text}</p>
             ))}
@@ -70,7 +69,7 @@ export default function PortableTextComponent({
         title: string;
       }>) => {
         return value.muxVideo?.asset ? (
-          <div className={classNames(placedLeft ? "sm:hidden" : "sm:mb-20")}>
+          <div className={placedLeft ? "sm:hidden" : "sm:mb-20"}>
             <MuxPlayer
               disableCookies={true}
               playbackId={stegaClean(value.muxVideo.asset?.playbackId)}
@@ -88,7 +87,7 @@ export default function PortableTextComponent({
         date: string;
       }>) => {
         return (
-          <div className={classNames(!placedLeft && "sm:hidden")}>
+          <div className={!placedLeft ? "sm:hidden" : ""}>
             <QuoteComponent
               quote={value}
               styleBlock={styleBlock}
@@ -104,7 +103,7 @@ export default function PortableTextComponent({
         diceValue: number;
       }>) => {
         return (
-          <div className={classNames(!placedLeft && "sm:hidden")}>
+          <div className={!placedLeft ? "sm:hidden" : ""}>
             <Dice content={value.content} dice={value.diceValue} />
           </div>
         );
@@ -119,7 +118,7 @@ export default function PortableTextComponent({
         link?: string;
       }>) => {
         return (
-          <div className={classNames(!placedLeft && "sm:hidden")}>
+          <div className={!placedLeft ? "sm:hidden" : ""}>
             <ReviewComponent
               review={value}
               styleBlock={styleBlock}
@@ -137,7 +136,7 @@ export default function PortableTextComponent({
         textStyle: string;
       }>) => {
         return (
-          <div className={classNames(!placedLeft && "sm:hidden")}>
+          <div className={!placedLeft ? "sm:hidden" : ""}>
             <ExpandableBlockComponent
               title={value.title}
               textStyle={textStyle}
