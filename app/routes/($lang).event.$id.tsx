@@ -10,7 +10,6 @@ import PortableTextComponent from "../components/PortableTextComponent";
 import urlFor from "../utils/imageUrlBuilder";
 import { Tickets } from "../components/Tickets";
 import ImageEventPage from "../components/Masks/ImageEventPage";
-import { EventLabels } from "../components/EventLabels";
 import { getEventQuery } from "../queries/event-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { FloatingBuyButton } from "../components/FloatingBuyButton";
@@ -22,6 +21,7 @@ import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { RolesBlock } from "~/components/RolesBlock";
+import { EventLabels } from "~/components/EventLabels";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -187,7 +187,7 @@ export default function Event() {
 
         {dates && (
           <EventLabels
-            dateObj={dates}
+            dates={dates}
             customLabels={labels}
             genre={eventGenre}
             duration={duration}
@@ -210,9 +210,9 @@ export default function Event() {
         {roleGroups?.map((group: QueriedRoleGroup, i: number) => (
           <RolesBlock key={i} roleGroup={group} />
         ))}
-        {data.dates && <Tickets dateTickets={data.dates} />}
+        {data.dates && <Tickets color={textColor} dateTickets={data.dates} />}
       </div>
-      <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
+      {/*<FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />*/}
     </>
   );
 }

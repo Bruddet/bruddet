@@ -15,6 +15,7 @@ import eventGenre from "./objects/eventGenre";
 import { programpage } from "./programpage";
 import { expandableBlockType } from "./objects/expandableBlockType";
 import { menuPage } from "./menupage";
+import expandableContent from "./objects/expandableContent";
 
 export const schemaTypes = [
   articleType,
@@ -25,6 +26,7 @@ export const schemaTypes = [
   menuPage,
   quoteType,
   expandableBlockType,
+  expandableContent,
   RichTextEditor,
   roleGroup,
   videoType,

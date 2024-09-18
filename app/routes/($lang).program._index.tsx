@@ -3,7 +3,6 @@ import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { PROGRAMPAGE_QUERYResult } from "../../sanity.types";
-import Newsletter from "../components/Newsletter";
 import { getProgramPageQuery } from "../queries/program-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import urlFor from "../utils/imageUrlBuilder";
@@ -11,7 +10,8 @@ import { loadQuery } from "../../cms/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
-import EventDateLabel from "~/components/EventLabels/EventDateLabel";
+import { DatesLabel } from "~/components/EventLabels";
+import { getColor, getPrimaryBorderColor } from "~/utils/colorCombinations";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -34,6 +34,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
 export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
   const sanityData = data?.initial.data;
+
   if (!sanityData) {
     return [
       { title: "Program" },
@@ -76,21 +77,23 @@ export default function Program() {
   });
 
   const { setColor } = useBackgroundColor();
+
   const { t } = useTranslation();
   const [gifUrl, setGifUrl] = useState(urlFor(data?.gif?.asset?._ref || ""));
 
   useEffect(() => {
     setColor("bg-strongblue");
   }, [setColor]);
+
   const params = useParams();
+
   return (
     <div className="flex flex-col grow items-center text-black font-serif">
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
-      <div className="flex md:flex-row flex-wrap w-[90vw]">
-        <div className="w-full md:w-1/3 max-sm:hidden"></div>
-        <div className="w-3/4 md:w-1/3 vertical-align: middle; mx-auto">
+      <div className="flex flex-column w-[90vw]">
+        <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
           {data?.links?.map((link, index) => (
-            <>
+            <div className="flex justify-center align-middle my-5 md:w-1/3 md:text-center ">
               <Link
                 key={index}
                 to={
@@ -107,11 +110,8 @@ export default function Program() {
                     )
                   );
                 }}
-                onMouseOut={() => {
-                  data?.gif && setGifUrl(urlFor(data.gif.asset?._ref ?? ""));
-                }}
-                className=" align-middle md:w-1/3 md:text-center "
                 aria-label={`${t(texts.labelText)} ${link.title}`}
+                className="group flex w-full flex-col"
               >
                 <div className="md:hidden aspect-square w-full">
                   <img
@@ -121,26 +121,30 @@ export default function Program() {
                     key={index}
                   />
                 </div>
-                <p className="hover:underline text-2xl lg:text-4xl mt-4 mb-2">
+                <p className="group-hover:underline text-2xl lg:text-4xl mt-4 mb-2">
                   {link.title}
                 </p>
-                {link.dates.length > 0 && (
-                  <EventDateLabel dateObj={link.dates} />
+                {link.dates && link.dates.length > 0 && (
+                  <div className="md:self-center">
+                    <DatesLabel
+                      dates={link.dates}
+                      borderColor={"border-black"}
+                      fontStyle="italic"
+                      borderStyle="md:border-none"
+                    />
+                  </div>
                 )}
               </Link>
-            </>
+            </div>
           ))}
         </div>
         {data?.gif && (
           <img
             src={gifUrl}
             alt={data.gif.alt}
-            className=" hidden md:block w-1/3 max-h-[500px] object-cover top-0 right-0"
+            className="hidden absolute md:block w-1/3 max-h-[500px] object-cover right-10"
           />
         )}
-      </div>
-      <div className="mt-auto flex flex-col items-center text-lg lg:text-xl w-4/5 lg:w-2/3 z-10">
-        <Newsletter />
       </div>
     </div>
   );

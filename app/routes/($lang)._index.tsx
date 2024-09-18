@@ -3,7 +3,6 @@ import { useLoaderData, Link, useParams } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "../../sanity.types";
 import { getFrontpageQuery } from "../queries/frontpage-queries";
 import urlFor from "../utils/imageUrlBuilder";
-import PurpleDot from "../assets/PurpleDot";
 import GreenButton from "../assets/GreenButton";
 import Newsletter from "../components/Newsletter";
 import { createTexts, useTranslation } from "../utils/i18n";
@@ -14,8 +13,6 @@ import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import GreenTriangle from "~/assets/GreenTriangle";
-import Footer from "~/components/Footer";
-import { getColor } from "~/utils/colorCombinations";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -96,36 +93,25 @@ export default function Index() {
   const SvgUrl = urlFor(
     data?.event?.svgTitle?.asset?._ref || data?.svgTitle?.asset?._ref || ""
   );
+
   const { setColor } = useBackgroundColor();
+
   useEffect(() => {
-    setColor("bg-white");
+    setColor("bg-beige");
   }, [setColor]);
   const params = useParams();
-  const styling = data?.event ? "justify-end mb-6" : "justify-center";
-
-  const {
-    bgColor,
-    primaryText,
-    secondaryBgColor,
-    secondaryBorder,
-    textColor,
-    textColorBorder,
-    portabletextStyle,
-    quoteStyle,
-  } = getColor(data?.event?.colorCombination);
 
   return (
     <div
-      className="bg-cover bg-center bg-no-repeat h-[100dvh] w-full font-serif"
+      className="flex grow bg-cover bg-center bg-no-repeat w-full font-serif"
       style={{
         backgroundImage: `url(${imageUrl})`,
-        height: "100dvh",
       }}
       aria-label={
         data?.event?.image?.alt || data?.image?.alt || "Background image"
       }
     >
-      <div className="flex flex-col h-[100dvh] w-full overflow-hidden">
+      <div className="flex flex-col w-full overflow-hidden">
         <div className="text-white text-xl mt-10 flex flex-col items-center">
           <Newsletter />
         </div>
@@ -197,7 +183,6 @@ export default function Index() {
             </div>
           )}
         </div>
-        <Footer bgColor={bgColor} />
       </div>
     </div>
   );

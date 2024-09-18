@@ -95,8 +95,6 @@ export default function Article() {
     initial,
   });
 
-  console.log("data", data);
-
   const bgColor = "bg-[#FFF8E8]";
   const { setColor } = useBackgroundColor();
   const { portabletextStyle, quoteStyle } = getColor(data?.colorCombination);
