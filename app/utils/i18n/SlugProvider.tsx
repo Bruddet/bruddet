@@ -1,13 +1,9 @@
 import { createContext, useContext, useState } from "react";
+import { Slug } from "sanity.types";
 
 interface SlugContextData {
   slug: string | undefined;
   setSlug: (language: string, translations: (Translation | null)[]) => void;
-}
-
-interface Slug {
-  current: string;
-  _type: string;
 }
 
 interface Translation {

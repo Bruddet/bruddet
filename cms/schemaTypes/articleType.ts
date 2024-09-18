@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { isUniqueOtherThanLanguage } from "../structure/documentInternationalization";
 import { documentInternationalization } from "@sanity/document-internationalization";
+import { COLOR_COMBINATIONS } from "./objects/colorCombination";
 
 export const articleType = defineType({
   name: "article",
@@ -51,9 +52,11 @@ export const articleType = defineType({
     defineField({
       name: "colorCombination",
       title: "Fargekombinasjon",
-      type: "colorCombinations",
-      group: "visual",
-      validation: (rule) => [rule.required().error("Må velge farger")],
+      type: "string",
+      options: {
+        list: COLOR_COMBINATIONS.map(({ title, value }) => ({ title, value })),
+        layout: "radio",
+      },
     }),
     defineField({
       name: "text",

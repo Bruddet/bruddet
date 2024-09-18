@@ -87,8 +87,6 @@ export type Review = {
 
 export type ImageMask = "smallImageNotCoveringScreen" | "bigImageCoveringScreen";
 
-export type ColorCombinations = "blueBlack" | "peachBlue" | "creamBlue" | "purpleWhite" | "blueYellow";
-
 export type MetaDescription = string;
 
 export type MetaTitle = string;
@@ -103,8 +101,8 @@ export type Video = {
   muxVideo?: MuxVideo;
 };
 
-export type RoleGroups = {
-  _type: "roleGroups";
+export type RoleGroup = {
+  _type: "roleGroup";
   name?: string;
   persons?: Array<{
     person?: {
@@ -199,6 +197,7 @@ export type Content = Array<{
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    credit?: string;
     _type: "customImage";
     _key: string;
   }>;
@@ -233,6 +232,7 @@ export type ExpandableContent = Array<{
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
   alt?: string;
+  credit?: string;
   _type: "customImage";
   _key: string;
 }>;
@@ -556,7 +556,7 @@ export type Article = {
   title?: string;
   slug?: Slug;
   language?: string;
-  colorCombination?: ColorCombinations;
+  colorCombination?: "blueBlack" | "peachBlue" | "creamBlue" | "purpleWhite" | "blueYellow";
   text?: Content;
   image?: {
     asset?: {
@@ -610,7 +610,7 @@ export type Event = {
     _type: "customImage";
   };
   imageMask?: ImageMask;
-  colorCombination?: ColorCombinations;
+  colorCombination?: "blueBlack" | "peachBlue" | "creamBlue" | "purpleWhite" | "blueYellow";
   svgTitle?: {
     asset: {
       _ref: string;
@@ -635,7 +635,7 @@ export type Event = {
   text?: Content;
   roleGroups?: Array<{
     _key: string;
-  } & RoleGroups>;
+  } & RoleGroup>;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 };
@@ -688,7 +688,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | ColorCombinations | MetaDescription | MetaTitle | Video | RoleGroups | Content | ExpandableContent | ExpandableBlock | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Menupage | Frontpage | Article | Event | Person | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | MetaDescription | MetaTitle | Video | RoleGroup | Content | ExpandableContent | ExpandableBlock | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Menupage | Frontpage | Article | Event | Person | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -705,7 +705,7 @@ export type ARTICLE_QUERYResult = {
   slug: Slug | null;
   metaTitle: MetaTitle | null;
   metaDescription: MetaDescription | null;
-  colorCombination: ColorCombinations | null;
+  colorCombination: "blueBlack" | "blueYellow" | "creamBlue" | "peachBlue" | "purpleWhite" | null;
   image: {
     asset?: {
       _ref: string;
@@ -778,6 +778,7 @@ export type ARTICLE_QUERYResult = {
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       alt?: string;
+      credit?: string;
       _type: "customImage";
       _key: string;
     }>;
@@ -828,7 +829,7 @@ export type ARTICLE_QUERYResult = {
 
 // Source: ./app/queries/event-queries.ts
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    metaTitle,    metaDescription,    title,     image,    imageMask,     colorCombination,     dates,     duration,    labels,    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      name,       persons[]{      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
+// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    metaTitle,    metaDescription,    title,     image,    imageMask,     colorCombination,     dates,     duration,    labels,    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      _type,      name,       persons[]{      _type,      occupation,       person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
   metaTitle: MetaTitle | null;
   metaDescription: MetaDescription | null;
@@ -847,7 +848,7 @@ export type EVENT_QUERYResult = {
     _type: "customImage";
   } | null;
   imageMask: ImageMask | null;
-  colorCombination: ColorCombinations | null;
+  colorCombination: "blueBlack" | "blueYellow" | "creamBlue" | "peachBlue" | "purpleWhite" | null;
   dates: Array<{
     date?: string;
     url?: string;
@@ -915,6 +916,7 @@ export type EVENT_QUERYResult = {
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
       alt?: string;
+      credit?: string;
       _type: "customImage";
       _key: string;
     }>;
@@ -947,8 +949,10 @@ export type EVENT_QUERYResult = {
   }> | null;
   eventGenre: EventGenre | null;
   roleGroups: Array<{
+    _type: "roleGroup";
     name: string | null;
     persons: Array<{
+      _type: null;
       occupation: string | null;
       person: {
         name: string | null;
@@ -1044,7 +1048,7 @@ export type FRONTPAGE_QUERYResult = {
       credit?: string;
       _type: "customImage";
     } | null;
-    colorCombination: ColorCombinations | null;
+    colorCombination: "blueBlack" | "blueYellow" | "creamBlue" | "peachBlue" | "purpleWhite" | null;
   } | null;
 } | null;
 
@@ -1115,7 +1119,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type==\"article\" && language==$lang]{_id, slug, title}": ARTICLES_QUERYResult;
     "*[_type==\"article\" && slug.current==$id && language==$lang][0]{\n    title, \n    slug, \n    metaTitle, \n    metaDescription, \n    colorCombination, \n    image, \n    text[]{..., \n      _type==\"video\" => {\n        title, muxVideo{asset->{playbackId}\n        }\n      }\n    }, \n    video{\n      title, \n      muxVideo{\n        asset->{\n          playbackId}\n        }\n    },\n    'event': event->{slug},\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      slug,\n      language,\n      }\n    }": ARTICLE_QUERYResult;
-    "*[_type==\"event\" && language==$lang && slug.current==$id][0]{\n    metaTitle,\n    metaDescription,\n    title, \n    image,\n    imageMask, \n    colorCombination, \n    dates, \n    duration,\n    labels,\n    text[]{..., _type==\"video\" => {title, muxVideo{asset->{playbackId}}}},\n    eventGenre, \n    roleGroups[]{\n      name, \n      persons[]{\n      occupation, \n      person->{name, image, text}\n      }\n    },\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n    slug,\n    language,\n    }\n  }": EVENT_QUERYResult;
+    "*[_type==\"event\" && language==$lang && slug.current==$id][0]{\n    metaTitle,\n    metaDescription,\n    title, \n    image,\n    imageMask, \n    colorCombination, \n    dates, \n    duration,\n    labels,\n    text[]{..., _type==\"video\" => {title, muxVideo{asset->{playbackId}}}},\n    eventGenre, \n    roleGroups[]{\n      _type,\n      name, \n      persons[]{\n      _type,\n      occupation, \n      person->{name, image, text}\n      }\n    },\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n    slug,\n    language,\n    }\n  }": EVENT_QUERYResult;
     "*[_type==\"frontpage\" && language==$lang][0]{\n  title, \n  image, \n  language,\n  svgTitle, \n  metaTitle, \n  metaDescription, \n  event->{\n    title, \n    text, \n    image, \n    slug, \n    metaTitle, \n    metaDescription, \n    svgTitle,\n    colorCombination\n    }\n  }": FRONTPAGE_QUERYResult;
     "*[_type==\"menupage\" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]": MENUPAGE_QUERYResult;
     "*[_type==\"programpage\" && language==$lang]{metaTitle, metaDescription, title, text,gif, links[]->{title, slug, gif, image, dates} }[0]": PROGRAMPAGE_QUERYResult;

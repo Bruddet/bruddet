@@ -5,18 +5,17 @@ This is the repository contains Bruddet's frontend and cms application
 ## Run project
 To run a development version of the project locally run the following command in the root folder:
 ```
-npm run all
+npm run dev
 ```
-This will start all apps and packages in development mode. You can then visit the following URLs:
+This will start Remix in development mode. You can then visit the following URLs:
 
 - [localhost:5173](http://localhost:5173) - The local version of the frontend website
-- [localhost:3333](http://localhost:3333) - The local dev version of the Sanity Studio
 
-## Frontend commands
+## Remix commands
 
 ### Build 🛠️
 
-To build all apps and packages in frontend, run the following command in ```/frontend```:
+To build all apps and packages in frontend, run the following command in the root folder:
 
 ```
 npm run build
@@ -24,49 +23,20 @@ npm run build
 
 ### Develop 💻
 
-To develop all apps and packages in frontend, run the following command in ```/frontend```:
-
+To develop all apps and packages in frontend, run the following command in the root folder:
 ```
 npm run dev
 ```
 
 ### Production
-To test frontend build and run in production mode locally, run the following command in ```/frontend```:
+To test frontend build and run in production mode locally, run the following command in the root folder:
 ```
 npm run start
 ```
-
-This will start all apps and packages in development mode. You can then visit the following URLs:
-
-- [localhost:5173](http://localhost:5173) - The local version of the frontend website
-- [localhost:3000](http://localhost:3000) - The local version of production build of frontend website
 
 ## Backend commands
 
-### Build 🛠️
-
-To build all apps and packages in backend, run the following command in ```/cms```:
-
-```
-npm run build
-```
-
-### Develop 💻
-
-To develop all apps and packages in backend, run the following command in ```/cms```:
-
-```
-npm run dev
-```
-
-### Production
-To test backend build and run in production mode locally, run the following command in ```/cms```:
-```
-npm run start
-```
-This will start all apps and packages in development mode. You can then visit the following URLs:
-
-- [localhost:3333](http://localhost:3333) - The local dev or production version of the Sanity Studio
+After starting the remix application, the CMS is available at  ```/studio```
 
 ## Making changes in the cms
 
@@ -77,7 +47,7 @@ Navigate to `cms/schematypes`
 
 ### Apply new changes to Sanity Studio 📂
 
-Inside the `cms` folder, run these commands:
+Inside the root folder, run these commands:
 
 #### 1. Schema extraction
 
