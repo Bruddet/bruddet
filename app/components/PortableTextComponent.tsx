@@ -88,11 +88,13 @@ export default function PortableTextComponent({
         date: string;
       }>) => {
         return (
-          <QuoteComponent
-            quote={value}
-            styleBlock={styleBlock}
-            fillColor={fillColor}
-          />
+          <div className={classNames(!placedLeft && "sm:hidden")}>
+            <QuoteComponent
+              quote={value}
+              styleBlock={styleBlock}
+              fillColor={fillColor}
+            />
+          </div>
         );
       },
       dice: ({
@@ -131,9 +133,11 @@ export default function PortableTextComponent({
         value,
       }: PortableTextComponentProps<{ title: string; content: string }>) => {
         return (
-          <ExpandableBlockComponent title={value.title}>
-            {value.content}
-          </ExpandableBlockComponent>
+          <div className={classNames(!placedLeft && "sm:hidden")}>
+            <ExpandableBlockComponent title={value.title}>
+              {value.content}
+            </ExpandableBlockComponent>
+          </div>
         );
       },
     },
