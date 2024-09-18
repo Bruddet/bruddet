@@ -19,7 +19,6 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
-import { c } from "node_modules/vite/dist/node/types.d-aGj9QkWt";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -184,7 +183,7 @@ export default function Event() {
         )}
 
         <div className="flex flex-row">
-          <div className="w-[50%] flex flex-col mx-5">
+          <div className="w-full sm:w-[50%] flex flex-col mx-5">
             {data.text && (
               <PortableTextComponent
                 textData={data.text}
