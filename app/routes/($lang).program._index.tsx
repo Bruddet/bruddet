@@ -12,6 +12,7 @@ import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
 import { DatesLabel } from "~/components/EventLabels";
 import { getColor, getPrimaryBorderColor } from "~/utils/colorCombinations";
+import { Navigation } from "~/components/Navigation";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -42,7 +43,7 @@ export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
     ];
   }
 
-  const path = location.pathname;
+  const path = location?.pathname;
   let language = "nb";
   if (path.includes("/en")) {
     language = "en";
@@ -89,7 +90,9 @@ export default function Program() {
 
   return (
     <div className="flex flex-col grow items-center text-black font-serif">
+      <Navigation svgRef={""} svgTitle="" lang={location?.pathname} />
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
+
       <div className="flex flex-column w-[90vw]">
         <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
           {data?.links?.map((link, index) => (

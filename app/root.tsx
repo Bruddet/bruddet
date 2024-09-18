@@ -112,6 +112,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const { language, preview } = useRouteLoaderData<typeof loader>("root");
   const location = useLocation();
+  console.log("app - location", location);
 
   const pathsWithNewsletter = ["/", "/meny", "/program", "/meny", "/en"];
 

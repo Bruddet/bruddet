@@ -12,7 +12,7 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
-import GreenTriangle from "~/assets/GreenTriangle";
+import { Navigation } from "~/components/Navigation";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -90,9 +90,6 @@ export default function Index() {
   const imageUrl = urlFor(
     data?.event?.image?.asset?._ref || data?.image?.asset?._ref || ""
   );
-  const SvgUrl = urlFor(
-    data?.event?.svgTitle?.asset?._ref || data?.svgTitle?.asset?._ref || ""
-  );
 
   const { setColor } = useBackgroundColor();
 
@@ -119,55 +116,17 @@ export default function Index() {
         <div
           className={`flex flex-1 flex-col items-center justify-center mx-4`}
         >
-          <div className="flex flex-row justify-center content-center w-full mt-4">
-            <Link
-              to={params.lang == "en" ? "/en/meny" : "/meny"}
-              className="text-white w-1/5  text-left px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl hidden md:flex flex-row content-start"
-              aria-label={t(texts.menuText)}
-            >
-              <div className="self-center animate-horizontal-bounce-left ">
-                <GreenTriangle direction="left" />
-              </div>
-              <div className="px-4">{t(texts.menuButton)}</div>
-            </Link>
-            <img
-              className="md:w-1/2"
-              src={SvgUrl}
-              alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
-            />
-            <Link
-              to={params.lang == "en" ? "/en/program" : "/program"}
-              className="text-white w-1/5 px-4 py-2 text-right rounded self-center font-serif text-2xl lg:text-4xl flex-row content-end hidden md:flex"
-              aria-label={t(texts.programText)}
-            >
-              <div className="px-4 ml-auto">Program</div>
-              <div className="self-center animate-horizontal-bounce-right">
-                <GreenTriangle direction="right" />
-              </div>
-            </Link>
-          </div>
-          <div className="flex md:hidden flex-row  w-full mt-4">
-            <Link
-              to={params.lang == "en" ? "/en/meny" : "/meny"}
-              className="text-white w-1/2  text-left py-2 rounded self-center font-serif text-2xl lg:text-4xl flex flex-row content-start"
-              aria-label={t(texts.menuText)}
-            >
-              <div className="self-center ml-auto animate-horizontal-bounce-left ">
-                <GreenTriangle direction="left" />
-              </div>
-              <div className="px-4">{t(texts.menuButton)}</div>
-            </Link>
-            <Link
-              to={params.lang == "en" ? "/en/program" : "/program"}
-              className="text-white w-1/2 py-2 text-right rounded self-center font-serif text-2xl lg:text-4xl flex-row content-end flex"
-              aria-label={t(texts.programText)}
-            >
-              <div className="px-4">Program</div>
-              <div className="self-center animate-horizontal-bounce-right">
-                <GreenTriangle direction="right" />
-              </div>
-            </Link>
-          </div>
+          <Navigation
+            svgRef={
+              data?.event?.svgTitle?.asset?._ref ||
+              data?.svgTitle?.asset?._ref ||
+              ""
+            }
+            svgTitle={
+              data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"
+            }
+            lang={params.lang}
+          />
 
           {data?.event && (
             <div className="mb-4">
