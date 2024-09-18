@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Custom_EVENT_QUERYResult } from "../../cms/customTypes";
+import {
+  Custom_EVENT_QUERYResult,
+  QueriedRoleGroup,
+} from "../../cms/customTypes";
 import { getColor } from "../utils/colorCombinations";
 import PortableTextComponent from "../components/PortableTextComponent";
 import urlFor from "../utils/imageUrlBuilder";
@@ -13,13 +16,12 @@ import { FloatingBuyButton } from "../components/FloatingBuyButton";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
 import { useTranslation } from "../utils/i18n";
 import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
-import { ExpandableBlockComponent } from "~/components/ExpandableBlockComponent";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
+import { RolesBlock } from "~/components/RolesBlock";
 import { EventLabels } from "~/components/EventLabels";
-import { Person } from "~/sanity.types";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -98,9 +100,21 @@ export default function Event() {
       status: 404,
     });
   }
+
   const [viewScale, setViewScale] = useState(1);
   const { language } = useTranslation();
 
+  const {
+    image,
+    roleGroups,
+    text,
+    dates,
+    colorCombination,
+    _translations,
+    labels,
+    eventGenre,
+    duration,
+  } = data;
   const handleScroll = () => {
     const target = document.getElementById("tickets");
     if (target) {
@@ -117,14 +131,16 @@ export default function Event() {
     textColorBorder,
     portabletextStyle,
     quoteStyle,
-  } = getColor(data?.colorCombination);
+  } = getColor(colorCombination || "creamBlue");
 
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();
 
   useEffect(() => {
     setColor(bgColor);
-    setSlug(language, data?._translations);
+    if (_translations && _translations != undefined) {
+      setSlug(language, _translations);
+    }
   }, [bgColor, data?._translations, language, setColor, setSlug]);
 
   useEffect(() => {
@@ -158,9 +174,9 @@ export default function Event() {
       <div
         className={`flex-col flex w-full sm:max-w-screen-sm mx-auto  ${textColor} p-4 gap-6 font-serif `}
       >
-        {data.image?.asset?._ref && (
+        {image?.asset?._ref && (
           <ImageEventPage
-            url={urlFor(data.image.asset._ref, data.image?.hotspot)}
+            url={urlFor(image.asset._ref, data.image?.hotspot)}
             alt={data?.title || ""}
             scale={viewScale}
             imageMaskType={data?.imageMask || ""}
@@ -169,12 +185,12 @@ export default function Event() {
 
         <h1 className={`text-2xl lg:text-4xl`}>{data.title}</h1>
 
-        {data.dates && (
+        {dates && (
           <EventLabels
-            dates={data.dates}
-            customLabels={data.labels}
-            genre={data.eventGenre}
-            duration={data.duration}
+            dates={dates}
+            customLabels={labels}
+            genre={eventGenre}
+            duration={duration}
             primaryText={primaryText}
             secondaryBgColor={secondaryBgColor}
             secondaryBorder={secondaryBorder}
@@ -182,32 +198,17 @@ export default function Event() {
             textColorBorder={textColorBorder}
           />
         )}
-        {data.text && (
+        {text && (
           <PortableTextComponent
-            textData={data.text}
+            textData={text}
             textStyle={portabletextStyle}
             styleBlock={quoteStyle.styleBlock}
             styleLink={quoteStyle.styleLink}
             fillColor={quoteStyle.fillColor}
           />
         )}
-        {data.roleGroups?.map((group, i: number) => (
-          <ExpandableBlockComponent title={group.name} key={i}>
-            {group.persons?.map((p: Person, k) => (
-              <div key={k} className="flex flex-row mt-4 gap-6">
-                <img
-                  src={urlFor(p.person?.image?.asset?._ref ?? "")}
-                  alt={p.person?.image?.alt ?? ""}
-                  className="w-28 h-36 object-cover"
-                />
-                <div>
-                  <h4 className="text-2xl mb-2">{p.occupation}</h4>
-                  <h5 className="text-lg mb-2">{p.person?.name}</h5>
-                  <span>{p.person?.text}</span>
-                </div>
-              </div>
-            ))}
-          </ExpandableBlockComponent>
+        {roleGroups?.map((group: QueriedRoleGroup, i: number) => (
+          <RolesBlock key={i} roleGroup={group} />
         ))}
         {data.dates && <Tickets color={textColor} dateTickets={data.dates} />}
       </div>

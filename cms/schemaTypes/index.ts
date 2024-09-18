@@ -8,9 +8,8 @@ import RichTextEditor from "./objects/RichTextEditor";
 import { videoType } from "./objects/videoType";
 import metaTitle from "./objects/metaTitle";
 import metaDescription from "./objects/metaDescription";
-import { colorCombinations } from "./objects/colorCombination";
 import imageMask from "./objects/imageMask";
-import roleGroups from "./objects/roleGroups";
+import roleGroup from "./objects/roleGroup";
 import { reviewType } from "./objects/reviewType";
 import eventGenre from "./objects/eventGenre";
 import { programpage } from "./programpage";
@@ -29,11 +28,10 @@ export const schemaTypes = [
   expandableBlockType,
   expandableContent,
   RichTextEditor,
-  roleGroups,
+  roleGroup,
   videoType,
   metaTitle,
   metaDescription,
-  colorCombinations,
   imageMask,
   reviewType,
   eventGenre,

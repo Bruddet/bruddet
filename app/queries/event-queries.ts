@@ -32,8 +32,10 @@ export function getEventQuery(params: Params<string>) {
     text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},
     eventGenre, 
     roleGroups[]{
+      _type,
       name, 
       persons[]{
+      _type,
       occupation, 
       person->{name, image, text}
       }
