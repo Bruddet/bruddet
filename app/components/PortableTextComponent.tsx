@@ -1,6 +1,6 @@
 import MuxPlayer from "@mux/mux-player-react";
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
-import { CustomContent } from "../../sanity/types";
+import { CustomContent } from "../../cms/customTypes";
 import urlFor from "../utils/imageUrlBuilder";
 import { QuoteComponent } from "./QuoteComponent";
 import { ReviewComponent } from "./ReviewComponent";
