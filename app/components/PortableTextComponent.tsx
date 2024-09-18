@@ -2,21 +2,17 @@ import MuxPlayer from "@mux/mux-player-react";
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
 import { CustomContent } from "../../cms/customTypes";
 import urlFor from "../utils/imageUrlBuilder";
-import { QuoteComponent } from "./QuoteComponent";
 import { ReviewComponent } from "./ReviewComponent";
 import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { stegaClean } from "@sanity/client/stega";
 import Dice from "./Dice";
 
-interface QuoteStyle {
+export interface PortableTextProps {
+  textData?: CustomContent;
+  textStyle?: string;
   styleBlock?: string;
   styleLink?: string;
   fillColor?: string;
-}
-
-export interface PortableTextProps extends QuoteStyle {
-  textData: CustomContent;
-  textStyle?: string;
 }
 
 export default function PortableTextComponent({
@@ -61,22 +57,6 @@ export default function PortableTextComponent({
           />
         ) : null;
       },
-      quote: ({
-        value,
-      }: PortableTextComponentProps<{
-        company: string;
-        content: string;
-        source: string;
-        date: string;
-      }>) => {
-        return (
-          <QuoteComponent
-            quote={value}
-            styleBlock={styleBlock}
-            fillColor={fillColor}
-          />
-        );
-      },
       dice: ({
         value,
       }: PortableTextComponentProps<{
@@ -107,7 +87,7 @@ export default function PortableTextComponent({
         value,
       }: PortableTextComponentProps<{
         title: string;
-        content: string;
+        content: PortableTextProps;
         textStyle: string;
       }>) => {
         return (

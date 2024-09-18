@@ -200,10 +200,6 @@ export function getQuoteStyle(colorCombination: colorCombinations | undefined) {
 export function getColor(colorCombination: colorCombinations | undefined) {
   const cleanColorCombination = stegaClean(colorCombination);
   const quoteStyle = getQuoteStyle(cleanColorCombination);
-  console.log(
-    "primary border color",
-    getPrimaryBorderColor(cleanColorCombination)
-  );
   return {
     bgColor: getBackgroundColor(cleanColorCombination),
     primaryBorder: getPrimaryBorderColor(cleanColorCombination),
