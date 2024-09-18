@@ -1,4 +1,3 @@
-import { TranslationObject, useTranslation } from "~/utils/i18n";
 import {
   formatDayAndDate,
   formatTimestamp,
@@ -6,6 +5,7 @@ import {
 } from "~/utils/dateAndTime";
 import { EventGenre } from "sanity.types";
 import { Label } from "./Label";
+import { TranslationObject, useTranslation } from "~/utils/i18n";
 
 type DatesLabelProps = {
   dates: DateObject[];
@@ -30,7 +30,7 @@ type EventLabelsProps = {
   textColorBorder?: string;
   genre?: EventGenre | null;
   customLabels: null | string[];
-  duration?: string;
+  duration?: string | null;
 };
 
 export function formatDateOnly(dateString: string): string {

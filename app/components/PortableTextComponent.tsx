@@ -2,22 +2,18 @@ import MuxPlayer from "@mux/mux-player-react";
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
 import { CustomContent } from "../../cms/customTypes";
 import urlFor from "../utils/imageUrlBuilder";
-import { QuoteComponent } from "./QuoteComponent";
 import { ReviewComponent } from "./ReviewComponent";
 import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { stegaClean } from "@sanity/client/stega";
 import Dice from "./Dice";
 
-interface QuoteStyle {
+export interface PortableTextProps {
+  textData?: CustomContent;
+  textStyle?: string;
   styleBlock?: string;
   styleLink?: string;
   fillColor?: string;
-}
-
-export interface PortableTextProps extends QuoteStyle {
-  textData: CustomContent;
-  textStyle?: string;
-  placedLeft: boolean;
+  placedLeft?: boolean;
 }
 
 export default function PortableTextComponent({
@@ -55,7 +51,7 @@ export default function PortableTextComponent({
         children: { text: string }[];
       }>) => {
         return (
-          <div className={!placedLeft && "sm:hidden"}>
+          <div className={!placedLeft ? "sm:hidden" : ""}>
             {value.children.map((child, i) => (
               <p key={i}>{child.text}</p>
             ))}
@@ -77,24 +73,6 @@ export default function PortableTextComponent({
             />
           </div>
         ) : null;
-      },
-      quote: ({
-        value,
-      }: PortableTextComponentProps<{
-        company: string;
-        content: string;
-        source: string;
-        date: string;
-      }>) => {
-        return (
-          <div className={!placedLeft ? "sm:hidden" : ""}>
-            <QuoteComponent
-              quote={value}
-              styleBlock={styleBlock}
-              fillColor={fillColor}
-            />
-          </div>
-        );
       },
       dice: ({
         value,
@@ -132,7 +110,7 @@ export default function PortableTextComponent({
         value,
       }: PortableTextComponentProps<{
         title: string;
-        content: string;
+        content: PortableTextProps;
         textStyle: string;
       }>) => {
         return (

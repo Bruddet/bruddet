@@ -1,6 +1,9 @@
 import { stegaClean } from "@sanity/client/stega";
+import { colorCombinations } from "cms/schemaTypes/objects/colorCombination";
 
-export function getBackgroundColor(colorCombination: string | undefined) {
+export function getBackgroundColor(
+  colorCombination: colorCombinations | undefined
+) {
   switch (colorCombination) {
     case "blueBlack":
       return "bg-blueBlack-primary";
@@ -17,7 +20,9 @@ export function getBackgroundColor(colorCombination: string | undefined) {
   }
 }
 
-export function getPrimaryBorderColor(colorCombination: string | undefined) {
+export function getPrimaryBorderColor(
+  colorCombination: colorCombinations | undefined
+) {
   switch (colorCombination) {
     case "blueBlack":
       return "border-blueBlack-primary";
@@ -34,7 +39,9 @@ export function getPrimaryBorderColor(colorCombination: string | undefined) {
   }
 }
 
-export function getPrimaryTextColor(colorCombination: string | undefined) {
+export function getPrimaryTextColor(
+  colorCombination: colorCombinations | undefined
+) {
   switch (colorCombination) {
     case "blueBlack":
       return "text-blueBlack-primary";
@@ -52,7 +59,7 @@ export function getPrimaryTextColor(colorCombination: string | undefined) {
 }
 
 export function getSecondaryBackgroundColor(
-  colorCombination: string | undefined
+  colorCombination: colorCombinations | undefined
 ) {
   switch (colorCombination) {
     case "blueBlack":
@@ -86,7 +93,7 @@ export function getSecondaryBorderColor(colorCombination: string | undefined) {
   }
 }
 
-export function getTextColor(colorCombination: string | undefined) {
+export function getTextColor(colorCombination: colorCombinations | undefined) {
   switch (colorCombination) {
     case "blueBlack":
       return "text-black";
@@ -103,7 +110,9 @@ export function getTextColor(colorCombination: string | undefined) {
   }
 }
 
-export function getTextColorBorder(colorCombination: string | undefined) {
+export function getTextColorBorder(
+  colorCombination: colorCombinations | undefined
+) {
   switch (colorCombination) {
     case "blueBlack":
       return "border-black";
@@ -120,7 +129,9 @@ export function getTextColorBorder(colorCombination: string | undefined) {
   }
 }
 
-export function getPortabletextStyle(colorCombination: string | undefined) {
+export function getPortabletextStyle(
+  colorCombination: colorCombinations | undefined
+) {
   switch (colorCombination) {
     case "blueBlack":
       return " text-black";
@@ -137,7 +148,7 @@ export function getPortabletextStyle(colorCombination: string | undefined) {
   }
 }
 
-export function getQuoteStyle(colorCombination: string | undefined) {
+export function getQuoteStyle(colorCombination: colorCombinations | undefined) {
   switch (colorCombination) {
     case "blueBlack":
       return {
@@ -184,7 +195,7 @@ export function getQuoteStyle(colorCombination: string | undefined) {
   }
 }
 
-export function getColor(colorCombination: string | undefined) {
+export function getColor(colorCombination: colorCombinations | undefined) {
   const cleanColorCombination = stegaClean(colorCombination);
   const quoteStyle = getQuoteStyle(cleanColorCombination);
   return {
