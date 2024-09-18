@@ -456,35 +456,6 @@
     }
   },
   {
-    "name": "colorCombinations",
-    "type": "type",
-    "value": {
-      "type": "union",
-      "of": [
-        {
-          "type": "string",
-          "value": "blueBlack"
-        },
-        {
-          "type": "string",
-          "value": "peachBlue"
-        },
-        {
-          "type": "string",
-          "value": "creamBlue"
-        },
-        {
-          "type": "string",
-          "value": "purpleWhite"
-        },
-        {
-          "type": "string",
-          "value": "blueYellow"
-        }
-      ]
-    }
-  },
-  {
     "name": "metaDescription",
     "type": "type",
     "value": {
@@ -2925,8 +2896,29 @@
       "colorCombination": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "colorCombinations"
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "blueBlack"
+            },
+            {
+              "type": "string",
+              "value": "peachBlue"
+            },
+            {
+              "type": "string",
+              "value": "creamBlue"
+            },
+            {
+              "type": "string",
+              "value": "purpleWhite"
+            },
+            {
+              "type": "string",
+              "value": "blueYellow"
+            }
+          ]
         },
         "optional": true
       },
@@ -3245,8 +3237,29 @@
       "colorCombination": {
         "type": "objectAttribute",
         "value": {
-          "type": "inline",
-          "name": "colorCombinations"
+          "type": "union",
+          "of": [
+            {
+              "type": "string",
+              "value": "blueBlack"
+            },
+            {
+              "type": "string",
+              "value": "peachBlue"
+            },
+            {
+              "type": "string",
+              "value": "creamBlue"
+            },
+            {
+              "type": "string",
+              "value": "purpleWhite"
+            },
+            {
+              "type": "string",
+              "value": "blueYellow"
+            }
+          ]
         },
         "optional": true
       },

@@ -1,6 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { isUniqueOtherThanLanguage } from "../structure/documentInternationalization";
 import { CalendarIcon } from "@sanity/icons";
+import { COLOR_COMBINATIONS } from "./objects/colorCombination";
 
 export const eventType = defineType({
   name: "event",
@@ -76,7 +77,11 @@ export const eventType = defineType({
     defineField({
       name: "colorCombination",
       title: "Fargekombinasjon",
-      type: "colorCombinations",
+      type: "string",
+      options: {
+        list: COLOR_COMBINATIONS.map(({ title, value }) => ({ title, value })),
+        layout: "radio",
+      },
       group: "visual",
       validation: (rule) => [rule.required().error("Må velge farger")],
     }),

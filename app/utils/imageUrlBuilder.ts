@@ -8,7 +8,10 @@ type Hotspot = {
   y?: number;
 };
 
-export default function urlFor(source: string, hotspot?: Hotspot): string {
+export default function urlFor(
+  source: string | undefined,
+  hotspot?: Hotspot
+): string {
   if (!source) return "";
 
   if (hotspot && hotspot.x !== undefined && hotspot.y !== undefined) {

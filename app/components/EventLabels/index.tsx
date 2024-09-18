@@ -1,4 +1,4 @@
-import { EventGenre } from "../../../sanity/types";
+import { EventGenre } from "sanity.types";
 import {
   formatDayAndDate,
   formatTimestamp,
@@ -21,7 +21,7 @@ type Props = {
   textColorBorder?: string;
   genre?: EventGenre | null;
   customLabels: null | string[];
-  duration?: string;
+  duration?: string | null;
 };
 
 export function formatDateOnly(dateString: string): string {

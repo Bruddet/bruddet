@@ -19,6 +19,8 @@ export default {
       name: "persons",
       title: "Personer",
       type: "array",
+      validation: (rule) =>
+        rule.required().length(1).error("Må ha minst en person"),
       of: [
         {
           type: "object",

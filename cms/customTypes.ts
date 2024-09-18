@@ -45,3 +45,9 @@ type CustomVideo = {
     };
   };
 };
+
+type ArrayElement<T> = T extends Array<infer E> ? E : never;
+
+type RoleGroupsArray = NonNullable<EVENT_QUERYResult>["roleGroups"];
+// Hent arraytypen for elementet
+export type QueriedRoleGroup = ArrayElement<RoleGroupsArray>; // Den her som prop til <RoleGroup />
