@@ -7,10 +7,8 @@ import PortableTextComponent from "../components/PortableTextComponent";
 import urlFor from "../utils/imageUrlBuilder";
 import { Tickets } from "../components/Tickets";
 import ImageEventPage from "../components/Masks/ImageEventPage";
-import { EventLabels } from "../components/EventLabels";
 import { getEventQuery } from "../queries/event-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
-import { FloatingBuyButton } from "../components/FloatingBuyButton";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
 import { useTranslation } from "../utils/i18n";
 import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
@@ -19,6 +17,7 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
+import { EventLabels } from "~/components/EventLabels";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -170,7 +169,7 @@ export default function Event() {
 
         {data.dates && (
           <EventLabels
-            dateObj={data.dates}
+            dates={data.dates}
             customLabels={data.labels}
             genre={data.eventGenre}
             duration={data.duration}
@@ -212,7 +211,9 @@ export default function Event() {
                 ))}
               </ExpandableBlockComponent>
             ))}
-            {data.dates && <Tickets dateTickets={data.dates} />}
+            {data.dates && (
+              <Tickets color={textColor} dateTickets={data.dates} />
+            )}{" "}
           </div>
           <div className="w-[50%] hidden sm:flex flex-col mx-5">
             {data.text && (
@@ -228,7 +229,7 @@ export default function Event() {
           </div>
         </div>
       </div>
-      <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
+      {/*<FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />*/}
     </>
   );
 }

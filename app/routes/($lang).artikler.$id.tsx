@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { Custom_ARTICLE_QUERYResult } from "../../cms/customTypes";
-import { getBackgroundColor, getColor } from "../utils/colorCombinations";
+import { getColor } from "../utils/colorCombinations";
 import { getArticleQuery } from "../queries/article-queries";
 import PortableTextComponent from "../components/PortableTextComponent";
 import urlFor from "../utils/imageUrlBuilder";

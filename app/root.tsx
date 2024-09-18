@@ -10,7 +10,6 @@ import {
   useLocation,
 } from "@remix-run/react";
 import "./styles/app.css";
-import StickyFooter from "./components/StickyFooter";
 import Header from "./components/Header/Header";
 import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
@@ -29,6 +28,8 @@ import NoTranslation from "./components/NoTranslation";
 import { lazy, Suspense } from "react";
 import { ExitPreview } from "./components/ExitPreview";
 import { loadQueryOptions } from "../cms/loadQueryOptions.server";
+import NewsletterMarquee from "./components/NewsletterMarquee";
+import { motion } from "framer-motion";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
@@ -99,7 +100,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={color}>
+      <body className={`${color} min-h-screen h-full flex flex-col`}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -111,6 +112,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const { language, preview } = useRouteLoaderData<typeof loader>("root");
   const location = useLocation();
+
+  const pathsWithNewsletter = ["/", "/meny", "/program", "/meny", "/en"];
 
   if (location.pathname.startsWith("/studio")) {
     return <Outlet />;
@@ -125,14 +128,15 @@ export default function App() {
               <ExitPreview />
             </Suspense>
           )}
-          <div className="min-h-[100vh] flex flex-col">
-            <Header />
-            <LanguageButton />
-            <div id="main">
-              <Outlet />
-            </div>
-            <StickyFooter menyUrl="/meny" programUrl="/program" />
+          <Header />
+          <LanguageButton />
+
+          <div className="flex grow" id="main">
+            <Outlet />
           </div>
+          {pathsWithNewsletter.includes(location.pathname) && (
+            <NewsletterMarquee />
+          )}
         </SlugProvider>
       </BackgroundColorProvider>
     </LanguageProvider>

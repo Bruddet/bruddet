@@ -1,6 +1,6 @@
 import MuxPlayer from "@mux/mux-player-react";
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
-import { CustomContent } from "../../sanity/types";
+import { CustomContent } from "../../cms/customTypes";
 import urlFor from "../utils/imageUrlBuilder";
 import { QuoteComponent } from "./QuoteComponent";
 import { ReviewComponent } from "./ReviewComponent";
@@ -15,7 +15,7 @@ interface QuoteStyle {
   fillColor?: string;
 }
 
-interface PortableTextProps extends QuoteStyle {
+export interface PortableTextProps extends QuoteStyle {
   textData: CustomContent;
   textStyle?: string;
   placedLeft: boolean;
@@ -131,12 +131,18 @@ export default function PortableTextComponent({
       },
       expandableBlock: ({
         value,
-      }: PortableTextComponentProps<{ title: string; content: string }>) => {
+      }: PortableTextComponentProps<{
+        title: string;
+        content: string;
+        textStyle: string;
+      }>) => {
         return (
           <div className={classNames(!placedLeft && "sm:hidden")}>
-            <ExpandableBlockComponent title={value.title}>
-              {value.content}
-            </ExpandableBlockComponent>
+            <ExpandableBlockComponent
+              title={value.title}
+              textStyle={textStyle}
+              content={value.content}
+            ></ExpandableBlockComponent>
           </div>
         );
       },
