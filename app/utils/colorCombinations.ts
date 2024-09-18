@@ -70,7 +70,6 @@ export function getSecondaryBackgroundColor(
   }
 }
 export function getSecondaryBorderColor(colorCombination: string | undefined) {
-  console.log("colorcombination", colorCombination);
   switch (colorCombination) {
     case "blueBlack":
       return "border-blueBlack-secondary";
@@ -188,10 +187,6 @@ export function getQuoteStyle(colorCombination: string | undefined) {
 export function getColor(colorCombination: string | undefined) {
   const cleanColorCombination = stegaClean(colorCombination);
   const quoteStyle = getQuoteStyle(cleanColorCombination);
-  console.log(
-    "primary border color",
-    getPrimaryBorderColor(cleanColorCombination)
-  );
   return {
     bgColor: getBackgroundColor(cleanColorCombination),
     primaryBorder: getPrimaryBorderColor(cleanColorCombination),
