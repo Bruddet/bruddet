@@ -156,7 +156,7 @@ export default function Event() {
   return (
     <>
       <div
-        className={`flex-col flex w-full sm:max-w-screen-sm mx-auto  ${textColor} p-4 gap-6 font-serif `}
+        className={`flex-col flex w-full  ${textColor} p-4 gap-6 font-serif `}
       >
         {data.image?.asset?._ref && (
           <ImageEventPage
@@ -167,7 +167,7 @@ export default function Event() {
           />
         )}
 
-        <h1 className={`text-2xl lg:text-4xl`}>{data.title}</h1>
+        <h1 className={`text-2xl lg:text-4xl mx-auto`}>{data.title}</h1>
 
         {data.dates && (
           <EventLabels
@@ -182,34 +182,52 @@ export default function Event() {
             textColorBorder={textColorBorder}
           />
         )}
-        {data.text && (
-          <PortableTextComponent
-            textData={data.text}
-            textStyle={portabletextStyle}
-            styleBlock={quoteStyle.styleBlock}
-            styleLink={quoteStyle.styleLink}
-            fillColor={quoteStyle.fillColor}
-          />
-        )}
-        {data.roleGroups?.map((group, i) => (
-          <ExpandableBlockComponent title={group.name} key={i}>
-            {group.persons?.map((p, k) => (
-              <div key={k} className="flex flex-row mt-4 gap-6">
-                <img
-                  src={urlFor(p.person?.image?.asset?._ref ?? "")}
-                  alt={p.person?.image?.alt ?? ""}
-                  className="w-28 h-36 object-cover"
-                />
-                <div>
-                  <h4 className="text-2xl mb-2">{p.occupation}</h4>
-                  <h5 className="text-lg mb-2">{p.person?.name}</h5>
-                  <span>{p.person?.text}</span>
-                </div>
-              </div>
+
+        <div className="flex flex-row">
+          <div className="w-[50%] flex flex-col mx-5">
+            {data.text && (
+              <PortableTextComponent
+                textData={data.text}
+                textStyle={portabletextStyle}
+                styleBlock={quoteStyle.styleBlock}
+                styleLink={quoteStyle.styleLink}
+                fillColor={quoteStyle.fillColor}
+                placedLeft={true}
+              />
+            )}
+            {data.roleGroups?.map((group, i) => (
+              <ExpandableBlockComponent title={group.name} key={i}>
+                {group.persons?.map((p, k) => (
+                  <div key={k} className="flex flex-row mt-4 gap-6">
+                    <img
+                      src={urlFor(p.person?.image?.asset?._ref ?? "")}
+                      alt={p.person?.image?.alt ?? ""}
+                      className="w-28 h-36 object-cover"
+                    />
+                    <div>
+                      <h4 className="text-2xl mb-2">{p.occupation}</h4>
+                      <h5 className="text-lg mb-2">{p.person?.name}</h5>
+                      <span>{p.person?.text}</span>
+                    </div>
+                  </div>
+                ))}
+              </ExpandableBlockComponent>
             ))}
-          </ExpandableBlockComponent>
-        ))}
-        {data.dates && <Tickets dateTickets={data.dates} />}
+            {data.dates && <Tickets dateTickets={data.dates} />}
+          </div>
+          <div className="w-[50%] hidden sm:flex flex-col mx-5">
+            {data.text && (
+              <PortableTextComponent
+                textData={data.text}
+                textStyle={portabletextStyle}
+                styleBlock={quoteStyle.styleBlock}
+                styleLink={quoteStyle.styleLink}
+                fillColor={quoteStyle.fillColor}
+                placedLeft={false}
+              />
+            )}
+          </div>
+        </div>
       </div>
       <FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />
     </>

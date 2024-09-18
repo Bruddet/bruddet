@@ -132,6 +132,7 @@ export default function Article() {
           styleBlock={quoteStyle.styleBlock}
           styleLink={quoteStyle.styleLink}
           fillColor={quoteStyle.fillColor}
+          placedLeft={true}
         />
       )}
       {data?.event && (

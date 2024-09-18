@@ -7,6 +7,7 @@ import { ReviewComponent } from "./ReviewComponent";
 import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { stegaClean } from "@sanity/client/stega";
 import Dice from "./Dice";
+import classNames from "classnames";
 
 interface QuoteStyle {
   styleBlock?: string;
@@ -17,6 +18,7 @@ interface QuoteStyle {
 interface PortableTextProps extends QuoteStyle {
   textData: CustomContent;
   textStyle?: string;
+  placedLeft: boolean;
 }
 
 export default function PortableTextComponent({
@@ -25,6 +27,7 @@ export default function PortableTextComponent({
   styleBlock,
   styleLink,
   fillColor,
+  placedLeft = true,
 }: PortableTextProps) {
   const customComponents = {
     types: {
@@ -36,15 +39,28 @@ export default function PortableTextComponent({
         credit: string;
       }>) => {
         return (
-          <>
+          <div className={classNames(placedLeft ? "sm:hidden" : "sm:mb-20")}>
             <img
               src={urlFor(value.asset._ref)}
               alt={value.alt}
               style={{ maxWidth: "100%" }}
-              className="mb-1"
+              className={classNames("mb-1")}
             />
             <p className="mt-1">{value.credit}</p>
-          </>
+          </div>
+        );
+      },
+      block: ({
+        value,
+      }: PortableTextComponentProps<{
+        children: { text: string }[];
+      }>) => {
+        return (
+          <div className={classNames(!placedLeft && "sm:hidden")}>
+            {value.children.map((child, i) => (
+              <p key={i}>{child.text}</p>
+            ))}
+          </div>
         );
       },
       video: ({
@@ -54,11 +70,13 @@ export default function PortableTextComponent({
         title: string;
       }>) => {
         return value.muxVideo?.asset ? (
-          <MuxPlayer
-            disableCookies={true}
-            playbackId={stegaClean(value.muxVideo.asset?.playbackId)}
-            metadata={value.title ? { video_title: value.title } : undefined}
-          />
+          <div className={classNames(placedLeft ? "sm:hidden" : "sm:mb-20")}>
+            <MuxPlayer
+              disableCookies={true}
+              playbackId={stegaClean(value.muxVideo.asset?.playbackId)}
+              metadata={value.title ? { video_title: value.title } : undefined}
+            />
+          </div>
         ) : null;
       },
       quote: ({
@@ -83,7 +101,11 @@ export default function PortableTextComponent({
         content: string;
         diceValue: number;
       }>) => {
-        return <Dice content={value.content} dice={value.diceValue} />;
+        return (
+          <div className={classNames(!placedLeft && "sm:hidden")}>
+            <Dice content={value.content} dice={value.diceValue} />
+          </div>
+        );
       },
       review: ({
         value,
@@ -95,12 +117,14 @@ export default function PortableTextComponent({
         link?: string;
       }>) => {
         return (
-          <ReviewComponent
-            review={value}
-            styleBlock={styleBlock}
-            styleLink={styleLink}
-            fillColor={fillColor}
-          />
+          <div className={classNames(!placedLeft && "sm:hidden")}>
+            <ReviewComponent
+              review={value}
+              styleBlock={styleBlock}
+              styleLink={styleLink}
+              fillColor={fillColor}
+            />
+          </div>
         );
       },
       expandableBlock: ({
