@@ -5,6 +5,11 @@ export const expandableBlockType = defineType({
   name: "expandableBlock",
   title: "Ekspanderbar blokk",
   type: "document",
+  preview: {
+    select: {
+      title: "title",
+    },
+  },
   icon: BlockElementIcon,
   fields: [
     defineField({
@@ -18,7 +23,7 @@ export const expandableBlockType = defineType({
     }),
     defineField({
       name: "content",
-      type: "text",
+      type: "expandableContent",
       title: "Innhold",
       validation: (rule) => [
         rule.required().min(2).error(`Innhold er påkrevd`),
