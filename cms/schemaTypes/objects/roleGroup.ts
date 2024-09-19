@@ -20,7 +20,7 @@ export default {
       title: "Personer",
       type: "array",
       validation: (rule) =>
-        rule.required().length(1).error("Må ha minst en person"),
+        rule.required().min(1).error("Må ha minst en person"),
       of: [
         {
           type: "object",
