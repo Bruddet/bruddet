@@ -5,7 +5,7 @@ interface TriangleProps {
 
 export default function Triangle({
   direction,
-  color = "#9AED15",
+  color = "#D4FF26",
 }: TriangleProps) {
   return (
     <svg

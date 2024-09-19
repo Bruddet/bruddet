@@ -3,7 +3,7 @@ import { useLoaderData, Link, useParams } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "../../sanity.types";
 import { getFrontpageQuery } from "../queries/frontpage-queries";
 import urlFor from "../utils/imageUrlBuilder";
-import GreenButton from "../assets/GreenButton";
+import HexagonBuyButton from "../assets/HexagonBuyButton";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
@@ -110,6 +110,14 @@ export default function Index() {
         data?.event?.image?.alt || data?.image?.alt || "Background image"
       }
     >
+      {data?.event && (
+        <div className="absolute right-0 p-28">
+          <HexagonBuyButton
+            slug={data?.event?.slug?.current}
+            text={t(texts.buyTicket)}
+          />
+        </div>
+      )}
       <div className="flex flex-col w-full overflow-hidden justify-between items-center">
         <div className="">
           <img
@@ -118,13 +126,6 @@ export default function Index() {
             alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
           />
         </div>
-
-        {data?.event && (
-          <GreenButton
-            slug={data?.event?.slug?.current}
-            text={t(texts.buyTicket)}
-          />
-        )}
       </div>
     </div>
   );

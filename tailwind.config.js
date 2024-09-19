@@ -55,6 +55,7 @@ export default {
         strongblue: "#59A1B6",
         lightblue: "#83D2FF",
         beige: "#FFF8E8",
+        mainThemeColor: "#D4FF26",
       },
       animation: {
         marquee: "marquee 120s linear infinite",

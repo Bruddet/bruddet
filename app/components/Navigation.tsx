@@ -21,7 +21,7 @@ export const Navigation = ({ lang }: Props) => {
 
   const triangleColor = pathsWithBlackText.includes(location?.pathname)
     ? "black"
-    : "#9AED15";
+    : "#D4FF26";
 
   return (
     <>
@@ -34,14 +34,14 @@ export const Navigation = ({ lang }: Props) => {
           <div className={`self-center animate-horizontal-bounce-left`}>
             <Triangle color={triangleColor} direction="left" />
           </div>
-          <div className="px-4">{t(texts.menuButton)}</div>
+          <div className="px-4 hover:underline">{t(texts.menuButton)}</div>
         </Link>
         <Link
           to={lang == "en" ? "/en/program" : "/program"}
           className={`right-0 py-2 text-right content-end md:flex ${navigationButtonStyle}`}
           aria-label={t(texts.programText)}
         >
-          <div className="px-4 ml-auto">Program</div>
+          <div className="px-4 ml-auto hover:underline">Program</div>
           <div className="self-center animate-horizontal-bounce-right">
             <Triangle color={triangleColor} direction="right" />
           </div>
