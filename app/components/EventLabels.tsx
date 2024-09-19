@@ -142,7 +142,7 @@ export const EventLabels = ({
     <>
       <div
         id="eventLabels"
-        className="flex flex-wrap gap-4 md:float-start uppercase font-serif justify-start mx-auto"
+        className="flex flex-wrap gap-2 md:float-start uppercase font-serif justify-start mx-auto"
       >
         {labels.map(
           (label, index) =>
