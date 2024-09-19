@@ -139,19 +139,21 @@ export default function Event() {
   }, [bgColor, data?._translations, language, setColor, setSlug]);
 
   useBuyButtonObserver();
+  const SvgUrl = urlFor(
+    data?.svgTitle?.asset?._ref || data?.svgTitle?.asset?._ref || ""
+  );
 
   return (
     <>
-      <div
-        className={`flex-col flex w-full  ${textColor} p-4 gap-6 font-serif `}
-      >
+      <div className={`flex-col flex w-full  ${textColor} gap-6 font-serif `}>
         {image?.asset?._ref && (
           <ImageEventPage
             url={urlFor(image.asset._ref, data.image?.hotspot)}
             alt={data?.title || ""}
+            svgUrl={SvgUrl}
+            svgAlt={data?.svgTitle?.alt || ""}
           />
         )}
-
         <h1 className={`text-2xl lg:text-4xl mx-auto`}>{data.title}</h1>
 
         {dates && (
