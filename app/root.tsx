@@ -30,6 +30,7 @@ import { ExitPreview } from "./components/ExitPreview";
 import { loadQueryOptions } from "../cms/loadQueryOptions.server";
 import NewsletterMarquee from "./components/NewsletterMarquee";
 import { motion } from "framer-motion";
+import { Navigation } from "./components/Navigation";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
@@ -112,7 +113,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   const { language, preview } = useRouteLoaderData<typeof loader>("root");
   const location = useLocation();
-  console.log("app - location", location);
 
   const pathsWithNewsletter = ["/", "/meny", "/program", "/meny", "/en"];
 
@@ -136,7 +136,10 @@ export default function App() {
             <Outlet />
           </div>
           {pathsWithNewsletter.includes(location.pathname) && (
-            <NewsletterMarquee />
+            <>
+              <Navigation lang={location?.pathname} />
+              <NewsletterMarquee />
+            </>
           )}
         </SlugProvider>
       </BackgroundColorProvider>

@@ -11,8 +11,6 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
 import { DatesLabel } from "~/components/EventLabels";
-import { getColor, getPrimaryBorderColor } from "~/utils/colorCombinations";
-import { Navigation } from "~/components/Navigation";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -90,8 +88,6 @@ export default function Program() {
 
   return (
     <div className="flex flex-col grow items-center text-black font-serif">
-      {/*      <Navigation svgRef={""} svgTitle="" lang={location?.pathname} />
-       */}{" "}
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
       <div className="flex flex-column w-[90vw]">
         <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
@@ -145,7 +141,7 @@ export default function Program() {
           <img
             src={gifUrl}
             alt={data.gif.alt}
-            className="hidden absolute md:block w-1/3 max-h-[500px] object-cover right-10"
+            className="hidden absolute md:block max-h-[300px] object-cover right-10"
           />
         )}
       </div>

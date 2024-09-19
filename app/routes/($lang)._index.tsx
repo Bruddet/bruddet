@@ -4,7 +4,6 @@ import { FRONTPAGE_QUERYResult } from "../../sanity.types";
 import { getFrontpageQuery } from "../queries/frontpage-queries";
 import urlFor from "../utils/imageUrlBuilder";
 import GreenButton from "../assets/GreenButton";
-import Newsletter from "../components/Newsletter";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
@@ -91,12 +90,15 @@ export default function Index() {
     data?.event?.image?.asset?._ref || data?.image?.asset?._ref || ""
   );
 
+  const SvgUrl = urlFor(
+    data?.event?.svgTitle?.asset?._ref || data?.svgTitle?.asset?._ref || ""
+  );
+
   const { setColor } = useBackgroundColor();
 
   useEffect(() => {
     setColor("bg-beige");
   }, [setColor]);
-  const params = useParams();
 
   return (
     <div
@@ -108,40 +110,21 @@ export default function Index() {
         data?.event?.image?.alt || data?.image?.alt || "Background image"
       }
     >
-      <div className="flex flex-col w-full overflow-hidden">
-        <div className="text-white text-xl mt-10 flex flex-col items-center">
-          <Newsletter />
+      <div className="flex flex-col w-full overflow-hidden justify-between items-center">
+        <div className="">
+          <img
+            className="md:w-1/2"
+            src={SvgUrl}
+            alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
+          />
         </div>
 
-        <div
-          className={`flex flex-1 flex-col items-center justify-center mx-4`}
-        >
-          {/*<Navigation
-            svgRef={
-              data?.event?.svgTitle?.asset?._ref ||
-              data?.svgTitle?.asset?._ref ||
-              ""
-            }
-            svgTitle={
-              data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"
-            }
-            lang={params.lang}
-          />*/}
-
-          {data?.event && (
-            <div className="mb-4">
-              <Link
-                to={
-                  "/event/" + data?.event?.slug?.current + "#tickets" ||
-                  "/event"
-                }
-              >
-                <button aria-label={t(texts.buyTicket)}></button>
-                <GreenButton text={t(texts.buyTicket)} />
-              </Link>
-            </div>
-          )}
-        </div>
+        {data?.event && (
+          <GreenButton
+            slug={data?.event?.slug?.current}
+            text={t(texts.buyTicket)}
+          />
+        )}
       </div>
     </div>
   );

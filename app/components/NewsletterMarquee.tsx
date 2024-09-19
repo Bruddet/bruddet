@@ -12,7 +12,7 @@ export function NewsletterMarquee() {
   return (
     <>
       <button
-        className={`overflow-hidden hidden md:flex sticky bottom-0 text-white border-t-2  ${
+        className={`overflow-hidden hidden md:flex sticky bottom-0 text-black border-t-2  ${
           displayText
             ? `border-t-white ${color !== "bg-white" ? color : "bg-black"}`
             : "border-t-[#24ED15] bg-[#24ED15]"
