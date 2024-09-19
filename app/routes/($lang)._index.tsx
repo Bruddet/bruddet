@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { useLoaderData, Link, useParams } from "@remix-run/react";
+import { useLoaderData, Link, useParams, useLocation } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "../../sanity.types";
 import { getFrontpageQuery } from "../queries/frontpage-queries";
 import urlFor from "../utils/imageUrlBuilder";
@@ -106,23 +106,19 @@ export default function Index() {
       style={{
         backgroundImage: `url(${imageUrl})`,
       }}
-      aria-label={
-        data?.event?.image?.alt || data?.image?.alt || "Background image"
-      }
+      aria-label={"Background image"}
     >
+      <Navigation />
+
       {data?.event && (
-        <div className="absolute right-0 p-28">
+        <div className="absolute right-0 pr-28 pt-28">
           <HexagonBuyButton
             slug={data?.event?.slug?.current}
             text={t(texts.buyTicket)}
           />
         </div>
       )}
-      <img
-        className="md:w-1/2 m-auto"
-        src={SvgUrl}
-        alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
-      />
+      <img className="md:w-1/2 m-auto" src={SvgUrl} alt={"Logo"} />
     </div>
   );
 }

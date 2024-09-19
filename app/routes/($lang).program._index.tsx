@@ -1,5 +1,11 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
+import {
+  Link,
+  MetaFunction,
+  useLoaderData,
+  useLocation,
+  useParams,
+} from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { PROGRAMPAGE_QUERYResult } from "../../sanity.types";
@@ -11,6 +17,7 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
 import { DatesLabel } from "~/components/EventLabels";
+import { Navigation } from "~/components/Navigation";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -88,6 +95,8 @@ export default function Program() {
 
   return (
     <div className="flex flex-col grow items-center text-black font-serif">
+      <Navigation />
+
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
       <div className="flex flex-column w-[90vw]">
         <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
@@ -116,7 +125,7 @@ export default function Program() {
                   <img
                     className="inline-block object-cover w-full h-full"
                     src={urlFor(link?.image?.asset?._ref ?? "")}
-                    alt={link?.image?.alt ?? ""}
+                    alt={""}
                     key={index}
                   />
                 </div>
