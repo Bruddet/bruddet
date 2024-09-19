@@ -8,12 +8,7 @@ export default function StickyFooter() {
   const { t } = useTranslation();
   const isEnglish =
     location.pathname.includes("/en/") || location.pathname === "/en";
-  const showFooter = !["/", "/en"].includes(location.pathname);
   const { color } = useBackgroundColor();
-
-  if (!showFooter) {
-    return null;
-  }
 
   return (
     <footer

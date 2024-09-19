@@ -13,17 +13,19 @@ export const Navigation = () => {
     pathsWithBlackText.includes(location?.pathname)
       ? "text-black"
       : "text-white"
-  } w-1/5 px-8 rounded self-center font-serif text-2xl lg:text-4xl hidden flex-row`;
+  } px-8 rounded self-center font-serif text-2xl lg:text-4xl hidden flex-row`;
 
   const triangleColor = pathsWithBlackText.includes(location?.pathname)
     ? "black"
     : "#D4FF26";
 
+  console.log("lang", lang);
+
   return (
-    <div className="flex flex-row justify-between fixed w-full bottom-1/2">
+    <div className="flex flex-row px-8 justify-between fixed w-full bottom-1/2">
       <Link
-        to={lang == "en" ? "/en/meny" : "/meny"}
-        className={`px-8 md:flex ${navigationButtonStyle}`}
+        to={lang == "/en" ? "/en/meny" : "/meny"}
+        className={`md:flex ${navigationButtonStyle}`}
         aria-label={t(texts.menuText)}
       >
         <div className={`self-center animate-horizontal-bounce-left`}>
@@ -32,7 +34,7 @@ export const Navigation = () => {
         <div className="px-4 hover:underline">{t(texts.menuButton)}</div>
       </Link>
       <Link
-        to={lang == "en" ? "/en/program" : "/program"}
+        to={lang == "/en" ? "/en/program" : "/program"}
         className={`md:flex ${navigationButtonStyle}`}
         aria-label={t(texts.programText)}
       >

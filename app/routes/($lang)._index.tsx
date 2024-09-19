@@ -12,6 +12,7 @@ import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { Navigation } from "~/components/Navigation";
+import StickyFooter from "~/components/StickyFooter";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -101,25 +102,28 @@ export default function Index() {
   }, [setColor]);
 
   return (
-    <div
-      className="flex grow bg-cover bg-center bg-no-repeat w-full font-serif"
-      style={{
-        backgroundImage: `url(${imageUrl})`,
-      }}
-      aria-label={"Background image"}
-    >
-      <Navigation />
+    <>
+      <div
+        className="flex grow bg-cover bg-center bg-no-repeat w-full font-serif"
+        style={{
+          backgroundImage: `url(${imageUrl})`,
+        }}
+        aria-label={"Background image"}
+      >
+        <Navigation />
 
-      {data?.event && (
-        <div className="absolute right-0 pr-28 pt-28">
-          <HexagonBuyButton
-            slug={data?.event?.slug?.current}
-            text={t(texts.buyTicket)}
-          />
-        </div>
-      )}
-      <img className="md:w-1/2 m-auto" src={SvgUrl} alt={"Logo"} />
-    </div>
+        {data?.event && (
+          <div className="absolute right-16 top-16">
+            <HexagonBuyButton
+              slug={data?.event?.slug?.current}
+              text={t(texts.buyTicket)}
+            />
+          </div>
+        )}
+        <img className="md:w-1/2 m-auto" src={SvgUrl} alt={"Logo"} />
+      </div>
+      <StickyFooter />
+    </>
   );
 }
 
