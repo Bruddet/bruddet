@@ -21,7 +21,6 @@ import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { RolesBlock } from "~/components/RolesBlock";
 import { EventLabels } from "~/components/EventLabels";
-import { ExpandableBlockComponent } from "~/components/ExpandableBlockComponent";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -211,23 +210,8 @@ export default function Event() {
                 placedLeft={true}
               />
             )}
-            {roleGroups?.map((group, i) => (
-              <ExpandableBlockComponent title={group.name ?? ""} key={i}>
-                {group.persons?.map((p, k) => (
-                  <div key={k} className="flex flex-row mt-4 gap-6">
-                    <img
-                      src={urlFor(p.person?.image?.asset?._ref ?? "")}
-                      alt={p.person?.image?.alt ?? ""}
-                      className="w-28 h-36 object-cover"
-                    />
-                    <div>
-                      <h4 className="text-2xl mb-2">{p.occupation}</h4>
-                      <h5 className="text-lg mb-2">{p.person?.name}</h5>
-                      <span>{p.person?.text}</span>
-                    </div>
-                  </div>
-                ))}
-              </ExpandableBlockComponent>
+            {roleGroups?.map((group: QueriedRoleGroup, i: number) => (
+              <RolesBlock roleGroup={group} />
             ))}
             {data.dates && (
               <Tickets color={textColor} dateTickets={data.dates} />
