@@ -16,6 +16,7 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { Navigation } from "~/components/Navigation";
+import StickyFooter from "~/components/StickyFooter";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -125,6 +126,7 @@ export default function Info() {
           </p>
         </Link>
       </div>
+      <StickyFooter />
     </div>
   );
 }

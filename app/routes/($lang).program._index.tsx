@@ -18,6 +18,7 @@ import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
 import { DatesLabel } from "~/components/EventLabels";
 import { Navigation } from "~/components/Navigation";
+import StickyFooter from "~/components/StickyFooter";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -154,6 +155,7 @@ export default function Program() {
           />
         )}
       </div>
+      <StickyFooter />
     </div>
   );
 }
