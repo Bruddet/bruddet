@@ -51,7 +51,7 @@ export default function PortableTextComponent({
         children: { text: string }[];
       }>) => {
         return (
-          <div className={!placedLeft ? "sm:hidden" : ""}>
+          <div className={!placedLeft ? "sm:hidden" : " leading-6 "}>
             {value.children.map((child, i) => (
               <p key={i}>{child.text}</p>
             ))}
