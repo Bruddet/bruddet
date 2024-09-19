@@ -17,11 +17,11 @@ export const Label = ({
   borderStyle,
 }: Props) => {
   return (
-    <div
+    <p
       key={key}
-      className={`p-2 border text-nowrap w-min ${borderColor} ${textColor} ${fontStyle} ${borderStyle}`}
+      className={`p-2 border font-bold text-nowrap w-min ${borderColor} ${textColor} ${fontStyle} ${borderStyle}`}
     >
       {label}
-    </div>
+    </p>
   );
 };
