@@ -116,7 +116,7 @@ export default function Index() {
         <div
           className={`flex flex-1 flex-col items-center justify-center mx-4`}
         >
-          <Navigation
+          {/*<Navigation
             svgRef={
               data?.event?.svgTitle?.asset?._ref ||
               data?.svgTitle?.asset?._ref ||
@@ -126,7 +126,7 @@ export default function Index() {
               data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"
             }
             lang={params.lang}
-          />
+          />*/}
 
           {data?.event && (
             <div className="mb-4">

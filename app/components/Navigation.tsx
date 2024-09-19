@@ -12,7 +12,7 @@ export const Navigation = ({ lang }: Props) => {
 
   return (
     <>
-      <div className="flex flex-row justify-center content-center w-full mt-4">
+      <div className="flex flex-row justify-center content-center w-full mt-4 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <Link
           to={lang == "en" ? "/en/meny" : "/meny"}
           className="text-white w-1/5 absolute left-0 text-left px-8 py-2 rounded self-center font-serif text-2xl lg:text-4xl hidden md:flex flex-row content-start"

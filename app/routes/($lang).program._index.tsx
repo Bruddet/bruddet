@@ -90,9 +90,9 @@ export default function Program() {
 
   return (
     <div className="flex flex-col grow items-center text-black font-serif">
-      <Navigation svgRef={""} svgTitle="" lang={location?.pathname} />
+      {/*      <Navigation svgRef={""} svgTitle="" lang={location?.pathname} />
+       */}{" "}
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
-
       <div className="flex flex-column w-[90vw]">
         <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
           {data?.links?.map((link, index) => (
