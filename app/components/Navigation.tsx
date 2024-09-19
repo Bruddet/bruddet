@@ -1,6 +1,7 @@
 import { useTranslation } from "~/utils/i18n";
 import Triangle from "~/assets/Triangle";
 import { Link, useLocation } from "@remix-run/react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   lang: string | undefined;
@@ -9,6 +10,16 @@ type Props = {
 
 export const Navigation = ({ lang }: Props) => {
   const location = useLocation();
+
+  const [newsletterMarqueeHeight, setNewsletterMarqueeHeight] = useState(14);
+
+  useEffect(() => {
+    // remix is server-side rendering, so document can only be access on the client-side after the component has mounted
+    setNewsletterMarqueeHeight(
+      document.getElementById("newsletter-marquee")?.offsetHeight || 14
+    );
+    console.log(newsletterMarqueeHeight);
+  }, []);
 
   const { t } = useTranslation();
   const pathsWithBlackText = ["/program", "/meny", "/en/program", "/en/meny"];
@@ -25,7 +36,7 @@ export const Navigation = ({ lang }: Props) => {
 
   return (
     <>
-      <div className="flex flex-row justify-center content-center w-full mt-4 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div className="flex flex-row justify-center content-center w-full fixed inset-y-1/2">
         <Link
           to={lang == "en" ? "/en/meny" : "/meny"}
           className={`left-0 text-left px-8 py-2 md:flex content-start ${navigationButtonStyle}`}

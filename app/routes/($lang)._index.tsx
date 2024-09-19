@@ -118,15 +118,11 @@ export default function Index() {
           />
         </div>
       )}
-      <div className="flex flex-col w-full overflow-hidden justify-between items-center">
-        <div className="">
-          <img
-            className="md:w-1/2"
-            src={SvgUrl}
-            alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
-          />
-        </div>
-      </div>
+      <img
+        className="md:w-1/2 m-auto"
+        src={SvgUrl}
+        alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
+      />
     </div>
   );
 }

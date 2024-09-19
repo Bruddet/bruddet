@@ -12,7 +12,8 @@ export function NewsletterMarquee() {
   return (
     <>
       <button
-        className={`overflow-hidden hidden md:flex sticky bottom-0 text-black border-t-2  ${
+        id="newsletter-marquee"
+        className={`overflow-hidden hidden z-30 md:flex sticky bottom-0 text-black border-t-2  ${
           displayText
             ? `border-t-white ${color !== "bg-white" ? color : "bg-black"}`
             : "border-t-[#24ED15] bg-[#24ED15]"
