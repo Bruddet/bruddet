@@ -12,7 +12,6 @@ import { Tickets } from "../components/Tickets";
 import ImageEventPage from "../components/Masks/ImageEventPage";
 import { getEventQuery } from "../queries/event-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
-import { FloatingBuyButton } from "../components/FloatingBuyButton";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
 import { useTranslation } from "../utils/i18n";
 import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
@@ -22,6 +21,7 @@ import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { RolesBlock } from "~/components/RolesBlock";
 import { EventLabels } from "~/components/EventLabels";
+import { ExpandableBlockComponent } from "~/components/ExpandableBlockComponent";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -172,7 +172,7 @@ export default function Event() {
   return (
     <>
       <div
-        className={`flex-col flex w-full sm:max-w-screen-sm mx-auto  ${textColor} p-4 gap-6 font-serif `}
+        className={`flex-col flex w-full  ${textColor} p-4 gap-6 font-serif `}
       >
         {image?.asset?._ref && (
           <ImageEventPage
@@ -183,7 +183,7 @@ export default function Event() {
           />
         )}
 
-        <h1 className={`text-2xl lg:text-4xl`}>{data.title}</h1>
+        <h1 className={`text-2xl lg:text-4xl mx-auto`}>{data.title}</h1>
 
         {dates && (
           <EventLabels
@@ -198,19 +198,54 @@ export default function Event() {
             textColorBorder={textColorBorder}
           />
         )}
-        {text && (
-          <PortableTextComponent
-            textData={text}
-            textStyle={portabletextStyle}
-            styleBlock={quoteStyle.styleBlock}
-            styleLink={quoteStyle.styleLink}
-            fillColor={quoteStyle.fillColor}
-          />
-        )}
-        {roleGroups?.map((group: QueriedRoleGroup, i: number) => (
-          <RolesBlock key={i} roleGroup={group} />
-        ))}
-        {data.dates && <Tickets color={textColor} dateTickets={data.dates} />}
+
+        <div className="flex flex-row">
+          <div className="w-full sm:w-[50%] flex flex-col mx-5">
+            {text && (
+              <PortableTextComponent
+                textData={data.text}
+                textStyle={portabletextStyle}
+                styleBlock={quoteStyle.styleBlock}
+                styleLink={quoteStyle.styleLink}
+                fillColor={quoteStyle.fillColor}
+                placedLeft={true}
+              />
+            )}
+            {roleGroups?.map((group, i) => (
+              <ExpandableBlockComponent title={group.name ?? ""} key={i}>
+                {group.persons?.map((p, k) => (
+                  <div key={k} className="flex flex-row mt-4 gap-6">
+                    <img
+                      src={urlFor(p.person?.image?.asset?._ref ?? "")}
+                      alt={p.person?.image?.alt ?? ""}
+                      className="w-28 h-36 object-cover"
+                    />
+                    <div>
+                      <h4 className="text-2xl mb-2">{p.occupation}</h4>
+                      <h5 className="text-lg mb-2">{p.person?.name}</h5>
+                      <span>{p.person?.text}</span>
+                    </div>
+                  </div>
+                ))}
+              </ExpandableBlockComponent>
+            ))}
+            {data.dates && (
+              <Tickets color={textColor} dateTickets={data.dates} />
+            )}{" "}
+          </div>
+          <div className="w-[50%] hidden sm:flex flex-col mx-5">
+            {text && (
+              <PortableTextComponent
+                textData={data.text}
+                textStyle={portabletextStyle}
+                styleBlock={quoteStyle.styleBlock}
+                styleLink={quoteStyle.styleLink}
+                fillColor={quoteStyle.fillColor}
+                placedLeft={false}
+              />
+            )}
+          </div>
+        </div>
       </div>
       {/*<FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />*/}
     </>

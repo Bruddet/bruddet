@@ -76,9 +76,7 @@ export function getSecondaryBackgroundColor(
       return "bg-beige";
   }
 }
-export function getSecondaryBorderColor(
-  colorCombination: colorCombinations | undefined
-) {
+export function getSecondaryBorderColor(colorCombination: string | undefined) {
   switch (colorCombination) {
     case "blueBlack":
       return "border-blueBlack-secondary";

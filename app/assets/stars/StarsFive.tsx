@@ -2,6 +2,7 @@ export default function StarsFive() {
   return (
     <svg
       width="464"
+      style={{ maxWidth: "100%" }}
       height="80"
       viewBox="0 0 464 80"
       fill="none"
