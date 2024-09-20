@@ -21,6 +21,7 @@ import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { EventLabels } from "~/components/EventLabels";
 import { RolesBlock } from "~/components/RolesBlock";
+import BuyButtonFooter from "~/components/BuyButtonFooter";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -206,6 +207,7 @@ export default function Event() {
           </div>
         </div>
       </div>
+      <BuyButtonFooter handleScroll={handleScroll} />
       {/*<FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />*/}
     </>
   );
