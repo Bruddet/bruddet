@@ -68,6 +68,15 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type QuoteBomb = {
+  _id: string;
+  _type: "quoteBomb";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  quote?: string;
+};
+
 export type EventGenre = "Konsert" | "Skuespill";
 
 export type Review = {
@@ -152,13 +161,6 @@ export type Content = Array<{
   _type: "video";
   _key: string;
 } | {
-  content?: string;
-  source?: string;
-  company?: string;
-  date?: string;
-  _type: "quote";
-  _key: string;
-} | {
   type?: "dice" | "stars";
   score?: number;
   content?: string;
@@ -203,6 +205,10 @@ export type Content = Array<{
   }>;
   _type: "expandableBlock";
   _key: string;
+} | {
+  quote?: string;
+  _type: "quoteBomb";
+  _key: string;
 }>;
 
 export type ExpandableContent = Array<{
@@ -245,18 +251,6 @@ export type ExpandableBlock = {
   _rev: string;
   title?: string;
   content?: ExpandableContent;
-};
-
-export type Quote = {
-  _id: string;
-  _type: "quote";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  content?: string;
-  source?: string;
-  company?: string;
-  date?: string;
 };
 
 export type SanityImageCrop = {
@@ -688,7 +682,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | MetaDescription | MetaTitle | Video | RoleGroup | Content | ExpandableContent | ExpandableBlock | Quote | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Menupage | Frontpage | Article | Event | Person | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | QuoteBomb | EventGenre | Review | ImageMask | MetaDescription | MetaTitle | Video | RoleGroup | Content | ExpandableContent | ExpandableBlock | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Menupage | Frontpage | Article | Event | Person | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -785,11 +779,8 @@ export type ARTICLE_QUERYResult = {
     _type: "expandableBlock";
     _key: string;
   } | {
-    content?: string;
-    source?: string;
-    company?: string;
-    date?: string;
-    _type: "quote";
+    quote?: string;
+    _type: "quoteBomb";
     _key: string;
   } | {
     type?: "dice" | "stars";
@@ -936,11 +927,8 @@ export type EVENT_QUERYResult = {
     _type: "expandableBlock";
     _key: string;
   } | {
-    content?: string;
-    source?: string;
-    company?: string;
-    date?: string;
-    _type: "quote";
+    quote?: string;
+    _type: "quoteBomb";
     _key: string;
   } | {
     type?: "dice" | "stars";

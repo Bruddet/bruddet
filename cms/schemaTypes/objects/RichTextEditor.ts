@@ -26,5 +26,8 @@ export default {
     {
       type: "expandableBlock",
     },
+    {
+      type: "quoteBomb",
+    },
   ],
 };
