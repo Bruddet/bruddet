@@ -126,7 +126,7 @@ export default function Program() {
                   <img
                     className="inline-block object-cover w-full h-full"
                     src={urlFor(link?.image?.asset?._ref ?? "")}
-                    alt={""}
+                    alt={link?.image?.alt ?? ""}
                     key={index}
                   />
                 </div>

@@ -12,28 +12,23 @@ export default function StickyFooter() {
 
   return (
     <footer
-      className={`md:hidden w-full bottom-0 mt-auto sticky border-t text-${textcolor} ${color} font-serif text-2xl border-${textcolor} shadow py-2 z-10 `}
+      className={`md:hidden py-6 flex flex-row justify-center align-middle gap-10 w-full bottom-0 sticky border-t border-${textcolor} text-${textcolor} ${color} font-serif text-2xl `}
     >
-      <ul className="flex flex-row justify-center">
-        <li>
-          <Link
-            to={isEnglish ? "/en" + "/meny" : "/meny"}
-            aria-label={t(texts.menuText)}
-            className="hover:underline me-12 w-1/2 "
-          >
-            MENY
-          </Link>
-        </li>
-        <li>
-          <Link
-            to={isEnglish ? "/en" + "/program" : "/program"}
-            aria-label={t(texts.menuText)}
-            className="hover:underline me-6 w-1/2"
-          >
-            PROGRAM
-          </Link>
-        </li>
-      </ul>
+      <Link
+        to={isEnglish ? "/en" + "/meny" : "/meny"}
+        aria-label={t(texts.menuText)}
+        className="hover:underline"
+      >
+        MENY
+      </Link>
+
+      <Link
+        to={isEnglish ? "/en" + "/program" : "/program"}
+        aria-label={t(texts.menuText)}
+        className="hover:underline"
+      >
+        PROGRAM
+      </Link>
     </footer>
   );
 }

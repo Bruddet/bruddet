@@ -120,7 +120,11 @@ export default function Index() {
             />
           </div>
         )}
-        <img className="md:w-1/2 m-auto" src={SvgUrl} alt={"Logo"} />
+        <img
+          className="md:w-1/2 m-auto"
+          src={SvgUrl}
+          alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
+        />
       </div>
       <StickyFooter />
     </>
