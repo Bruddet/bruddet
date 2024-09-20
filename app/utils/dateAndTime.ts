@@ -98,9 +98,9 @@ export function formatTimestamp(date: string, language: string) {
     case "en":
       return `${hours}:${minutes}`;
     case "nb":
-      return `kl. ${hours}:${minutes}`;
+      return `KL. ${hours}:${minutes}`;
     default:
-      return `kl. ${hours}:${minutes}`;
+      return `KL. ${hours}:${minutes}`;
   }
 }
 
