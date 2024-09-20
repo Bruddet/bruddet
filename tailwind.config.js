@@ -3,7 +3,7 @@ export default {
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   theme: {
     fontFamily: {
-      serif: ['"PT Serif"'],
+      serif: ["PT Serif"],
       sans: ["calibri"],
     },
     extend: {

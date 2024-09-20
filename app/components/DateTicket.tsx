@@ -23,8 +23,8 @@ export const DateTicket = ({ dateTicket, color = "black" }: Props) => {
 
   return (
     <div className={`flex flex-col gap-2 my-4 ${textColor}`}>
-      <p className="capitalize text-2xl">{formattedDate}</p>
-      <p>{formattedTimestamp}</p>
+      <p className="capitalize font-bold text-3xl">{formattedDate}</p>
+      <p className="font-bold text-xl">{formattedTimestamp}</p>
       {status && <p>{status}</p>}
       <button
         disabled={dateTicket.status === 3}
