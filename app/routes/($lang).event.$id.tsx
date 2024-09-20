@@ -160,7 +160,9 @@ export default function Event() {
         )}
 
         {ingress && (
-          <p className="text-lg lg:text-3xl mx-auto font-bold">{ingress}</p>
+          <p className="text-lg lg:text-3xl mx-auto max-w-[1000px] px-5 font-bold">
+            {ingress}
+          </p>
         )}
 
         {dates && (
