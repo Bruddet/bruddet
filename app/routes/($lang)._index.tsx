@@ -1,10 +1,9 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { useLoaderData, Link, useParams } from "@remix-run/react";
+import { useLoaderData, Link, useParams, useLocation } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "../../sanity.types";
 import { getFrontpageQuery } from "../queries/frontpage-queries";
 import urlFor from "../utils/imageUrlBuilder";
-import GreenButton from "../assets/GreenButton";
-import Newsletter from "../components/Newsletter";
+import HexagonBuyButton from "../assets/HexagonBuyButton";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
@@ -12,7 +11,8 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
-import GreenTriangle from "~/assets/GreenTriangle";
+import { Navigation } from "~/components/Navigation";
+import StickyFooter from "~/components/StickyFooter";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -90,6 +90,7 @@ export default function Index() {
   const imageUrl = urlFor(
     data?.event?.image?.asset?._ref || data?.image?.asset?._ref || ""
   );
+
   const SvgUrl = urlFor(
     data?.event?.svgTitle?.asset?._ref || data?.svgTitle?.asset?._ref || ""
   );
@@ -99,92 +100,34 @@ export default function Index() {
   useEffect(() => {
     setColor("bg-beige");
   }, [setColor]);
-  const params = useParams();
 
   return (
-    <div
-      className="flex grow bg-cover bg-center bg-no-repeat w-full font-serif"
-      style={{
-        backgroundImage: `url(${imageUrl})`,
-      }}
-      aria-label={
-        data?.event?.image?.alt || data?.image?.alt || "Background image"
-      }
-    >
-      <div className="flex flex-col w-full overflow-hidden">
-        <div className="text-white text-xl mt-10 flex flex-col items-center">
-          <Newsletter />
-        </div>
+    <>
+      <div
+        className="flex grow bg-cover bg-center bg-no-repeat w-full font-serif"
+        style={{
+          backgroundImage: `url(${imageUrl})`,
+        }}
+        aria-label={"Background image"}
+      >
+        <Navigation />
 
-        <div
-          className={`flex flex-1 flex-col items-center justify-center mx-4`}
-        >
-          <div className="flex flex-row justify-center content-center w-full mt-4">
-            <Link
-              to={params.lang == "en" ? "/en/meny" : "/meny"}
-              className="text-white w-1/5  text-left px-4 py-2 rounded self-center font-serif text-2xl lg:text-4xl hidden md:flex flex-row content-start"
-              aria-label={t(texts.menuText)}
-            >
-              <div className="self-center animate-horizontal-bounce-left ">
-                <GreenTriangle direction="left" />
-              </div>
-              <div className="px-4">{t(texts.menuButton)}</div>
-            </Link>
-            <img
-              className="md:w-1/2"
-              src={SvgUrl}
-              alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
+        {data?.event && (
+          <div className="absolute right-16 top-16">
+            <HexagonBuyButton
+              slug={data?.event?.slug?.current}
+              text={t(texts.buyTicket)}
             />
-            <Link
-              to={params.lang == "en" ? "/en/program" : "/program"}
-              className="text-white w-1/5 px-4 py-2 text-right rounded self-center font-serif text-2xl lg:text-4xl flex-row content-end hidden md:flex"
-              aria-label={t(texts.programText)}
-            >
-              <div className="px-4 ml-auto">Program</div>
-              <div className="self-center animate-horizontal-bounce-right">
-                <GreenTriangle direction="right" />
-              </div>
-            </Link>
           </div>
-          <div className="flex md:hidden flex-row  w-full mt-4">
-            <Link
-              to={params.lang == "en" ? "/en/meny" : "/meny"}
-              className="text-white w-1/2  text-left py-2 rounded self-center font-serif text-2xl lg:text-4xl flex flex-row content-start"
-              aria-label={t(texts.menuText)}
-            >
-              <div className="self-center ml-auto animate-horizontal-bounce-left ">
-                <GreenTriangle direction="left" />
-              </div>
-              <div className="px-4">{t(texts.menuButton)}</div>
-            </Link>
-            <Link
-              to={params.lang == "en" ? "/en/program" : "/program"}
-              className="text-white w-1/2 py-2 text-right rounded self-center font-serif text-2xl lg:text-4xl flex-row content-end flex"
-              aria-label={t(texts.programText)}
-            >
-              <div className="px-4">Program</div>
-              <div className="self-center animate-horizontal-bounce-right">
-                <GreenTriangle direction="right" />
-              </div>
-            </Link>
-          </div>
-
-          {data?.event && (
-            <div className="mb-4">
-              <Link
-                to={
-                  "/event/" + data?.event?.slug?.current + "#tickets" ||
-                  "/event"
-                }
-              >
-                <button aria-label={t(texts.buyTicket)}></button>
-                <GreenButton text={t(texts.buyTicket)} />
-              </Link>
-            </div>
-          )}
-        </div>
+        )}
+        <img
+          className="md:w-1/2 m-auto"
+          src={SvgUrl}
+          alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
+        />
       </div>
-    </div>
+      <StickyFooter />
+    </>
   );
 }
 

@@ -1,5 +1,11 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
+import {
+  Link,
+  MetaFunction,
+  useLoaderData,
+  useLocation,
+  useParams,
+} from "@remix-run/react";
 import { useEffect } from "react";
 import { MENUPAGE_QUERYResult } from "../../sanity.types";
 import { getMenuPageQuery } from "../queries/menu-queries";
@@ -9,6 +15,8 @@ import { loadQuery } from "../../cms/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
+import { Navigation } from "~/components/Navigation";
+import StickyFooter from "~/components/StickyFooter";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -92,6 +100,8 @@ export default function Info() {
   const { t } = useTranslation();
   return (
     <div className="flex flex-col grow items-center text-[#1B1C20] font-serif">
+      <Navigation />
+
       <h1 className="text-5xl font-bold mb-12">{data?.title}</h1>
       <div className="flex flex-col items-center text-center gap-4 text-xl py-12 px-0">
         {data?.links?.map((link, index) => (
@@ -116,6 +126,7 @@ export default function Info() {
           </p>
         </Link>
       </div>
+      <StickyFooter />
     </div>
   );
 }

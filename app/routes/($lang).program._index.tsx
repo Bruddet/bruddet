@@ -1,5 +1,11 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
+import {
+  Link,
+  MetaFunction,
+  useLoaderData,
+  useLocation,
+  useParams,
+} from "@remix-run/react";
 import { useEffect, useState } from "react";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { PROGRAMPAGE_QUERYResult } from "../../sanity.types";
@@ -11,7 +17,8 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
 import { DatesLabel } from "~/components/EventLabels";
-import { getColor, getPrimaryBorderColor } from "~/utils/colorCombinations";
+import { Navigation } from "~/components/Navigation";
+import StickyFooter from "~/components/StickyFooter";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -42,7 +49,7 @@ export const meta: MetaFunction<typeof loader> = ({ location, data }) => {
     ];
   }
 
-  const path = location.pathname;
+  const path = location?.pathname;
   let language = "nb";
   if (path.includes("/en")) {
     language = "en";
@@ -89,6 +96,8 @@ export default function Program() {
 
   return (
     <div className="flex flex-col grow items-center text-black font-serif">
+      <Navigation />
+
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
       <div className="flex flex-column w-[90vw]">
         <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
@@ -142,10 +151,11 @@ export default function Program() {
           <img
             src={gifUrl}
             alt={data.gif.alt}
-            className="hidden absolute md:block w-1/3 max-h-[500px] object-cover right-10"
+            className="hidden absolute md:block max-h-[300px] object-cover right-10"
           />
         )}
       </div>
+      <StickyFooter />
     </div>
   );
 }
