@@ -2,6 +2,9 @@
 
 This is the repository contains Bruddet's frontend and cms application
 
+## .env.local
+You will need a .env.local file for the api tokens. Copy and rename the .env file and replace SANITY_EDITOR_TOKEN, SANITY_EDITOR_TOKEN. These tokens are stored in "basen - shared" in 1Password. New tokens can be generated in api/tokens where you manage the Sanity project (https://www.sanity.io/organizations/oY2dfMupw/project/0chpibsu/api#tokens). 
+
 ## Run project
 To run a development version of the project locally run the following command in the root folder:
 ```
