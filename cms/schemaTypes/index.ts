@@ -3,7 +3,6 @@ import { articleType } from "./articleType";
 import { eventType } from "./eventType";
 import { personType } from "./personType";
 import customImage from "./objects/customImage";
-import { quoteType } from "./objects/quoteType";
 import RichTextEditor from "./objects/RichTextEditor";
 import { videoType } from "./objects/videoType";
 import metaTitle from "./objects/metaTitle";
@@ -24,7 +23,6 @@ export const schemaTypes = [
   personType,
   customImage,
   menuPage,
-  quoteType,
   expandableBlockType,
   expandableContent,
   RichTextEditor,

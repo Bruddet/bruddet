@@ -21,9 +21,6 @@ export default {
       type: "video",
     },
     {
-      type: "quote",
-    },
-    {
       type: "review",
     },
     {
