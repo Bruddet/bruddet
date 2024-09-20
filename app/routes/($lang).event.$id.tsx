@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import {
-  Custom_EVENT_QUERYResult,
-  QueriedRoleGroup,
-} from "../../cms/customTypes";
+import { Custom_EVENT_QUERYResult } from "../../cms/customTypes";
 import { getColor } from "../utils/colorCombinations";
 import PortableTextComponent from "../components/PortableTextComponent";
 import urlFor from "../utils/imageUrlBuilder";
@@ -19,7 +16,6 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
-import { RolesBlock } from "~/components/RolesBlock";
 import { EventLabels } from "~/components/EventLabels";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -100,7 +96,6 @@ export default function Event() {
     });
   }
 
-  const [viewScale, setViewScale] = useState(1);
   const { language } = useTranslation();
 
   const {
@@ -142,46 +137,22 @@ export default function Event() {
     }
   }, [bgColor, data?._translations, language, setColor, setSlug]);
 
-  useEffect(() => {
-    const updateViewScale = () => {
-      if (window.outerWidth > 768) {
-        setViewScale(2.4);
-      } else if (window.outerWidth < 320) {
-        setViewScale(0.6);
-      } else if (320 <= window.outerWidth && window.outerWidth < 640) {
-        const widthScale = 640 - 320;
-        const imageScale = 1.4 - 0.6;
-        const width = window.outerWidth;
-        const scale = width / (widthScale / imageScale);
-        setViewScale(scale);
-      } else {
-        const widthScale = 1024 - 640;
-        const imageScale = 2.25 - 1.2;
-        const width = window.outerWidth;
-        const scale = width / (widthScale / imageScale);
-        setViewScale(scale);
-      }
-    };
-    updateViewScale();
-    window.addEventListener("resize", updateViewScale);
-  }, []);
-
   useBuyButtonObserver();
+  const SvgUrl = urlFor(
+    data?.svgTitle?.asset?._ref || data?.svgTitle?.asset?._ref || ""
+  );
 
   return (
     <>
-      <div
-        className={`flex-col flex w-full  ${textColor} p-4 gap-6 font-serif `}
-      >
+      <div className={`flex-col flex w-full  ${textColor} gap-6 font-serif `}>
         {image?.asset?._ref && (
           <ImageEventPage
             url={urlFor(image.asset._ref, data.image?.hotspot)}
             alt={data?.title || ""}
-            scale={viewScale}
-            imageMaskType={data?.imageMask || ""}
+            svgUrl={SvgUrl}
+            svgAlt={data?.svgTitle?.alt || ""}
           />
         )}
-
         <h1 className={`text-2xl lg:text-4xl mx-auto`}>{data.title}</h1>
 
         {dates && (
