@@ -174,35 +174,45 @@ export default function Event() {
         )}
 
         <div className="flex flex-row">
-          <div className="w-full sm:w-[50%] flex flex-col mx-5">
-            {text && (
-              <PortableTextComponent
-                textData={data.text}
-                textStyle={portabletextStyle}
-                styleBlock={quoteStyle.styleBlock}
-                styleLink={quoteStyle.styleLink}
-                fillColor={quoteStyle.fillColor}
-                placedLeft={true}
-              />
-            )}
-            {roleGroups?.map((group: QueriedRoleGroup, i: number) => (
-              <RolesBlock roleGroup={group} key={i} />
-            ))}
-            {data.dates && (
-              <Tickets color={textColor} dateTickets={data.dates} />
-            )}{" "}
+          <div className="w-full sm:w-[50%] flex flex-col ">
+            <div
+              className={`prose ${portabletextStyle} font-serif text-base mr-5 ml-auto pl-5`}
+            >
+              {text && (
+                <PortableTextComponent
+                  textData={data.text}
+                  textStyle={portabletextStyle}
+                  styleBlock={quoteStyle.styleBlock}
+                  styleLink={quoteStyle.styleLink}
+                  fillColor={quoteStyle.fillColor}
+                  placedLeft={true}
+                />
+              )}
+            </div>
+            <div className="w-[65ch] ml-auto max-w-full mr-5 pl-5">
+              {roleGroups?.map((group: QueriedRoleGroup, i: number) => (
+                <RolesBlock roleGroup={group} key={i} />
+              ))}
+              {data.dates && (
+                <Tickets color={textColor} dateTickets={data.dates} />
+              )}
+            </div>
           </div>
-          <div className="w-[50%] hidden sm:flex flex-col mx-5">
-            {text && (
-              <PortableTextComponent
-                textData={data.text}
-                textStyle={portabletextStyle}
-                styleBlock={quoteStyle.styleBlock}
-                styleLink={quoteStyle.styleLink}
-                fillColor={quoteStyle.fillColor}
-                placedLeft={false}
-              />
-            )}
+          <div className="w-[50%] hidden sm:flex flex-col ">
+            <div
+              className={`prose ${portabletextStyle} font-serif text-base ml-5 mr-auto pr-5`}
+            >
+              {text && (
+                <PortableTextComponent
+                  textData={data.text}
+                  textStyle={portabletextStyle}
+                  styleBlock={quoteStyle.styleBlock}
+                  styleLink={quoteStyle.styleLink}
+                  fillColor={quoteStyle.fillColor}
+                  placedLeft={false}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
