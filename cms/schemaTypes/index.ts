@@ -15,6 +15,7 @@ import { programpage } from "./programpage";
 import { expandableBlockType } from "./objects/expandableBlockType";
 import { menuPage } from "./menupage";
 import expandableContent from "./objects/expandableContent";
+import quoteBomb from "./objects/quoteBomb";
 
 export const schemaTypes = [
   articleType,
@@ -34,4 +35,5 @@ export const schemaTypes = [
   reviewType,
   eventGenre,
   programpage,
+  quoteBomb,
 ];

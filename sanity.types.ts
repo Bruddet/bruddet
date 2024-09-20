@@ -68,6 +68,15 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type QuoteBomb = {
+  _id: string;
+  _type: "quoteBomb";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  quote?: string;
+};
+
 export type EventGenre = "Konsert" | "Skuespill";
 
 export type Review = {
@@ -195,6 +204,10 @@ export type Content = Array<{
     _key: string;
   }>;
   _type: "expandableBlock";
+  _key: string;
+} | {
+  quote?: string;
+  _type: "quoteBomb";
   _key: string;
 }>;
 
@@ -670,7 +683,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | EventGenre | Review | ImageMask | MetaDescription | MetaTitle | Video | RoleGroup | Content | ExpandableContent | ExpandableBlock | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Menupage | Frontpage | Article | Event | Person | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | QuoteBomb | EventGenre | Review | ImageMask | MetaDescription | MetaTitle | Video | RoleGroup | Content | ExpandableContent | ExpandableBlock | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Menupage | Frontpage | Article | Event | Person | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -765,6 +778,10 @@ export type ARTICLE_QUERYResult = {
       _key: string;
     }>;
     _type: "expandableBlock";
+    _key: string;
+  } | {
+    quote?: string;
+    _type: "quoteBomb";
     _key: string;
   } | {
     type?: "dice" | "stars";
@@ -910,6 +927,10 @@ export type EVENT_QUERYResult = {
       _key: string;
     }>;
     _type: "expandableBlock";
+    _key: string;
+  } | {
+    quote?: string;
+    _type: "quoteBomb";
     _key: string;
   } | {
     type?: "dice" | "stars";
