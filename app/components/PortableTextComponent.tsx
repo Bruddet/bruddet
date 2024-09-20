@@ -6,6 +6,7 @@ import { ReviewComponent } from "./ReviewComponent";
 import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { stegaClean } from "@sanity/client/stega";
 import Dice from "./Dice";
+import { QuoteBomb } from "./QuoteBomb";
 
 export interface PortableTextProps {
   textData?: CustomContent;
@@ -120,6 +121,17 @@ export default function PortableTextComponent({
               textStyle={textStyle}
               content={value.content}
             ></ExpandableBlockComponent>
+          </div>
+        );
+      },
+      quoteBomb: ({
+        value,
+      }: PortableTextComponentProps<{
+        quote: string;
+      }>) => {
+        return (
+          <div className={placedLeft ? "sm:hidden" : ""}>
+            <QuoteBomb quote={value.quote} />
           </div>
         );
       },
