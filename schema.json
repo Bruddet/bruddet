@@ -3801,6 +3801,13 @@
         },
         "optional": true
       },
+      "ingress": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "dates": {
         "type": "objectAttribute",
         "value": {

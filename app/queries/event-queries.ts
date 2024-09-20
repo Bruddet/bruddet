@@ -29,6 +29,7 @@ export function getEventQuery(params: Params<string>) {
     dates, 
     duration,
     labels,
+    ingress,
     svgTitle,
     text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},
     eventGenre, 

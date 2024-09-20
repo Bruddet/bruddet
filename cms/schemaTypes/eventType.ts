@@ -99,6 +99,16 @@ export const eventType = defineType({
       },
     }),
     defineField({
+      name: "ingress",
+      title: "Ingress",
+      type: "string",
+      group: "content",
+      validation: (rule) => [
+        rule.required().min(2).error("Ingress er påkrevd."),
+        rule.max(200).warning("Anbefaler kortere ingress."),
+      ],
+    }),
+    defineField({
       name: "dates",
       title: "Datoer",
       description:

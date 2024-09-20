@@ -112,6 +112,7 @@ export default function Event() {
     labels,
     eventGenre,
     duration,
+    ingress,
   } = data;
   const handleScroll = () => {
     const target = document.getElementById("tickets");
@@ -157,7 +158,10 @@ export default function Event() {
             svgAlt={data?.svgTitle?.alt || ""}
           />
         )}
-        <h1 className={`text-2xl lg:text-4xl mx-auto`}>{data.title}</h1>
+
+        {ingress && (
+          <p className="text-lg lg:text-3xl mx-auto font-bold">{ingress}</p>
+        )}
 
         {dates && (
           <EventLabels
