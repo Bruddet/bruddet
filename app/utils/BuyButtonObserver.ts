@@ -41,7 +41,7 @@ function toggleButtonVisibility(button: HTMLElement, list: HTMLElement) {
     : false;
 
   button.style.display =
-    listIsVisible || productionInfoIsVisible ? "none" : "block";
+    listIsVisible || productionInfoIsVisible ? "hidden" : "";
 }
 
 function elementIsVisibleInViewPort(
