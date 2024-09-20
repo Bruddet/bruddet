@@ -29,8 +29,6 @@ import { lazy, Suspense, useRef } from "react";
 import { ExitPreview } from "./components/ExitPreview";
 import { loadQueryOptions } from "../cms/loadQueryOptions.server";
 import NewsletterMarquee from "./components/NewsletterMarquee";
-import { motion } from "framer-motion";
-import { Navigation } from "./components/Navigation";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
@@ -80,7 +78,6 @@ export const loader: LoaderFunction = async ({ request }) => {
     throw redirect(`${pathname.slice(0, -1)}${search}`, 301);
   }
   const language = getLanguageFromPath(pathname);
-  const isIframe = request.headers.get("sec-fetch-dest") === "iframe";
 
   return {
     language: language,
@@ -98,6 +95,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/logo.png" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet"
+        ></link>
         <Meta />
         <Links />
       </head>
@@ -132,7 +139,7 @@ export default function App() {
           <Header />
           <LanguageButton />
 
-          <div className="flex grow flex-col" id="main">
+          <div className="flex grow flex-col font-serif" id="main">
             <Outlet />
             {pathsWithNewsletter.includes(location.pathname) && (
               <>

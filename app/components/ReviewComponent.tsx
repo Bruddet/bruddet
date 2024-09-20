@@ -76,7 +76,7 @@ export function ReviewComponent({
 }: ReviewProps) {
   return (
     <blockquote className={styleBlock || ""}>
-      <span className="font-bold text-4xl">{review.content}</span>
+      <span className=" not-italic text-3xl">&quot;{review.content}&quot;</span>
       <span className="not-italic">{review.source}</span>
       {review.link ? (
         <a href={review.link} className={styleLink}>

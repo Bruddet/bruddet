@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { Custom_EVENT_QUERYResult } from "../../cms/customTypes";
+import {
+  Custom_EVENT_QUERYResult,
+  QueriedRoleGroup,
+} from "../../cms/customTypes";
 import { getColor } from "../utils/colorCombinations";
 import PortableTextComponent from "../components/PortableTextComponent";
 import urlFor from "../utils/imageUrlBuilder";
@@ -17,6 +20,7 @@ import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { EventLabels } from "~/components/EventLabels";
+import { RolesBlock } from "~/components/RolesBlock";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -182,7 +186,7 @@ export default function Event() {
               />
             )}
             {roleGroups?.map((group: QueriedRoleGroup, i: number) => (
-              <RolesBlock roleGroup={group} />
+              <RolesBlock roleGroup={group} key={i} />
             ))}
             {data.dates && (
               <Tickets color={textColor} dateTickets={data.dates} />
