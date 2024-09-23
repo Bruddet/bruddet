@@ -23,6 +23,7 @@ export const QuoteBomb = ({ quote }: Props) => {
         height="360"
         viewBox="0 0 474 360"
         fill="none"
+        style={{ maxWidth: "100%" }}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
