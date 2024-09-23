@@ -49,13 +49,20 @@ export default function PortableTextComponent({
       block: ({
         value,
       }: PortableTextComponentProps<{
-        children: { text: string }[];
+        children: { text: string, marks: string[] }[];
       }>) => {
         return (
           <div className={!placedLeft ? "sm:hidden" : " leading-6 "}>
-            {value.children.map((child, i) => (
+            <>
+            {value.children.filter(v => v.marks.includes("strong")).map((child, i) => (
+              <b key={i}>{child.text}</b>
+            ))}
+            </>
+            <>
+            {value.children.filter(v => v.marks.length === 0).map((child, i) => (
               <p key={i}>{child.text}</p>
             ))}
+            </>
           </div>
         );
       },
