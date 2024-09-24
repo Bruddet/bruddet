@@ -199,7 +199,6 @@ export default function Event() {
         </div>
       </div>
       <BuyButtonFooter handleScroll={handleScroll} />
-      {/*<FloatingBuyButton handleScroll={handleScroll} textColor={textColor} />*/}
     </>
   );
 }
