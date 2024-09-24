@@ -14,7 +14,6 @@ export interface PortableTextProps {
   styleBlock?: string;
   styleLink?: string;
   fillColor?: string;
-  placedLeft?: boolean;
 }
 
 export default function PortableTextComponent({
@@ -23,7 +22,6 @@ export default function PortableTextComponent({
   styleBlock,
   styleLink,
   fillColor,
-  placedLeft = true,
 }: PortableTextProps) {
   const customComponents = {
     types: {
@@ -35,7 +33,7 @@ export default function PortableTextComponent({
         credit: string;
       }>) => {
         return (
-          <div className={placedLeft ? "sm:hidden" : "sm:mb-20"}>
+          <div>
             <img
               src={urlFor(value.asset._ref)}
               alt={value.alt}
@@ -46,19 +44,6 @@ export default function PortableTextComponent({
           </div>
         );
       },
-      block: ({
-        value,
-      }: PortableTextComponentProps<{
-        children: { text: string }[];
-      }>) => {
-        return (
-          <div className={!placedLeft ? "sm:hidden" : " leading-6 "}>
-            {value.children.map((child, i) => (
-              <p key={i}>{child.text}</p>
-            ))}
-          </div>
-        );
-      },
       video: ({
         value,
       }: PortableTextComponentProps<{
@@ -66,13 +51,11 @@ export default function PortableTextComponent({
         title: string;
       }>) => {
         return value.muxVideo?.asset ? (
-          <div className={placedLeft ? "sm:hidden" : "sm:mb-20"}>
-            <MuxPlayer
-              disableCookies={true}
-              playbackId={stegaClean(value.muxVideo.asset?.playbackId)}
-              metadata={value.title ? { video_title: value.title } : undefined}
-            />
-          </div>
+          <MuxPlayer
+            disableCookies={true}
+            playbackId={stegaClean(value.muxVideo.asset?.playbackId)}
+            metadata={value.title ? { video_title: value.title } : undefined}
+          />
         ) : null;
       },
       dice: ({
@@ -81,11 +64,7 @@ export default function PortableTextComponent({
         content: string;
         diceValue: number;
       }>) => {
-        return (
-          <div className={!placedLeft ? "sm:hidden" : ""}>
-            <Dice content={value.content} dice={value.diceValue} />
-          </div>
-        );
+        return <Dice content={value.content} dice={value.diceValue} />;
       },
       review: ({
         value,
@@ -97,14 +76,12 @@ export default function PortableTextComponent({
         link?: string;
       }>) => {
         return (
-          <div className={!placedLeft ? "sm:hidden" : ""}>
-            <ReviewComponent
-              review={value}
-              styleBlock={styleBlock}
-              styleLink={styleLink}
-              fillColor={fillColor}
-            />
-          </div>
+          <ReviewComponent
+            review={value}
+            styleBlock={styleBlock}
+            styleLink={styleLink}
+            fillColor={fillColor}
+          />
         );
       },
       expandableBlock: ({
@@ -115,13 +92,11 @@ export default function PortableTextComponent({
         textStyle: string;
       }>) => {
         return (
-          <div className={!placedLeft ? "sm:hidden" : ""}>
-            <ExpandableBlockComponent
-              title={value.title}
-              textStyle={textStyle}
-              content={value.content}
-            ></ExpandableBlockComponent>
-          </div>
+          <ExpandableBlockComponent
+            title={value.title}
+            textStyle={textStyle}
+            content={value.content}
+          ></ExpandableBlockComponent>
         );
       },
       quoteBomb: ({
@@ -129,20 +104,50 @@ export default function PortableTextComponent({
       }: PortableTextComponentProps<{
         quote: string;
       }>) => {
-        return (
-          <div className={placedLeft ? "sm:hidden" : ""}>
-            <QuoteBomb quote={value.quote} />
-          </div>
-        );
+        return <QuoteBomb quote={value.quote} />;
       },
     },
   };
 
+  const rightBlocks = ["block"];
+
+  const leftBlocks = [
+    "review",
+    "quoteBomb",
+    "expandableBlock",
+    "dice",
+    "video",
+    "customImage",
+  ];
+
   return (
-    <div className={`prose ${textStyle} font-serif text-base`}>
-      {textData && (
-        <PortableText value={textData} components={customComponents} />
-      )}
+    <div className="flex flex-row gap-10 font-serif text-2xl">
+      <div className="w-full">
+        <div className="max-w-xl">
+          {textData?.map(
+            (data, index) =>
+              rightBlocks.includes(data._type) && (
+                <PortableText
+                  key={index}
+                  value={data}
+                  components={customComponents}
+                />
+              )
+          )}
+        </div>
+      </div>
+      <div className={`${textStyle}`}>
+        {textData?.map(
+          (data, index) =>
+            leftBlocks.includes(data._type) && (
+              <PortableText
+                key={index}
+                value={data}
+                components={customComponents}
+              />
+            )
+        )}
+      </div>
     </div>
   );
 }
