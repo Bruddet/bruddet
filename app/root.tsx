@@ -29,6 +29,7 @@ import { lazy, Suspense, useRef } from "react";
 import { ExitPreview } from "./components/ExitPreview";
 import { loadQueryOptions } from "../cms/loadQueryOptions.server";
 import NewsletterMarquee from "./components/NewsletterMarquee";
+import "./styles/global.css";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 

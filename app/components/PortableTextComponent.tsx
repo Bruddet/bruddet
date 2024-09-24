@@ -37,7 +37,7 @@ export default function PortableTextComponent({
             <img
               src={urlFor(value.asset._ref)}
               alt={value.alt}
-              style={{ maxWidth: "100%" }}
+              style={{ width: "30em" }}
               className="mb-1"
             />
             <p className="mt-1">{value.credit}</p>
@@ -121,30 +121,30 @@ export default function PortableTextComponent({
   ];
 
   return (
-    <div className="flex flex-row gap-10 font-serif text-2xl">
-      <div className="w-full">
-        <div className="max-w-xl">
-          {textData?.map(
-            (data, index) =>
-              rightBlocks.includes(data._type) && (
-                <PortableText
-                  key={index}
-                  value={data}
-                  components={customComponents}
-                />
-              )
-          )}
-        </div>
-      </div>
-      <div className={`${textStyle}`}>
+    <div className="grid grid-cols-2 gap-10 font-serif text-xl">
+      <div className="w-4/5">
         {textData?.map(
           (data, index) =>
-            leftBlocks.includes(data._type) && (
+            rightBlocks.includes(data._type) && (
               <PortableText
                 key={index}
                 value={data}
                 components={customComponents}
               />
+            )
+        )}
+      </div>
+      <div className={`${textStyle} w-4/5 justify-self-end`}>
+        {textData?.map(
+          (data, index) =>
+            leftBlocks.includes(data._type) && (
+              <div className="my-14">
+                <PortableText
+                  key={index}
+                  value={data}
+                  components={customComponents}
+                />
+              </div>
             )
         )}
       </div>
