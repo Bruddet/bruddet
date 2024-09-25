@@ -51,7 +51,7 @@ export default function LanguageButton() {
   }
 
   return (
-    <div className={`absolute top-0 right-0 m-4 ${textColor}`}>
+    <div className={`px-4 ${textColor}`}>
       <button
         onClick={() => setLanguage("NO")}
         disabled={!isEnglish}

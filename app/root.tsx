@@ -25,7 +25,7 @@ import {
 import LanguageButton from "./components/LanguageButton";
 import { SlugProvider } from "./utils/i18n/SlugProvider";
 import NoTranslation from "./components/NoTranslation";
-import { lazy, Suspense, useRef } from "react";
+import { lazy, Suspense } from "react";
 import { ExitPreview } from "./components/ExitPreview";
 import { loadQueryOptions } from "../cms/loadQueryOptions.server";
 import NewsletterMarquee from "./components/NewsletterMarquee";
@@ -138,8 +138,6 @@ export default function App() {
             </Suspense>
           )}
           <Header />
-          <LanguageButton />
-
           <div className="flex grow flex-col font-serif" id="main">
             <Outlet />
             {pathsWithNewsletter.includes(location.pathname) && (
