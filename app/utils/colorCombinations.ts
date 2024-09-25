@@ -2,7 +2,6 @@ import { stegaClean } from "@sanity/client/stega";
 import { colorCombinations } from "cms/schemaTypes/objects/colorCombination";
 
 export type TQuoteStyle = {
-  styleBlock: string;
   styleLink: string;
   fillColor: string;
 };
@@ -160,43 +159,31 @@ export function getQuoteStyle(colorCombination: colorCombinations | undefined) {
   switch (colorCombination) {
     case "blueBlack":
       return {
-        styleBlock:
-          "border-none grid grid-flow-row place-items-center text-center text-black",
         styleLink: "not-italic text-black",
         fillColor: "#000000",
       };
     case "peachBlue":
       return {
-        styleBlock:
-          "border-none grid grid-flow-row place-items-center text-center text-black",
         styleLink: "not-italic text-black",
         fillColor: "#000000",
       };
     case "purpleWhite":
       return {
-        styleBlock:
-          "border-none grid grid-flow-row place-items-center text-center text-white",
         styleLink: "not-italic text-white",
         fillColor: "#FFFFFF",
       };
     case "blueYellow":
       return {
-        styleBlock:
-          "border-none grid grid-flow-row place-items-center text-center text-white",
         styleLink: "not-italic text-white",
         fillColor: "#FFFFFF",
       };
     case "creamBlue":
       return {
-        styleBlock:
-          "border-none grid grid-flow-row place-items-center text-center text-black",
         styleLink: "not-italic text-black",
         fillColor: "#000000",
       };
     default:
       return {
-        styleBlock:
-          "border-none grid grid-flow-row place-items-center text-center text-black",
         styleLink: "not-italic text-black",
         fillColor: "#000000",
       };

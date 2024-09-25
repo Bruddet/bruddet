@@ -126,14 +126,7 @@ export default function Article() {
         />
       )}
       {data?.text && (
-        <PortableTextComponent
-          textData={data.text}
-          textStyle={portabletextStyle}
-          styleBlock={quoteStyle.styleBlock}
-          styleLink={quoteStyle.styleLink}
-          fillColor={quoteStyle.fillColor}
-          placedLeft={true}
-        />
+        <PortableTextComponent data={data} textStyle={portabletextStyle} />
       )}
       {data?.event && (
         <Link

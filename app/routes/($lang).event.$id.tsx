@@ -180,10 +180,8 @@ export default function Event() {
             textColorBorder={textColorBorder}
           />
         )}
-
         <EventTextContent
           portableTextStyle={portabletextStyle}
-          roleGroups={roleGroups}
           textColor={textColor}
           data={data}
           quoteStyle={quoteStyle}

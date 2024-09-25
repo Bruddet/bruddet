@@ -1,27 +1,23 @@
 import MuxPlayer from "@mux/mux-player-react";
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
-import { CustomContent } from "../../cms/customTypes";
 import urlFor from "../utils/imageUrlBuilder";
 import { ReviewComponent } from "./ReviewComponent";
 import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { stegaClean } from "@sanity/client/stega";
 import Dice from "./Dice";
 import { QuoteBomb } from "./QuoteBomb";
+import { TQuoteStyle } from "~/utils/colorCombinations";
 
 export interface PortableTextProps {
-  textData?: CustomContent;
+  data?: any;
   textStyle?: string;
-  styleBlock?: string;
-  styleLink?: string;
-  fillColor?: string;
+  quoteStyle?: TQuoteStyle;
 }
 
 export default function PortableTextComponent({
-  textData,
   textStyle,
-  styleBlock,
-  styleLink,
-  fillColor,
+  quoteStyle,
+  data,
 }: PortableTextProps) {
   const customComponents = {
     types: {
@@ -33,9 +29,9 @@ export default function PortableTextComponent({
         credit: string;
       }>) => {
         return (
-          <div className="md:py-10">
+          <div className="md:py-10 w-[100%]">
             <img
-              className="w-[100%]"
+              className="min-w-[100%]"
               src={urlFor(value.asset._ref)}
               alt={value.alt}
             />
@@ -77,9 +73,8 @@ export default function PortableTextComponent({
         return (
           <ReviewComponent
             review={value}
-            styleBlock={styleBlock}
-            styleLink={styleLink}
-            fillColor={fillColor}
+            styleLink={quoteStyle?.styleLink}
+            fillColor={quoteStyle?.fillColor}
           />
         );
       },
@@ -108,62 +103,5 @@ export default function PortableTextComponent({
     },
   };
 
-  const rightBlocks = ["block"];
-
-  const leftBlocks = [
-    "review",
-    "quoteBomb",
-    "expandableBlock",
-    "dice",
-    "video",
-    "customImage",
-  ];
-
-  return (
-    <>
-      <div className="hidden md:block">
-        <div className="grid grid-cols-2 gap-10 font-serif text-xl">
-          <div className="flex justify-start w-full">
-            <div className="w-4/5">
-              {textData?.map(
-                (data, index) =>
-                  rightBlocks.includes(data._type) && (
-                    <PortableText
-                      key={index}
-                      value={data}
-                      components={customComponents}
-                    />
-                  )
-              )}
-            </div>
-          </div>
-          <div className={`flex justify-end w-full`}>
-            <div className="w-4/5">
-              {textData?.map(
-                (data, index) =>
-                  leftBlocks.includes(data._type) && (
-                    <div className="my-14 self-end w-4xl">
-                      <PortableText
-                        key={index}
-                        value={data}
-                        components={customComponents}
-                      />
-                    </div>
-                  )
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="block md:hidden">
-        {textData?.map((data, index) => (
-          <PortableText
-            key={index}
-            value={data}
-            components={customComponents}
-          />
-        ))}
-      </div>
-    </>
-  );
+  return <PortableText value={data} components={customComponents} />;
 }
