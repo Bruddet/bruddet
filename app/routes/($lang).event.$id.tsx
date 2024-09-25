@@ -22,6 +22,7 @@ import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { EventLabels } from "~/components/EventLabels";
 import { RolesBlock } from "~/components/RolesBlock";
 import BuyButtonFooter from "~/components/BuyButtonFooter";
+import { EventTextContent } from "~/components/EventTextContent";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -150,7 +151,7 @@ export default function Event() {
 
   return (
     <>
-      <div className={`flex-col flex w-full  ${textColor} gap-6 font-serif `}>
+      <div className={`flex-col flex w-full ${textColor} gap-6 font-serif `}>
         {image?.asset?._ref && (
           <ImageEventPage
             url={urlFor(image.asset._ref, data.image?.hotspot)}
@@ -179,49 +180,12 @@ export default function Event() {
             textColorBorder={textColorBorder}
           />
         )}
-
-        <div className="flex flex-row">
-          <div className="w-full sm:w-[50%] flex flex-col ">
-            <div
-              className={`prose ${portabletextStyle} font-serif text-base mr-5 ml-auto pl-5`}
-            >
-              {text && (
-                <PortableTextComponent
-                  textData={data.text}
-                  textStyle={portabletextStyle}
-                  styleBlock={quoteStyle.styleBlock}
-                  styleLink={quoteStyle.styleLink}
-                  fillColor={quoteStyle.fillColor}
-                  placedLeft={true}
-                />
-              )}
-            </div>
-            <div className="w-[65ch] ml-auto max-w-full mr-5 pl-5">
-              {roleGroups?.map((group: QueriedRoleGroup, i: number) => (
-                <RolesBlock roleGroup={group} key={i} />
-              ))}
-              {data.dates && (
-                <Tickets color={textColor} dateTickets={data.dates} />
-              )}
-            </div>
-          </div>
-          <div className="w-[50%] hidden sm:flex flex-col ">
-            <div
-              className={`prose ${portabletextStyle} font-serif text-base ml-5 mr-auto pr-5`}
-            >
-              {text && (
-                <PortableTextComponent
-                  textData={data.text}
-                  textStyle={portabletextStyle}
-                  styleBlock={quoteStyle.styleBlock}
-                  styleLink={quoteStyle.styleLink}
-                  fillColor={quoteStyle.fillColor}
-                  placedLeft={false}
-                />
-              )}
-            </div>
-          </div>
-        </div>
+        <EventTextContent
+          portableTextStyle={portabletextStyle}
+          textColor={textColor}
+          data={data}
+          quoteStyle={quoteStyle}
+        />
       </div>
       <BuyButtonFooter handleScroll={handleScroll} />
     </>
