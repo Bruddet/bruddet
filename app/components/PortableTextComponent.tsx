@@ -33,12 +33,11 @@ export default function PortableTextComponent({
         credit: string;
       }>) => {
         return (
-          <div>
+          <div className="md:py-10">
             <img
+              className="w-[30em]"
               src={urlFor(value.asset._ref)}
               alt={value.alt}
-              style={{ width: "30em" }}
-              className="mb-1"
             />
             <p className="mt-1">{value.credit}</p>
           </div>
@@ -121,33 +120,46 @@ export default function PortableTextComponent({
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-10 font-serif text-xl">
-      <div className="w-4/5">
-        {textData?.map(
-          (data, index) =>
-            rightBlocks.includes(data._type) && (
-              <PortableText
-                key={index}
-                value={data}
-                components={customComponents}
-              />
-            )
-        )}
+    <>
+      <div className="hidden md:block">
+        <div className="grid grid-cols-2 gap-10 font-serif text-xl">
+          <div className="w-4/5">
+            {textData?.map(
+              (data, index) =>
+                rightBlocks.includes(data._type) && (
+                  <PortableText
+                    key={index}
+                    value={data}
+                    components={customComponents}
+                  />
+                )
+            )}
+          </div>
+          <div className={`flex flex-col`}>
+            {textData?.map(
+              (data, index) =>
+                leftBlocks.includes(data._type) && (
+                  <div className="my-14 self-end w-4xl">
+                    <PortableText
+                      key={index}
+                      value={data}
+                      components={customComponents}
+                    />
+                  </div>
+                )
+            )}
+          </div>
+        </div>
       </div>
-      <div className={`${textStyle} w-4/5 justify-self-end`}>
-        {textData?.map(
-          (data, index) =>
-            leftBlocks.includes(data._type) && (
-              <div className="my-14">
-                <PortableText
-                  key={index}
-                  value={data}
-                  components={customComponents}
-                />
-              </div>
-            )
-        )}
+      <div className="block md:hidden">
+        {textData?.map((data, index) => (
+          <PortableText
+            key={index}
+            value={data}
+            components={customComponents}
+          />
+        ))}
       </div>
-    </div>
+    </>
   );
 }
