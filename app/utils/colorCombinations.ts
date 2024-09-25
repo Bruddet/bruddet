@@ -1,207 +1,71 @@
 import { stegaClean } from "@sanity/client/stega";
 import { colorCombinations } from "cms/schemaTypes/objects/colorCombination";
 
-export type TQuoteStyle = {
-  styleLink: string;
-  fillColor: string;
+export const ColorCombinations = {
+  blueBlack: {
+    background: "bg-blueBlack-primary",
+    primaryBorderColor: "border-blueBlack-primary",
+    primaryTextColor: "text-blueBlack-primary",
+    secondaryBackgroundColor: "bg-blueBlack-secondary",
+    secondaryBorderColor: "border-blueBlack-secondary",
+    textColor: "text-black",
+    textBorderColor: "border-black",
+    portableTextStyle: "text-black",
+  },
+  peachBlue: {
+    background: "bg-peachBlue-primary",
+    primaryBorderColor: "border-peachBlue-primary",
+    primaryTextColor: "text-peachBlue-primary",
+    secondaryBackgroundColor: "bg-peachBlue-secondary",
+    secondaryBorderColor: "border-peachBlue-secondary",
+    textColor: "text-black",
+    textBorderColor: "border-black",
+    portableTextStyle: "text-black",
+  },
+  purpleWhite: {
+    background: "bg-purpleWhite-primary",
+    primaryBorderColor: "border-purpleWhite-primary",
+    primaryTextColor: "text-purpleWhite-primary",
+    secondaryBackgroundColor: "bg-purpleWhite-secondary",
+    secondaryBorderColor: "border-purpleWhite-secondary",
+    textColor: "text-white",
+    textBorderColor: "border-white",
+    portableTextStyle: "text-white",
+  },
+  blueYellow: {
+    background: "bg-blueYellow-primary",
+    primaryBorderColor: "border-blueYellow-primary",
+    primaryTextColor: "text-blueYellow-primary",
+    secondaryBackgroundColor: "bg-blueYellow-secondary",
+    secondaryBorderColor: "border-blueYellow-secondary",
+    textColor: "text-white",
+    textBorderColor: "border-white",
+    portableTextStyle: "text-white",
+  },
+  creamBlue: {
+    background: "bg-creamBlue-primary",
+    primaryBorderColor: "border-creamBlue-primar",
+    primaryTextColor: "text-creamBlue-primary",
+    secondaryBackgroundColor: "bg-creamBlue-secondary",
+    secondaryBorderColor: "border-creamBlue-secondary",
+    textColor: "text-black",
+    textBorderColor: "border-black",
+    portableTextStyle: "text-black",
+  },
 };
 
-export function getBackgroundColor(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "bg-blueBlack-primary";
-    case "peachBlue":
-      return "bg-peachBlue-primary";
-    case "purpleWhite":
-      return "bg-purpleWhite-primary";
-    case "blueYellow":
-      return "bg-blueYellow-primary";
-    case "creamBlue":
-      return "bg-creamBlue-primary";
-    default:
-      return "bg-beige";
-  }
-}
-
-export function getPrimaryBorderColor(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "border-blueBlack-primary";
-    case "peachBlue":
-      return "border-peachBlue-primary";
-    case "purpleWhite":
-      return "border-purpleWhite-primary";
-    case "blueYellow":
-      return "border-blueYellow-primary";
-    case "creamBlue":
-      return "border-creamBlue-primary";
-    default:
-      return "border-black";
-  }
-}
-
-export function getPrimaryTextColor(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "text-blueBlack-primary";
-    case "peachBlue":
-      return "text-peachBlue-primary";
-    case "purpleWhite":
-      return "text-purpleWhite-primary";
-    case "blueYellow":
-      return "text-blueYellow-primary";
-    case "creamBlue":
-      return "text-creamBlue-primary";
-    default:
-      return "text-black";
-  }
-}
-
-export function getSecondaryBackgroundColor(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "bg-blueBlack-secondary";
-    case "peachBlue":
-      return "bg-peachBlue-secondary";
-    case "purpleWhite":
-      return "bg-purpleWhite-secondary";
-    case "blueYellow":
-      return "bg-blueYellow-secondary";
-    case "creamBlue":
-      return "bg-creamBlue-secondary";
-    default:
-      return "bg-beige";
-  }
-}
-export function getSecondaryBorderColor(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "border-blueBlack-secondary";
-    case "peachBlue":
-      return "border-peachBlue-secondary";
-    case "purpleWhite":
-      return "border-purpleWhite-secondary";
-    case "blueYellow":
-      return "border-blueYellow-secondary";
-    case "creamBlue":
-      return "border-creamBlue-secondary";
-    default:
-      return "border-black";
-  }
-}
-
-export function getTextColor(colorCombination: colorCombinations | undefined) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "text-black";
-    case "peachBlue":
-      return "text-black";
-    case "purpleWhite":
-      return "text-white";
-    case "blueYellow":
-      return "text-white";
-    case "creamBlue":
-      return "text-black";
-    default:
-      return "text-black";
-  }
-}
-
-export function getTextColorBorder(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "border-black";
-    case "peachBlue":
-      return "border-black";
-    case "purpleWhite":
-      return "border-white";
-    case "blueYellow":
-      return "border-white";
-    case "creamBlue":
-      return "border-black";
-    default:
-      return "border-black";
-  }
-}
-
-export function getPortabletextStyle(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return " text-black";
-    case "peachBlue":
-      return "text-black";
-    case "purpleWhite":
-      return "prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white";
-    case "blueYellow":
-      return "prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white ";
-    case "creamBlue":
-      return "text-black";
-    default:
-      return " text-black";
-  }
-}
-
-export function getQuoteStyle(colorCombination: colorCombinations | undefined) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return {
-        styleLink: "not-italic text-black",
-        fillColor: "#000000",
-      };
-    case "peachBlue":
-      return {
-        styleLink: "not-italic text-black",
-        fillColor: "#000000",
-      };
-    case "purpleWhite":
-      return {
-        styleLink: "not-italic text-white",
-        fillColor: "#FFFFFF",
-      };
-    case "blueYellow":
-      return {
-        styleLink: "not-italic text-white",
-        fillColor: "#FFFFFF",
-      };
-    case "creamBlue":
-      return {
-        styleLink: "not-italic text-black",
-        fillColor: "#000000",
-      };
-    default:
-      return {
-        styleLink: "not-italic text-black",
-        fillColor: "#000000",
-      };
-  }
-}
-
-export function getColor(colorCombination: colorCombinations | undefined) {
+export function getColor(colorCombination: colorCombinations = "blueBlack") {
   const cleanColorCombination = stegaClean(colorCombination);
-  const quoteStyle = getQuoteStyle(cleanColorCombination);
+  const colorCombo = ColorCombinations[cleanColorCombination];
+
   return {
-    bgColor: getBackgroundColor(cleanColorCombination),
-    primaryBorder: getPrimaryBorderColor(cleanColorCombination),
-    primaryText: getPrimaryTextColor(cleanColorCombination),
-    secondaryBgColor: getSecondaryBackgroundColor(cleanColorCombination),
-    secondaryBorder: getSecondaryBorderColor(cleanColorCombination),
-    textColor: getTextColor(cleanColorCombination),
-    textColorBorder: getTextColorBorder(cleanColorCombination),
-    portabletextStyle: getPortabletextStyle(cleanColorCombination),
-    quoteStyle,
+    bgColor: colorCombo?.background,
+    primaryBorder: colorCombo?.primaryBorderColor,
+    primaryText: colorCombo?.primaryTextColor,
+    secondaryBgColor: colorCombo?.secondaryBackgroundColor,
+    secondaryBorder: colorCombo?.secondaryBorderColor,
+    textColor: colorCombo?.textColor,
+    textColorBorder: colorCombo?.textBorderColor,
+    portableTextStyle: colorCombo?.portableTextStyle,
   };
 }

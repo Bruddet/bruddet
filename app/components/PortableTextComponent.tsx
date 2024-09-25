@@ -6,17 +6,14 @@ import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { stegaClean } from "@sanity/client/stega";
 import Dice from "./Dice";
 import { QuoteBomb } from "./QuoteBomb";
-import { TQuoteStyle } from "~/utils/colorCombinations";
 
 export interface PortableTextProps {
   data?: any;
-  textStyle?: string;
-  quoteStyle?: TQuoteStyle;
+  textColor?: string;
 }
 
 export default function PortableTextComponent({
-  textStyle,
-  quoteStyle,
+  textColor,
   data,
 }: PortableTextProps) {
   const customComponents = {
@@ -70,13 +67,7 @@ export default function PortableTextComponent({
         date?: string;
         link?: string;
       }>) => {
-        return (
-          <ReviewComponent
-            review={value}
-            styleLink={quoteStyle?.styleLink}
-            fillColor={quoteStyle?.fillColor}
-          />
-        );
+        return <ReviewComponent review={value} />;
       },
       expandableBlock: ({
         value,
@@ -88,7 +79,7 @@ export default function PortableTextComponent({
         return (
           <ExpandableBlockComponent
             title={value.title}
-            textStyle={textStyle}
+            textColor={textColor}
             content={value.content}
           ></ExpandableBlockComponent>
         );
