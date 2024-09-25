@@ -116,15 +116,9 @@ export default function Event() {
     }
   };
 
-  const {
-    bgColor,
-    primaryText,
-    secondaryBgColor,
-    secondaryBorder,
-    textColor,
-    textColorBorder,
-    portableTextStyle,
-  } = getColor(colorCombination || "creamBlue");
+  const { bgColor, primaryTextColor } = getColor(
+    colorCombination || "creamBlue"
+  );
 
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();
@@ -143,7 +137,9 @@ export default function Event() {
 
   return (
     <>
-      <div className={`flex-col flex w-full ${textColor} gap-6 font-serif `}>
+      <div
+        className={`flex-col flex w-full ${primaryTextColor} gap-6 font-serif `}
+      >
         {image?.asset?._ref && (
           <ImageEventPage
             url={urlFor(image.asset._ref, data.image?.hotspot)}
@@ -165,18 +161,10 @@ export default function Event() {
             customLabels={labels}
             genre={eventGenre}
             duration={duration}
-            primaryText={primaryText}
-            secondaryBgColor={secondaryBgColor}
-            secondaryBorder={secondaryBorder}
-            textColor={textColor}
-            textColorBorder={textColorBorder}
+            colorCombination={colorCombination}
           />
         )}
-        <EventTextContent
-          portableTextStyle={portableTextStyle}
-          textColor={textColor}
-          data={data}
-        />
+        <EventTextContent textColor={primaryTextColor} data={data} />
       </div>
       <BuyButtonFooter handleScroll={handleScroll} />
     </>

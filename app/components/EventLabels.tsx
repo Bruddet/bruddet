@@ -6,6 +6,8 @@ import {
 import { EventGenre } from "sanity.types";
 import { Label } from "./Label";
 import { TranslationObject, useTranslation } from "~/utils/i18n";
+import { ColorCombinations } from "~/sanity.types";
+import { getColor } from "~/utils/colorCombinations";
 
 type DatesLabelProps = {
   dates: DateObject[];
@@ -23,11 +25,7 @@ type DateObject = {
 
 type EventLabelsProps = {
   dates: DateObject[];
-  primaryText?: string;
-  secondaryBgColor?: string;
-  secondaryBorder?: string;
-  textColor?: string;
-  textColorBorder?: string;
+  colorCombination?: ColorCombinations | null;
   genre?: EventGenre | null;
   customLabels: null | string[];
   duration?: string | null;
@@ -79,12 +77,8 @@ export const getDateLabel = ({
 export const EventLabels = ({
   dates,
   genre,
-  primaryText,
-  secondaryBgColor,
-  secondaryBorder,
-  textColor,
-  textColorBorder,
   customLabels,
+  colorCombination,
   duration,
 }: EventLabelsProps) => {
   const { language, t } = useTranslation();
@@ -138,6 +132,13 @@ export const EventLabels = ({
     }
   };
 
+  const {
+    primaryTextColor,
+    secondaryTextColor,
+    textBorderColor,
+    primaryButtonColor,
+  } = getColor(colorCombination || "creamBlue");
+
   return (
     <>
       <div
@@ -150,15 +151,15 @@ export const EventLabels = ({
             label.length > 0 && (
               <Label
                 key={index}
-                borderColor={textColorBorder}
-                textColor={textColor}
+                borderColor={textBorderColor}
+                textColor={primaryTextColor}
                 label={label}
               />
             )
         )}
         <button
           onClick={handleScroll}
-          className={`p-2 ${secondaryBorder} ${secondaryBgColor} ${primaryText} font-bold `}
+          className={`p-2 ${primaryButtonColor} border ${textBorderColor} ${secondaryTextColor} font-bold`}
         >
           {t(texts.buyTicket).toUpperCase()}
         </button>

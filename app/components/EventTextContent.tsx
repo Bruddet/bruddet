@@ -3,16 +3,11 @@ import PortableTextComponent from "./PortableTextComponent";
 import { RolesAndTickets } from "./RolesAndTickets";
 
 type Props = {
-  portableTextStyle: string;
   textColor: string;
   data: Custom_EVENT_QUERYResult;
 };
 
-export const EventTextContent = ({
-  portableTextStyle,
-  textColor,
-  data,
-}: Props) => {
+export const EventTextContent = ({ textColor, data }: Props) => {
   const leftBlocks = ["block", "review"];
 
   const rightBlocks = [
@@ -24,7 +19,7 @@ export const EventTextContent = ({
   ];
   return (
     <div
-      className={`flex flex-col mx-24 my-12 ${portableTextStyle} self-center max-w-[2000px]`}
+      className={`flex flex-col mx-24 my-12 ${textColor} self-center max-w-[2000px]`}
     >
       <div className="hidden md:block">
         <div className="grid grid-cols-2 gap-10 font-serif text-xl">
