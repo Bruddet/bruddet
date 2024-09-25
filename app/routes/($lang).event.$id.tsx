@@ -22,6 +22,7 @@ import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { EventLabels } from "~/components/EventLabels";
 import { RolesBlock } from "~/components/RolesBlock";
 import BuyButtonFooter from "~/components/BuyButtonFooter";
+import { EventTextContent } from "~/components/EventTextContent";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -180,25 +181,13 @@ export default function Event() {
           />
         )}
 
-        <div
-          className={`flex flex-col mx-24 my-12 ${portabletextStyle} self-center max-w-[2000px]`}
-        >
-          <PortableTextComponent
-            textData={data.text}
-            textStyle={portabletextStyle}
-            styleBlock={quoteStyle.styleBlock}
-            styleLink={quoteStyle.styleLink}
-            fillColor={quoteStyle.fillColor}
-          />
-          <div className="">
-            {roleGroups?.map((group: QueriedRoleGroup, i: number) => (
-              <RolesBlock roleGroup={group} key={i} />
-            ))}
-            {data.dates && (
-              <Tickets color={textColor} dateTickets={data.dates} />
-            )}
-          </div>
-        </div>
+        <EventTextContent
+          portableTextStyle={portabletextStyle}
+          roleGroups={roleGroups}
+          textColor={textColor}
+          data={data}
+          quoteStyle={quoteStyle}
+        />
       </div>
       <BuyButtonFooter handleScroll={handleScroll} />
     </>

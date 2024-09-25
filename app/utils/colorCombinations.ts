@@ -1,6 +1,12 @@
 import { stegaClean } from "@sanity/client/stega";
 import { colorCombinations } from "cms/schemaTypes/objects/colorCombination";
 
+export type TQuoteStyle = {
+  styleBlock: string;
+  styleLink: string;
+  fillColor: string;
+};
+
 export function getBackgroundColor(
   colorCombination: colorCombinations | undefined
 ) {
