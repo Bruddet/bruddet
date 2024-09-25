@@ -35,7 +35,7 @@ export default function PortableTextComponent({
         return (
           <div className="md:py-10">
             <img
-              className="w-[30em]"
+              className="w-[100%]"
               src={urlFor(value.asset._ref)}
               alt={value.alt}
             />
@@ -123,31 +123,35 @@ export default function PortableTextComponent({
     <>
       <div className="hidden md:block">
         <div className="grid grid-cols-2 gap-10 font-serif text-xl">
-          <div className="w-4/5">
-            {textData?.map(
-              (data, index) =>
-                rightBlocks.includes(data._type) && (
-                  <PortableText
-                    key={index}
-                    value={data}
-                    components={customComponents}
-                  />
-                )
-            )}
-          </div>
-          <div className={`flex flex-col`}>
-            {textData?.map(
-              (data, index) =>
-                leftBlocks.includes(data._type) && (
-                  <div className="my-14 self-end w-4xl">
+          <div className="flex justify-start w-full">
+            <div className="w-4/5">
+              {textData?.map(
+                (data, index) =>
+                  rightBlocks.includes(data._type) && (
                     <PortableText
                       key={index}
                       value={data}
                       components={customComponents}
                     />
-                  </div>
-                )
-            )}
+                  )
+              )}
+            </div>
+          </div>
+          <div className={`flex justify-end w-full`}>
+            <div className="w-4/5">
+              {textData?.map(
+                (data, index) =>
+                  leftBlocks.includes(data._type) && (
+                    <div className="my-14 self-end w-4xl">
+                      <PortableText
+                        key={index}
+                        value={data}
+                        components={customComponents}
+                      />
+                    </div>
+                  )
+              )}
+            </div>
           </div>
         </div>
       </div>
