@@ -150,7 +150,7 @@ export default function Event() {
 
   return (
     <>
-      <div className={`flex-col flex w-full  ${textColor} gap-6 font-serif `}>
+      <div className={`flex-col flex w-full ${textColor} gap-6 font-serif `}>
         {image?.asset?._ref && (
           <ImageEventPage
             url={urlFor(image.asset._ref, data.image?.hotspot)}
@@ -180,7 +180,9 @@ export default function Event() {
           />
         )}
 
-        <div className={`flex flex-col mx-24 my-12 ${portabletextStyle}`}>
+        <div
+          className={`flex flex-col mx-24 my-12 ${portabletextStyle} self-center max-w-[2000px]`}
+        >
           <PortableTextComponent
             textData={data.text}
             textStyle={portabletextStyle}
