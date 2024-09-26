@@ -9,7 +9,7 @@ export default function LanguageButton() {
   const blackText =
     location.pathname.includes("/artikler") ||
     location.pathname.includes("/meny");
-  const textColor = blackText ? "text-black" : "text-white";
+  const textColor = blackText ? "text-black" : "text-mainThemeColor";
   const { slug } = useSlugContext();
   useEffect(() => {
     setIsEnglish(params.lang === "en");
