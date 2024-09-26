@@ -1,8 +1,9 @@
 import { Link } from "@remix-run/react";
 import { useLocation } from "react-router-dom";
 import BlackLogo from "./logo.svg";
-import WhiteLogo from "./logo_white.svg";
+import PrimaryLogo from "./logo_primary.svg";
 import { createTexts, useTranslation } from "../../utils/i18n";
+import LanguageButton from "../LanguageButton";
 
 export default function Header() {
   const location = useLocation();
@@ -12,23 +13,30 @@ export default function Header() {
     location.pathname.includes("/event") ||
     location.pathname.includes("/program");
   const isEnglish = location.pathname.includes("/en/");
+
+  const className = !frontpageUrl.includes(location.pathname)
+    ? "visible"
+    : "invisible";
   return (
     <>
-      {!frontpageUrl.includes(location.pathname) && (
-        <>
-          <a
-            href="#main"
-            className="absolute -left-96 self-start top-auto overflow-hidden focus:static focus:h-auto bg-white"
+      <div className="fixed z-50 flex justify-between items-center w-full px-4 py-2">
+        <a
+          href="#main"
+          className="absolute -left-96 self-start top-auto overflow-hidden focus:static focus:h-auto bg-white"
+        >
+          {t(texts.goToMainContent)}
+        </a>
+        <div>
+          <Link
+            className={className}
+            to={isEnglish ? "/en" : "/"}
+            aria-label={t(texts.goToMain)}
           >
-            {t(texts.goToMainContent)}
-          </a>
-          <div className="sticky z-10 top-2 left-0 w-12 h-12 ml-4">
-            <Link to={isEnglish ? "/en" : "/"} aria-label={t(texts.goToMain)}>
-              <img src={isProgramPage ? WhiteLogo : BlackLogo} alt="Logo" />
-            </Link>
-          </div>
-        </>
-      )}
+            <img src={isProgramPage ? PrimaryLogo : BlackLogo} alt="Logo" />
+          </Link>
+        </div>
+        <LanguageButton />
+      </div>
     </>
   );
 }

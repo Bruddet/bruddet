@@ -9,7 +9,7 @@ export default function LanguageButton() {
   const blackText =
     location.pathname.includes("/artikler") ||
     location.pathname.includes("/meny");
-  const textColor = blackText ? "text-black" : "text-white";
+  const textColor = blackText ? "text-black" : "text-mainThemeColor";
   const { slug } = useSlugContext();
   useEffect(() => {
     setIsEnglish(params.lang === "en");
@@ -51,7 +51,7 @@ export default function LanguageButton() {
   }
 
   return (
-    <div className={`absolute top-0 right-0 m-4 ${textColor}`}>
+    <div className={`px-4 ${textColor}`}>
       <button
         onClick={() => setLanguage("NO")}
         disabled={!isEnglish}
