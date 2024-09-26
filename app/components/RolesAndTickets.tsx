@@ -14,7 +14,9 @@ export const RolesAndTickets = ({ roleGroups, data, textColor }: Props) => {
       {roleGroups?.map((group: QueriedRoleGroup, i: number) => (
         <RolesBlock roleGroup={group} key={i} />
       ))}
-      {data?.dates && <Tickets color={textColor} dateTickets={data.dates} />}
+      {data?.dates && (
+        <Tickets textColor={textColor} dateTickets={data.dates} />
+      )}
     </>
   );
 };

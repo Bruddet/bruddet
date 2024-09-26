@@ -1,207 +1,69 @@
 import { stegaClean } from "@sanity/client/stega";
 import { colorCombinations } from "cms/schemaTypes/objects/colorCombination";
 
-export type TQuoteStyle = {
-  styleLink: string;
-  fillColor: string;
+type Props = {
+  colorCombination: string;
+  styleProp: string;
 };
 
-export function getBackgroundColor(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "bg-blueBlack-primary";
-    case "peachBlue":
-      return "bg-peachBlue-primary";
-    case "purpleWhite":
-      return "bg-purpleWhite-primary";
-    case "blueYellow":
-      return "bg-blueYellow-primary";
-    case "creamBlue":
-      return "bg-creamBlue-primary";
+export const Styles = ({ colorCombination, styleProp }: Props) => {
+  switch (styleProp) {
+    case "background":
+      return `bg-${colorCombination}-primary`;
+    case "secondaryBackgroundColor":
+      return `bg-${colorCombination}-secondary`;
+    case "primaryBorderColor":
+      return `border-${colorCombination}-primary`;
+    case "secondaryBorderColor":
+      return `border-${colorCombination}-secondary`;
+    case "textColor":
+      return `text-${colorCombination}-primary`;
+    case "secondaryTextColor":
+      return `text-${colorCombination}-secondary`;
+    case "textBorderColor":
+      return `border-${colorCombination}-secondary`;
+    case "primaryButtonColor":
+      return `bg-mainThemeColor`;
     default:
-      return "bg-beige";
+      return "black";
   }
-}
+};
 
-export function getPrimaryBorderColor(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "border-blueBlack-primary";
-    case "peachBlue":
-      return "border-peachBlue-primary";
-    case "purpleWhite":
-      return "border-purpleWhite-primary";
-    case "blueYellow":
-      return "border-blueYellow-primary";
-    case "creamBlue":
-      return "border-creamBlue-primary";
-    default:
-      return "border-black";
-  }
-}
-
-export function getPrimaryTextColor(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "text-blueBlack-primary";
-    case "peachBlue":
-      return "text-peachBlue-primary";
-    case "purpleWhite":
-      return "text-purpleWhite-primary";
-    case "blueYellow":
-      return "text-blueYellow-primary";
-    case "creamBlue":
-      return "text-creamBlue-primary";
-    default:
-      return "text-black";
-  }
-}
-
-export function getSecondaryBackgroundColor(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "bg-blueBlack-secondary";
-    case "peachBlue":
-      return "bg-peachBlue-secondary";
-    case "purpleWhite":
-      return "bg-purpleWhite-secondary";
-    case "blueYellow":
-      return "bg-blueYellow-secondary";
-    case "creamBlue":
-      return "bg-creamBlue-secondary";
-    default:
-      return "bg-beige";
-  }
-}
-export function getSecondaryBorderColor(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "border-blueBlack-secondary";
-    case "peachBlue":
-      return "border-peachBlue-secondary";
-    case "purpleWhite":
-      return "border-purpleWhite-secondary";
-    case "blueYellow":
-      return "border-blueYellow-secondary";
-    case "creamBlue":
-      return "border-creamBlue-secondary";
-    default:
-      return "border-black";
-  }
-}
-
-export function getTextColor(colorCombination: colorCombinations | undefined) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "text-black";
-    case "peachBlue":
-      return "text-black";
-    case "purpleWhite":
-      return "text-white";
-    case "blueYellow":
-      return "text-white";
-    case "creamBlue":
-      return "text-black";
-    default:
-      return "text-black";
-  }
-}
-
-export function getTextColorBorder(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return "border-black";
-    case "peachBlue":
-      return "border-black";
-    case "purpleWhite":
-      return "border-white";
-    case "blueYellow":
-      return "border-white";
-    case "creamBlue":
-      return "border-black";
-    default:
-      return "border-black";
-  }
-}
-
-export function getPortabletextStyle(
-  colorCombination: colorCombinations | undefined
-) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return " text-black";
-    case "peachBlue":
-      return "text-black";
-    case "purpleWhite":
-      return "prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white";
-    case "blueYellow":
-      return "prose-h2:text-white prose-h2:text-white prose-h3:text-white prose-h4:text-white prose-h5:text-white prose-h6:text-white prose-strong:text-white text-white ";
-    case "creamBlue":
-      return "text-black";
-    default:
-      return " text-black";
-  }
-}
-
-export function getQuoteStyle(colorCombination: colorCombinations | undefined) {
-  switch (colorCombination) {
-    case "blueBlack":
-      return {
-        styleLink: "not-italic text-black",
-        fillColor: "#000000",
-      };
-    case "peachBlue":
-      return {
-        styleLink: "not-italic text-black",
-        fillColor: "#000000",
-      };
-    case "purpleWhite":
-      return {
-        styleLink: "not-italic text-white",
-        fillColor: "#FFFFFF",
-      };
-    case "blueYellow":
-      return {
-        styleLink: "not-italic text-white",
-        fillColor: "#FFFFFF",
-      };
-    case "creamBlue":
-      return {
-        styleLink: "not-italic text-black",
-        fillColor: "#000000",
-      };
-    default:
-      return {
-        styleLink: "not-italic text-black",
-        fillColor: "#000000",
-      };
-  }
-}
-
-export function getColor(colorCombination: colorCombinations | undefined) {
+export function getColor(colorCombination: colorCombinations = "creamBlue") {
   const cleanColorCombination = stegaClean(colorCombination);
-  const quoteStyle = getQuoteStyle(cleanColorCombination);
+
   return {
-    bgColor: getBackgroundColor(cleanColorCombination),
-    primaryBorder: getPrimaryBorderColor(cleanColorCombination),
-    primaryText: getPrimaryTextColor(cleanColorCombination),
-    secondaryBgColor: getSecondaryBackgroundColor(cleanColorCombination),
-    secondaryBorder: getSecondaryBorderColor(cleanColorCombination),
-    textColor: getTextColor(cleanColorCombination),
-    textColorBorder: getTextColorBorder(cleanColorCombination),
-    portabletextStyle: getPortabletextStyle(cleanColorCombination),
-    quoteStyle,
+    bgColor: Styles({
+      colorCombination: cleanColorCombination,
+      styleProp: "background",
+    }),
+    primaryBorder: Styles({
+      colorCombination: cleanColorCombination,
+      styleProp: "primaryBorderColor",
+    }),
+    primaryTextColor: Styles({
+      colorCombination: cleanColorCombination,
+      styleProp: "primaryTextColor",
+    }),
+    secondaryTextColor: Styles({
+      colorCombination: cleanColorCombination,
+      styleProp: "secondaryTextColor",
+    }),
+    secondaryBgColor: Styles({
+      colorCombination: cleanColorCombination,
+      styleProp: "secondaryBackgroundColor",
+    }),
+    secondaryBorder: Styles({
+      colorCombination: cleanColorCombination,
+      styleProp: "secondaryBorderColor",
+    }),
+    textBorderColor: Styles({
+      colorCombination: cleanColorCombination,
+      styleProp: "textBorderColor",
+    }),
+    primaryButtonColor: Styles({
+      colorCombination: cleanColorCombination,
+      styleProp: "primaryButtonColor",
+    }),
   };
 }

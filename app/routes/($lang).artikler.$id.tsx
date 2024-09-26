@@ -97,8 +97,9 @@ export default function Article() {
 
   const bgColor = "bg-[#FFF8E8]";
   const { setColor } = useBackgroundColor();
-  const { portabletextStyle, quoteStyle } = getColor(data?.colorCombination);
   const { setSlug } = useSlugContext();
+
+  const { primaryText } = getColor(data?.colorCombination || "creamBlue");
 
   useEffect(() => {
     setColor(bgColor);
@@ -126,7 +127,7 @@ export default function Article() {
         />
       )}
       {data?.text && (
-        <PortableTextComponent data={data} textStyle={portabletextStyle} />
+        <PortableTextComponent data={data} textColor={primaryText} />
       )}
       {data?.event && (
         <Link

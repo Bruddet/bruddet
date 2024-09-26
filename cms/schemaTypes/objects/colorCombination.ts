@@ -28,5 +28,4 @@ export type colorCombinations =
   | "blueYellow"
   | "creamBlue"
   | "peachBlue"
-  | "purpleWhite"
-  | null;
+  | "purpleWhite";

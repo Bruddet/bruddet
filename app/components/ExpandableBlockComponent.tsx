@@ -9,13 +9,13 @@ import PortableTextComponent, {
 type Props = {
   title: string;
   content: PortableTextProps;
-  textStyle?: string;
+  textColor?: string;
 };
 
 export const ExpandableBlockComponent = ({
   title,
   content,
-  textStyle,
+  textColor,
 }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { t } = useTranslation();
@@ -52,8 +52,8 @@ export const ExpandableBlockComponent = ({
         <div className="mx-4 mb-4">
           <div className="flex flex-row mt-4 gap-6">
             <PortableTextComponent
-              textData={content}
-              textStyle={textStyle}
+              data={content}
+              textColor={textColor}
             ></PortableTextComponent>
           </div>
         </div>

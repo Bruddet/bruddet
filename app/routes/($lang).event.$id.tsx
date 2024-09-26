@@ -1,14 +1,9 @@
 import { useEffect } from "react";
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import {
-  Custom_EVENT_QUERYResult,
-  QueriedRoleGroup,
-} from "../../cms/customTypes";
+import { Custom_EVENT_QUERYResult } from "../../cms/customTypes";
 import { getColor } from "../utils/colorCombinations";
-import PortableTextComponent from "../components/PortableTextComponent";
 import urlFor from "../utils/imageUrlBuilder";
-import { Tickets } from "../components/Tickets";
 import ImageEventPage from "../components/Masks/ImageEventPage";
 import { getEventQuery } from "../queries/event-queries";
 import { useBackgroundColor } from "../utils/backgroundColor";
@@ -20,7 +15,6 @@ import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { EventLabels } from "~/components/EventLabels";
-import { RolesBlock } from "~/components/RolesBlock";
 import BuyButtonFooter from "~/components/BuyButtonFooter";
 import { EventTextContent } from "~/components/EventTextContent";
 
@@ -106,8 +100,6 @@ export default function Event() {
 
   const {
     image,
-    roleGroups,
-    text,
     dates,
     colorCombination,
     _translations,
@@ -116,6 +108,7 @@ export default function Event() {
     duration,
     ingress,
   } = data;
+
   const handleScroll = () => {
     const target = document.getElementById("tickets");
     if (target) {
@@ -123,16 +116,9 @@ export default function Event() {
     }
   };
 
-  const {
-    bgColor,
-    primaryText,
-    secondaryBgColor,
-    secondaryBorder,
-    textColor,
-    textColorBorder,
-    portabletextStyle,
-    quoteStyle,
-  } = getColor(colorCombination || "creamBlue");
+  const { bgColor, primaryTextColor } = getColor(
+    colorCombination || "creamBlue"
+  );
 
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();
@@ -151,7 +137,9 @@ export default function Event() {
 
   return (
     <>
-      <div className={`flex-col flex w-full ${textColor} gap-6 font-serif `}>
+      <div
+        className={`flex-col flex w-full ${primaryTextColor} gap-6 font-serif `}
+      >
         {image?.asset?._ref && (
           <ImageEventPage
             url={urlFor(image.asset._ref, data.image?.hotspot)}
@@ -173,19 +161,10 @@ export default function Event() {
             customLabels={labels}
             genre={eventGenre}
             duration={duration}
-            primaryText={primaryText}
-            secondaryBgColor={secondaryBgColor}
-            secondaryBorder={secondaryBorder}
-            textColor={textColor}
-            textColorBorder={textColorBorder}
+            colorCombination={colorCombination}
           />
         )}
-        <EventTextContent
-          portableTextStyle={portabletextStyle}
-          textColor={textColor}
-          data={data}
-          quoteStyle={quoteStyle}
-        />
+        <EventTextContent textColor={primaryTextColor} data={data} />
       </div>
       <BuyButtonFooter handleScroll={handleScroll} />
     </>

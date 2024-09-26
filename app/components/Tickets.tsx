@@ -1,4 +1,3 @@
-import { getColor } from "~/utils/colorCombinations";
 import { useTranslation } from "../utils/i18n";
 import { DateTicket } from "./DateTicket";
 
@@ -10,13 +9,11 @@ export type DateTicketType = {
 
 type Props = {
   dateTickets: DateTicketType[];
-  color?: string;
+  textColor?: string;
 };
 
-export const Tickets = ({ dateTickets, color = "black" }: Props) => {
+export const Tickets = ({ dateTickets, textColor }: Props) => {
   const { t } = useTranslation();
-
-  const textColor = `text-${color}`;
 
   return (
     <div id="tickets" className="flex flex-col">
