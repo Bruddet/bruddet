@@ -17,9 +17,7 @@ export const Tickets = ({ dateTickets, textColor }: Props) => {
 
   return (
     <div id="tickets" className="flex flex-col">
-      <h2 className={`text-2xl ${textColor} font-sans py-8`}>
-        {t(texts.tickets)}
-      </h2>
+      <h3 className={`text-3xl ${textColor} py-8`}>{t(texts.tickets)}</h3>
       {dateTickets?.map((dateTicket: DateTicketType, index) => {
         return <DateTicket key={index} dateTicket={dateTicket} />;
       })}

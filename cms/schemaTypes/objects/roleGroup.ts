@@ -51,6 +51,14 @@ export default {
                   .max(40)
                   .error(`Må ha stilling på minst 2 bokstaver`),
             },
+            {
+              name: "description",
+              title: "Beskrivelse/tekst",
+              description: "Tekst som vises i rolleblokken",
+              type: "text",
+              validation: (rule) =>
+                rule.max(300).error(`Anbefaler kortere tekst`),
+            },
           ],
           preview: {
             select: {

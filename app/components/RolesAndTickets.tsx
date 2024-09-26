@@ -10,13 +10,13 @@ type Props = {
 
 export const RolesAndTickets = ({ roleGroups, data, textColor }: Props) => {
   return (
-    <>
+    <div className="flex flex-col gap-16 my-8">
       {roleGroups?.map((group: QueriedRoleGroup, i: number) => (
         <RolesBlock roleGroup={group} key={i} />
       ))}
       {data?.dates && (
         <Tickets textColor={textColor} dateTickets={data.dates} />
       )}
-    </>
+    </div>
   );
 };
