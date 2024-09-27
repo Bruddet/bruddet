@@ -88,8 +88,16 @@ export default function PortableTextComponent({
         value,
       }: PortableTextComponentProps<{
         quote: string;
+        creditsSource?: string;
+        creditsMedia?: string;
       }>) => {
-        return <QuoteBomb quote={value.quote} />;
+        return (
+          <QuoteBomb
+            quote={value.quote}
+            creditsMedia={value.creditsMedia}
+            creditsSource={value.creditsSource}
+          />
+        );
       },
     },
   };
