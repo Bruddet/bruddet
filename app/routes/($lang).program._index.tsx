@@ -95,7 +95,7 @@ export default function Program() {
   const params = useParams();
 
   return (
-    <div className="flex flex-col grow items-center text-black font-serif">
+    <div className="flex flex-col grow items-center min-h-screen text-black font-serif">
       <Navigation />
 
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
@@ -108,7 +108,7 @@ export default function Program() {
                   urlFor(link.gif?.asset?._ref ?? link.image.asset?._ref ?? "")
                 );
               }}
-              className="flex z-50 justify-center align-middle my-5 md:w-1/3 md:text-center "
+              className="flex z-40 justify-center align-middle my-5 md:w-1/3 md:text-center "
             >
               <Link
                 key={index}
@@ -157,7 +157,6 @@ export default function Program() {
           />
         )}
       </div>
-      <StickyFooter />
     </div>
   );
 }
