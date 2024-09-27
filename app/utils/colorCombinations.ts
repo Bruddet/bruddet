@@ -7,22 +7,21 @@ type Props = {
 };
 
 export const Styles = ({ colorCombination, styleProp }: Props) => {
-  const cleanColorCombination = stegaClean(colorCombination);
   switch (styleProp) {
     case "background":
-      return `bg-${cleanColorCombination}-primary`;
+      return `bg-${colorCombination}-primary`;
     case "secondaryBackgroundColor":
-      return `bg-${cleanColorCombination}-secondary`;
+      return `bg-${colorCombination}-secondary`;
     case "primaryBorderColor":
-      return `border-${cleanColorCombination}-primary`;
+      return `border-${colorCombination}-primary`;
     case "secondaryBorderColor":
-      return `border-${cleanColorCombination}-secondary`;
+      return `border-${colorCombination}-secondary`;
     case "textColor":
-      return `text-${cleanColorCombination}-primary`;
+      return `text-${colorCombination}-primary`;
     case "secondaryTextColor":
-      return `text-${cleanColorCombination}-secondary`;
+      return `text-${colorCombination}-secondary`;
     case "textBorderColor":
-      return `border-${cleanColorCombination}-secondary`;
+      return `border-${colorCombination}-secondary`;
     case "primaryButtonColor":
       return `bg-mainThemeColor`;
     default:
