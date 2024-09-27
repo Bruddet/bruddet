@@ -95,7 +95,7 @@ export default function Program() {
   const params = useParams();
 
   return (
-    <div className="flex flex-col grow items-center min-h-screen text-black font-serif">
+    <div className="flex flex-col grow items-center text-black font-serif">
       <Navigation />
 
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
