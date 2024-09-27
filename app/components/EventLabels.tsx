@@ -139,11 +139,12 @@ export const EventLabels = ({
     primaryButtonColor,
   } = getColor(colorCombination || "creamBlue");
 
+  console.log("textbordercolor", textBorderColor);
   return (
     <>
       <div
         id="eventLabels"
-        className="flex px-4 flex-wrap gap-4 md:float-start uppercase font-serif justify-start mx-auto"
+        className="flex flex-wrap gap-4 md:float-start uppercase font-serif justify-start mx-auto"
       >
         {labels.map(
           (label, index) =>
