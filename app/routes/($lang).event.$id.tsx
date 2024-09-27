@@ -120,6 +120,8 @@ export default function Event() {
     colorCombination || "creamBlue"
   );
 
+  console.log("bgcolor", bgColor);
+
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();
 

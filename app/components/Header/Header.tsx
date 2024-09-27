@@ -19,7 +19,7 @@ export default function Header() {
     : "invisible";
   return (
     <>
-      <div className="fixed z-50 flex justify-between items-center w-full px-4 py-2">
+      <div className="fixed z-30 flex justify-between items-center w-full px-4 py-2">
         <a
           href="#main"
           className="absolute -left-96 self-start top-auto overflow-hidden focus:static focus:h-auto bg-white"
