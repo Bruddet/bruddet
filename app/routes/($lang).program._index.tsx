@@ -141,6 +141,7 @@ export default function Program() {
                       dates={link.dates}
                       borderColor={"border-black"}
                       borderStyle="md:border-none"
+                      fontStyle="italic"
                     />
                   </div>
                 )}
