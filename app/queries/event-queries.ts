@@ -39,6 +39,7 @@ export function getEventQuery(params: Params<string>) {
       persons[]{
       _type,
       occupation, 
+      description,
       person->{name, image, text}
       }
     },
