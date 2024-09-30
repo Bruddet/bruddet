@@ -21,10 +21,11 @@ export const EventTextContent = ({ textColor, data }: Props) => {
     <div
       className={`flex flex-col my-12 ${textColor} self-center max-w-[2000px]`}
     >
+      {/*grid-block for regular screens*/}
       <div className="hidden md:block">
         <div className="grid grid-cols-2 gap-10 font-serif text-xl">
           <div className="flex justify-start w-full">
-            <div className="w-4/5">
+            <div className="w-4/5 flex flex-col gap-8">
               {data?.text?.map(
                 (d, index) =>
                   leftBlocks.includes(d._type) && (
@@ -54,7 +55,8 @@ export const EventTextContent = ({ textColor, data }: Props) => {
           </div>
         </div>
       </div>
-      <div className="block md:hidden">
+      {/*column for mobile screens*/}
+      <div className="flex md:hidden flex-col gap-4">
         {data?.text?.map((d, index) => (
           <>
             <PortableTextComponent key={index} data={d} textColor={textColor} />
