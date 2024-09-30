@@ -58,9 +58,9 @@ export const EventTextContent = ({ textColor, data }: Props) => {
       {/*column for mobile screens*/}
       <div className="flex md:hidden flex-col gap-4">
         {data?.text?.map((d, index) => (
-          <div className="">
+          <>
             <PortableTextComponent key={index} data={d} textColor={textColor} />
-          </div>
+          </>
         ))}
         <RolesAndTickets
           roleGroups={data?.roleGroups}
