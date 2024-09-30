@@ -49,7 +49,7 @@ export const QuoteBomb = ({ quote, creditsMedia, creditsSource }: Props) => {
   const lineHeight = getLineHeight();
 
   return (
-    <div>
+    <div className="my-4">
       <svg
         width="474"
         viewBox="0 0 474 360"
