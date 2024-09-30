@@ -49,7 +49,7 @@ export const QuoteBomb = ({ quote, creditsMedia, creditsSource }: Props) => {
   const lineHeight = getLineHeight();
 
   return (
-    <div className="my-4">
+    <div className="my-4 flex flex-col items-center">
       <svg
         width="474"
         viewBox="0 0 474 360"
