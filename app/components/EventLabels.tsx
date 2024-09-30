@@ -154,6 +154,7 @@ export const EventLabels = ({
                 borderColor={textBorderColor}
                 textColor={primaryTextColor}
                 label={label}
+                fontWeight={"font-bold"}
               />
             )
         )}

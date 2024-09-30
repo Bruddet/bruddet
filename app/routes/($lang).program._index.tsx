@@ -140,7 +140,6 @@ export default function Program() {
                     <DatesLabel
                       dates={link.dates}
                       borderColor={"border-black"}
-                      fontStyle="italic"
                       borderStyle="md:border-none"
                     />
                   </div>
@@ -153,7 +152,7 @@ export default function Program() {
           <img
             src={gifUrl}
             alt={data.gif.alt}
-            className="hidden absolute md:block max-w-[300px] max-h-[200px] object-cover right-14 top-14"
+            className="hidden absolute lg:block max-w-[300px] max-h-[200px] object-cover right-14 top-14"
           />
         )}
       </div>
