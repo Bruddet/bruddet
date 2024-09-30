@@ -139,7 +139,6 @@ export const EventLabels = ({
     primaryButtonColor,
   } = getColor(colorCombination || "creamBlue");
 
-  console.log("textbordercolor", textBorderColor);
   return (
     <>
       <div
