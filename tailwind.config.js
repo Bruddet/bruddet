@@ -29,6 +29,7 @@ const styleProps = [
   "textColor",
   "secondaryTextColor",
   "textBorderColor",
+  "shadowColor",
 ];
 
 /* 
@@ -59,6 +60,8 @@ export const Styles = ({ colorCombination, styleProp }) => {
       return `border-${colorCombination}-secondary`;
     case "primaryButtonColor":
       return `bg-mainThemeColor`;
+    case "shadowColor":
+      return `shadow-custom shadow-${colorCombination}-primary`;
     default:
       return "black";
   }
@@ -67,6 +70,7 @@ export const Styles = ({ colorCombination, styleProp }) => {
 const colors = {
   ...colorsWithVariants,
   strongblue: "#59A1B6",
+  shadowHunter: "#12222B",
   lightblue: "#83D2FF",
   beige: "#FFF8E8",
   mainThemeColor: "#D4FF26",
@@ -104,6 +108,9 @@ export default {
             transform: "translateX(20px)",
           },
         },
+      },
+      boxShadow: {
+        custom: "0 0 20px 20px",
       },
       colors: colors,
       animation: {

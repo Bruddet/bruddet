@@ -24,6 +24,8 @@ export const Styles = ({ colorCombination, styleProp }: Props) => {
       return `border-${colorCombination}-secondary`;
     case "primaryButtonColor":
       return `bg-mainThemeColor`;
+    case "shadowColor":
+      return `shadow-custom shadow-${colorCombination}-primary`;
     default:
       return "black";
   }
@@ -79,6 +81,12 @@ export function getColor(colorCombination: colorCombinations = "creamBlue") {
       Styles({
         colorCombination: cleanColorCombination,
         styleProp: "primaryButtonColor",
+      })
+    ),
+    shadowColor: stegaClean(
+      Styles({
+        colorCombination: cleanColorCombination,
+        styleProp: "shadowColor",
       })
     ),
   };

@@ -96,6 +96,9 @@ export default function Index() {
 
   const { setColor } = useBackgroundColor();
 
+  console.log("data event image", data?.event?.image);
+  console.log("dominant---", data?.event?.image?.palette?.dominant);
+
   useEffect(() => {
     setColor("bg-beige");
   }, [setColor]);
@@ -109,7 +112,7 @@ export default function Index() {
         }}
         aria-label={"Background image"}
       >
-        <Navigation />
+        <Navigation colorCombination={data?.event?.colorCombination} />
 
         {data?.event && (
           <div className="absolute right-16 top-16">

@@ -23,7 +23,10 @@ export function getEventQuery(params: Params<string>) {
     metaTitle,
     metaDescription,
     title, 
-    image,
+    image{
+      ..., 
+      "palette": asset->metadata.palette
+    },
     imageMask, 
     colorCombination, 
     dates, 

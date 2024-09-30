@@ -828,7 +828,7 @@ export type ARTICLE_QUERYResult = {
 
 // Source: ./app/queries/event-queries.ts
 // Variable: EVENT_QUERY
-// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    metaTitle,    metaDescription,    title,     image,    imageMask,     colorCombination,     dates,     duration,    labels,    ingress,    svgTitle,    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      _type,      name,       persons[]{      _type,      occupation,       description,      person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
+// Query: *[_type=="event" && language==$lang && slug.current==$id][0]{    metaTitle,    metaDescription,    title,     image{      ...,       "palette": asset->metadata.palette    },    imageMask,     colorCombination,     dates,     duration,    labels,    ingress,    svgTitle,    text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},    eventGenre,     roleGroups[]{      _type,      name,       persons[]{      _type,      occupation,       description,      person->{name, image, text}      }    },    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{    slug,    language,    }  }
 export type EVENT_QUERYResult = {
   metaTitle: MetaTitle | null;
   metaDescription: MetaDescription | null;
@@ -845,6 +845,7 @@ export type EVENT_QUERYResult = {
     alt?: string;
     credit?: string;
     _type: "customImage";
+    palette: SanityImagePalette | null;
   } | null;
   imageMask: ImageMask | null;
   colorCombination: "blueBlack" | "blueYellow" | "creamBlue" | "peachBlue" | "purpleWhite" | null;
@@ -997,7 +998,7 @@ export type EVENT_QUERYResult = {
 
 // Source: ./app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
-// Query: *[_type=="frontpage" && language==$lang][0]{  title,   image,   language,  svgTitle,   metaTitle,   metaDescription,   event->{    title,     text,     image,     slug,     metaTitle,     metaDescription,     svgTitle,    colorCombination    }  }
+// Query: *[_type=="frontpage" && language==$lang][0]{  title,   image,   language,  svgTitle,   metaTitle,   metaDescription,   event->{    title,     text,     image{      ...,       "palette": asset->metadata.palette    },    slug,     metaTitle,     metaDescription,     svgTitle,    colorCombination    }  }
 export type FRONTPAGE_QUERYResult = {
   title: string | null;
   image: {
@@ -1044,6 +1045,7 @@ export type FRONTPAGE_QUERYResult = {
       alt?: string;
       credit?: string;
       _type: "customImage";
+      palette: SanityImagePalette | null;
     } | null;
     slug: Slug | null;
     metaTitle: MetaTitle | null;
@@ -1132,8 +1134,8 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type==\"article\" && language==$lang]{_id, slug, title}": ARTICLES_QUERYResult;
     "*[_type==\"article\" && slug.current==$id && language==$lang][0]{\n    title, \n    slug, \n    metaTitle, \n    metaDescription, \n    colorCombination, \n    image, \n    text[]{..., \n      _type==\"video\" => {\n        title, muxVideo{asset->{playbackId}\n        }\n      }\n    }, \n    video{\n      title, \n      muxVideo{\n        asset->{\n          playbackId}\n        }\n    },\n    'event': event->{slug},\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      slug,\n      language,\n      }\n    }": ARTICLE_QUERYResult;
-    "*[_type==\"event\" && language==$lang && slug.current==$id][0]{\n    metaTitle,\n    metaDescription,\n    title, \n    image,\n    imageMask, \n    colorCombination, \n    dates, \n    duration,\n    labels,\n    ingress,\n    svgTitle,\n    text[]{..., _type==\"video\" => {title, muxVideo{asset->{playbackId}}}},\n    eventGenre, \n    roleGroups[]{\n      _type,\n      name, \n      persons[]{\n      _type,\n      occupation, \n      description,\n      person->{name, image, text}\n      }\n    },\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n    slug,\n    language,\n    }\n  }": EVENT_QUERYResult;
-    "*[_type==\"frontpage\" && language==$lang][0]{\n  title, \n  image, \n  language,\n  svgTitle, \n  metaTitle, \n  metaDescription, \n  event->{\n    title, \n    text, \n    image, \n    slug, \n    metaTitle, \n    metaDescription, \n    svgTitle,\n    colorCombination\n    }\n  }": FRONTPAGE_QUERYResult;
+    "*[_type==\"event\" && language==$lang && slug.current==$id][0]{\n    metaTitle,\n    metaDescription,\n    title, \n    image{\n      ..., \n      \"palette\": asset->metadata.palette\n    },\n    imageMask, \n    colorCombination, \n    dates, \n    duration,\n    labels,\n    ingress,\n    svgTitle,\n    text[]{..., _type==\"video\" => {title, muxVideo{asset->{playbackId}}}},\n    eventGenre, \n    roleGroups[]{\n      _type,\n      name, \n      persons[]{\n      _type,\n      occupation, \n      description,\n      person->{name, image, text}\n      }\n    },\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n    slug,\n    language,\n    }\n  }": EVENT_QUERYResult;
+    "*[_type==\"frontpage\" && language==$lang][0]{\n  title, \n  image, \n  language,\n  svgTitle, \n  metaTitle, \n  metaDescription, \n  event->{\n    title, \n    text, \n    image{\n      ..., \n      \"palette\": asset->metadata.palette\n    },\n    slug, \n    metaTitle, \n    metaDescription, \n    svgTitle,\n    colorCombination\n    }\n  }": FRONTPAGE_QUERYResult;
     "*[_type==\"menupage\" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]": MENUPAGE_QUERYResult;
     "*[_type==\"programpage\" && language==$lang]{metaTitle, metaDescription, title, text,gif, links[]->{title, slug, gif, image, dates} }[0]": PROGRAMPAGE_QUERYResult;
   }

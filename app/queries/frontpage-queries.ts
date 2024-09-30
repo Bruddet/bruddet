@@ -14,7 +14,10 @@ export function getFrontpageQuery(params: Params<string>) {
   event->{
     title, 
     text, 
-    image, 
+    image{
+      ..., 
+      "palette": asset->metadata.palette
+    },
     slug, 
     metaTitle, 
     metaDescription, 
