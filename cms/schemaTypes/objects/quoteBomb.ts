@@ -15,5 +15,15 @@ export default {
         "OBS: redaktør må selv passe på ord-deling for at det skal se bra ut, da figuren ikke tilpasser seg tekst.",
       validation: (rule) => [rule.max(100).warning("Anbefaler kortere quote.")],
     }),
+    defineField({
+      title: "Kreditering - person",
+      name: "creditsSource",
+      type: "string",
+    }),
+    defineField({
+      title: "Kreditering - media/rolle",
+      name: "creditsMedia",
+      type: "string",
+    }),
   ],
 };

@@ -1,26 +1,57 @@
+import { stegaClean } from "@sanity/client/stega";
+
 type Props = {
   quote: string;
+  creditsSource?: string;
+  creditsMedia?: string;
 };
-export const QuoteBomb = ({ quote }: Props) => {
-  const lengthOfString = quote.length;
+export const QuoteBomb = ({ quote, creditsMedia, creditsSource }: Props) => {
+  const cleanQuote = stegaClean(quote);
+  const lengthOfString = cleanQuote.length;
 
   const getFontSize = () => {
-    if (lengthOfString < 20) {
-      return "120px";
-    } else if (lengthOfString > 20 && lengthOfString < 40) {
-      return "90px";
-    } else if (lengthOfString > 40 && lengthOfString < 60) {
+    if (lengthOfString < 30) {
+      return "80px";
+    } else if (lengthOfString >= 30 && lengthOfString < 45) {
       return "70px";
+    } else if (lengthOfString >= 45 && lengthOfString < 60) {
+      return "55px";
+    } else if (lengthOfString >= 60 && lengthOfString < 80) {
+      return "45px";
+    } else if (lengthOfString >= 80 && lengthOfString < 90) {
+      return "40px";
+    } else if (lengthOfString >= 90 && lengthOfString < 100) {
+      return "35px";
     } else {
-      return "60px";
+      return "20px";
     }
   };
+
+  const getLineHeight = () => {
+    if (lengthOfString < 30) {
+      return "70px";
+    } else if (lengthOfString >= 30 && lengthOfString < 45) {
+      return "55px";
+    } else if (lengthOfString >= 45 && lengthOfString < 60) {
+      return "50px";
+    } else if (lengthOfString >= 60 && lengthOfString < 80) {
+      return "45px";
+    } else if (lengthOfString >= 80 && lengthOfString < 90) {
+      return "40px";
+    } else if (lengthOfString >= 85 && lengthOfString < 100) {
+      return "35px";
+    } else {
+      return "20px";
+    }
+  };
+
   const fontSize = getFontSize();
+  const lineHeight = getLineHeight();
+
   return (
-    <div>
+    <div className="my-4">
       <svg
         width="474"
-        height="360"
         viewBox="0 0 474 360"
         fill="none"
         style={{ maxWidth: "100%" }}
@@ -41,14 +72,19 @@ export const QuoteBomb = ({ quote }: Props) => {
               display: "flex",
               alignItems: "center",
               height: "100%",
+              lineHeight: lineHeight,
             }}
           >
-            <p style={{ margin: "0", padding: "0", lineHeight: "70px" }}>
-              {quote}
-            </p>
+            <p style={{ margin: "0", padding: "0" }}>{quote}</p>
           </div>
         </foreignObject>
       </svg>
+      {(creditsMedia || creditsSource) && (
+        <div className="flex flex-col font-bold items-center my-8">
+          <p>{creditsSource}</p>
+          <p>{creditsMedia}</p>
+        </div>
+      )}
     </div>
   );
 };

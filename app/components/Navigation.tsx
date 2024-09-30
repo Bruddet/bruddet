@@ -19,12 +19,10 @@ export const Navigation = () => {
     ? "black"
     : "#D4FF26";
 
-  console.log("lang", lang);
-
   return (
     <div className="flex flex-row px-8 justify-between fixed w-full bottom-1/2">
       <Link
-        to={lang == "/en" ? "/en/meny" : "/meny"}
+        to={lang.includes("/en") ? "/en/meny" : "/meny"}
         className={`md:flex ${navigationButtonStyle}`}
         aria-label={t(texts.menuText)}
       >
@@ -34,7 +32,7 @@ export const Navigation = () => {
         <div className="px-4 hover:underline">{t(texts.menuButton)}</div>
       </Link>
       <Link
-        to={lang == "/en" ? "/en/program" : "/program"}
+        to={lang.includes("/en") ? "/en/program" : "/program"}
         className={`md:flex ${navigationButtonStyle}`}
         aria-label={t(texts.programText)}
       >

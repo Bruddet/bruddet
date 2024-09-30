@@ -33,37 +33,53 @@ export function getColor(colorCombination: colorCombinations = "creamBlue") {
   const cleanColorCombination = stegaClean(colorCombination);
 
   return {
-    bgColor: Styles({
-      colorCombination: cleanColorCombination,
-      styleProp: "background",
-    }),
-    primaryBorder: Styles({
-      colorCombination: cleanColorCombination,
-      styleProp: "primaryBorderColor",
-    }),
-    primaryTextColor: Styles({
-      colorCombination: cleanColorCombination,
-      styleProp: "primaryTextColor",
-    }),
-    secondaryTextColor: Styles({
-      colorCombination: cleanColorCombination,
-      styleProp: "secondaryTextColor",
-    }),
-    secondaryBgColor: Styles({
-      colorCombination: cleanColorCombination,
-      styleProp: "secondaryBackgroundColor",
-    }),
-    secondaryBorder: Styles({
-      colorCombination: cleanColorCombination,
-      styleProp: "secondaryBorderColor",
-    }),
-    textBorderColor: Styles({
-      colorCombination: cleanColorCombination,
-      styleProp: "textBorderColor",
-    }),
-    primaryButtonColor: Styles({
-      colorCombination: cleanColorCombination,
-      styleProp: "primaryButtonColor",
-    }),
+    bgColor: stegaClean(
+      Styles({
+        colorCombination: cleanColorCombination,
+        styleProp: "background",
+      })
+    ),
+    primaryBorder: stegaClean(
+      Styles({
+        colorCombination: cleanColorCombination,
+        styleProp: "primaryBorderColor",
+      })
+    ),
+    primaryTextColor: stegaClean(
+      Styles({
+        colorCombination: cleanColorCombination,
+        styleProp: "primaryTextColor",
+      })
+    ),
+    secondaryTextColor: stegaClean(
+      Styles({
+        colorCombination: cleanColorCombination,
+        styleProp: "secondaryTextColor",
+      })
+    ),
+    secondaryBgColor: stegaClean(
+      Styles({
+        colorCombination: cleanColorCombination,
+        styleProp: "secondaryBackgroundColor",
+      })
+    ),
+    secondaryBorder: stegaClean(
+      Styles({
+        colorCombination: cleanColorCombination,
+        styleProp: "secondaryBorderColor",
+      })
+    ),
+    textBorderColor: stegaClean(
+      Styles({
+        colorCombination: cleanColorCombination,
+        styleProp: "textBorderColor",
+      })
+    ),
+    primaryButtonColor: stegaClean(
+      Styles({
+        colorCombination: cleanColorCombination,
+        styleProp: "primaryButtonColor",
+      })
+    ),
   };
 }

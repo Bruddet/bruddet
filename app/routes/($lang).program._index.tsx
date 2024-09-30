@@ -102,7 +102,14 @@ export default function Program() {
       <div className="flex flex-column w-[90vw]">
         <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
           {data?.links?.map((link, index) => (
-            <div className="flex justify-center align-middle my-5 md:w-1/3 md:text-center ">
+            <div
+              onMouseEnter={() => {
+                setGifUrl(
+                  urlFor(link.gif?.asset?._ref ?? link.image.asset?._ref ?? "")
+                );
+              }}
+              className="flex z-40 justify-center align-middle my-5 md:w-1/3 md:text-center "
+            >
               <Link
                 key={index}
                 to={
@@ -112,13 +119,6 @@ export default function Program() {
                       }`
                     : ""
                 }
-                onMouseEnter={() => {
-                  setGifUrl(
-                    urlFor(
-                      link.gif?.asset?._ref ?? link.image.asset?._ref ?? ""
-                    )
-                  );
-                }}
                 aria-label={`${t(texts.labelText)} ${link.title}`}
                 className="group flex w-full flex-col"
               >
@@ -130,7 +130,9 @@ export default function Program() {
                     key={index}
                   />
                 </div>
-                <p className="group-hover:underline text-2xl lg:text-4xl mt-4 mb-2">
+                <p
+                  className={`${"group-hover:underline"} text-2xl lg:text-4xl mt-4 mb-2`}
+                >
                   {link.title}
                 </p>
                 {link.dates && link.dates.length > 0 && (
@@ -138,8 +140,8 @@ export default function Program() {
                     <DatesLabel
                       dates={link.dates}
                       borderColor={"border-black"}
-                      fontStyle="italic"
                       borderStyle="md:border-none"
+                      fontStyle="italic"
                     />
                   </div>
                 )}
@@ -151,11 +153,10 @@ export default function Program() {
           <img
             src={gifUrl}
             alt={data.gif.alt}
-            className="hidden absolute md:block max-h-[300px] object-cover right-10"
+            className="hidden absolute lg:block max-w-[300px] max-h-[200px] object-cover right-14 top-14"
           />
         )}
       </div>
-      <StickyFooter />
     </div>
   );
 }

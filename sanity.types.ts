@@ -75,6 +75,8 @@ export type QuoteBomb = {
   _updatedAt: string;
   _rev: string;
   quote?: string;
+  creditsSource?: string;
+  creditsMedia?: string;
 };
 
 export type EventGenre = "Konsert" | "Skuespill";
@@ -208,6 +210,8 @@ export type Content = Array<{
   _key: string;
 } | {
   quote?: string;
+  creditsSource?: string;
+  creditsMedia?: string;
   _type: "quoteBomb";
   _key: string;
 }>;
@@ -782,6 +786,8 @@ export type ARTICLE_QUERYResult = {
     _key: string;
   } | {
     quote?: string;
+    creditsSource?: string;
+    creditsMedia?: string;
     _type: "quoteBomb";
     _key: string;
   } | {
@@ -931,6 +937,8 @@ export type EVENT_QUERYResult = {
     _key: string;
   } | {
     quote?: string;
+    creditsSource?: string;
+    creditsMedia?: string;
     _type: "quoteBomb";
     _key: string;
   } | {

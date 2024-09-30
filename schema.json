@@ -366,6 +366,20 @@
           "type": "string"
         },
         "optional": true
+      },
+      "creditsSource": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "creditsMedia": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
       }
     }
   },
@@ -1319,6 +1333,20 @@
             "type": "object",
             "attributes": {
               "quote": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": true
+              },
+              "creditsSource": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                },
+                "optional": true
+              },
+              "creditsMedia": {
                 "type": "objectAttribute",
                 "value": {
                   "type": "string"
