@@ -30,6 +30,7 @@ import { ExitPreview } from "./components/ExitPreview";
 import { loadQueryOptions } from "../cms/loadQueryOptions.server";
 import NewsletterMarquee from "./components/NewsletterMarquee";
 import "./styles/global.css";
+import StickyFooter from "./components/StickyFooter";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
@@ -122,7 +123,15 @@ export default function App() {
   const { language, preview } = useRouteLoaderData<typeof loader>("root");
   const location = useLocation();
 
-  const pathsWithNewsletter = ["/", "/meny", "/program", "/meny", "/en"];
+  const pathsWithNewsletter = [
+    "/",
+    "/meny",
+    "/program",
+    "/meny",
+    "/en",
+    "/en/meny",
+    "/en/program",
+  ];
 
   if (location.pathname.startsWith("/studio")) {
     return <Outlet />;
@@ -138,11 +147,12 @@ export default function App() {
             </Suspense>
           )}
           <Header />
-          <div className="flex grow flex-col font-serif" id="main">
+          <div className="flex flex-col grow min-h-screen font-serif" id="main">
             <Outlet />
             {pathsWithNewsletter.includes(location.pathname) && (
               <>
                 <NewsletterMarquee />
+                <StickyFooter />
               </>
             )}
           </div>

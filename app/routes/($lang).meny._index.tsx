@@ -126,7 +126,6 @@ export default function Info() {
           </p>
         </Link>
       </div>
-      <StickyFooter />
     </div>
   );
 }

@@ -12,7 +12,6 @@ import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { Navigation } from "~/components/Navigation";
-import StickyFooter from "~/components/StickyFooter";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -126,7 +125,6 @@ export default function Index() {
           alt={data?.event?.svgTitle?.alt || data?.svgTitle?.alt || "Logo"}
         />
       </div>
-      <StickyFooter />
     </>
   );
 }

@@ -3,13 +3,17 @@
 This is the repository contains Bruddet's frontend and cms application
 
 ## .env.local
-You will need a .env.local file for the api tokens. Copy and rename the .env file and replace SANITY_EDITOR_TOKEN, SANITY_EDITOR_TOKEN. These tokens are stored in "basen - shared" in 1Password. New tokens can be generated in api/tokens where you manage the Sanity project (https://www.sanity.io/organizations/oY2dfMupw/project/0chpibsu/api#tokens). 
+
+You will need a .env.local file for the api tokens. Copy and rename the .env file and replace SANITY_EDITOR_TOKEN, SANITY_EDITOR_TOKEN. These tokens are stored in "basen - shared" in 1Password. New tokens can be generated in api/tokens where you manage the Sanity project (https://www.sanity.io/organizations/oY2dfMupw/project/0chpibsu/api#tokens).
 
 ## Run project
+
 To run a development version of the project locally run the following command in the root folder:
+
 ```
 npm run dev
 ```
+
 This will start Remix in development mode. You can then visit the following URLs:
 
 - [localhost:5173](http://localhost:5173) - The local version of the frontend website
@@ -27,19 +31,22 @@ npm run build
 ### Develop 💻
 
 To develop all apps and packages in frontend, run the following command in the root folder:
+
 ```
 npm run dev
 ```
 
 ### Production
+
 To test frontend build and run in production mode locally, run the following command in the root folder:
+
 ```
 npm run start
 ```
 
 ## Backend commands
 
-After starting the remix application, the CMS is available at  ```/studio```
+After starting the remix application, the CMS is available at `/studio`
 
 ## Making changes in the cms
 
@@ -63,6 +70,10 @@ npx sanity schema extract
 ```
 npx sanity typegen generate
 ```
+
+### Dynamic classnames in Tailwind
+
+You can't use dynamic class naming like bg-${color} in Tailwind out of the box with Sanity. When Tailwind compiles the CSS, it checks the code for a class name that matches, but it will only find classes that exist as a complete unbruken string in the source files. Tailwind can't find the dynamic classes at runtime since it does not yet exist. As a workaround, to avoid having to write out all possible combinations in strings with functions and if-sentences (which was done at first, and required lots of code each time a new color-combination was added), we use a Safelist in tailwind.config.js, where we generate the possible combinations of colorsWithVariants and StyleProps so that Tailwind can find them when compiling. This makes it possible to avoid having to write a new function for each styleprop that handles each case of colorcombination.
 
 ### Internationalization 🇳🇴🇬🇧
 
@@ -104,7 +115,7 @@ npx sanity dataset import [exported dataset].tar.gz [your chosen dataset] --miss
 
 Open `frontend/tailwind.config.js`:
 
-- Add the hex code and name under ```extend: {colors: { ... }}```
+- Add the hex code and name under `extend: {colors: { ... }}`
 
 ### Add new color themes 🎨
 

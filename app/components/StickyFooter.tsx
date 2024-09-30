@@ -12,7 +12,7 @@ export default function StickyFooter() {
 
   return (
     <footer
-      className={`md:hidden py-6 flex flex-row justify-center align-middle gap-10 w-full bottom-0 sticky border-t border-${textcolor} text-${textcolor} ${color} font-serif text-2xl `}
+      className={`md:hidden z-50 py-6 flex flex-row justify-center align-middle gap-10 w-full bottom-0 sticky border-t border-${textcolor} text-${textcolor} ${color} font-serif text-2xl `}
     >
       <Link
         to={isEnglish ? "/en" + "/meny" : "/meny"}

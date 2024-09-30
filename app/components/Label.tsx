@@ -5,6 +5,7 @@ type Props = {
   borderStyle?: string | undefined;
   label: string;
   fontStyle?: string;
+  fontWeight?: string;
   isDate?: boolean;
 };
 
@@ -15,11 +16,12 @@ export const Label = ({
   label,
   fontStyle,
   borderStyle,
+  fontWeight,
 }: Props) => {
   return (
     <p
       key={key}
-      className={`p-2 border font-bold text-nowrap w-min ${borderColor} ${textColor} ${fontStyle} ${borderStyle}`}
+      className={`p-2 border ${fontWeight} text-nowrap w-min ${borderColor} ${textColor} ${fontStyle} ${borderStyle}`}
     >
       {label}
     </p>

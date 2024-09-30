@@ -137,9 +137,7 @@ export default function Event() {
 
   return (
     <>
-      <div
-        className={`flex-col flex w-full ${primaryTextColor} gap-6 font-serif `}
-      >
+      <div className={`flex-col flex w-full ${primaryTextColor} font-serif `}>
         {image?.asset?._ref && (
           <ImageEventPage
             url={urlFor(image.asset._ref, data.image?.hotspot)}
@@ -148,23 +146,24 @@ export default function Event() {
             svgAlt={data?.svgTitle?.alt || ""}
           />
         )}
+        <div className="flex flex-col mx-8 md:mx-24">
+          {ingress && (
+            <p className="text-lg lg:text-3xl mx-auto  my-6 max-w-[1000px] font-bold">
+              {ingress}
+            </p>
+          )}
 
-        {ingress && (
-          <p className="text-lg lg:text-3xl mx-auto max-w-[1000px] px-5 font-bold">
-            {ingress}
-          </p>
-        )}
-
-        {dates && (
-          <EventLabels
-            dates={dates}
-            customLabels={labels}
-            genre={eventGenre}
-            duration={duration}
-            colorCombination={colorCombination}
-          />
-        )}
-        <EventTextContent textColor={primaryTextColor} data={data} />
+          {dates && (
+            <EventLabels
+              dates={dates}
+              customLabels={labels}
+              genre={eventGenre}
+              duration={duration}
+              colorCombination={colorCombination}
+            />
+          )}
+          <EventTextContent textColor={primaryTextColor} data={data} />
+        </div>
       </div>
       <BuyButtonFooter handleScroll={handleScroll} />
     </>
