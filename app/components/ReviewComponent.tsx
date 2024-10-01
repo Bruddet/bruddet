@@ -79,7 +79,7 @@ export function ReviewComponent({ review, color }: ReviewProps) {
       ) : (
         <p className={`underline not-italic`}>{review.company}</p>
       )}
-      {review.score && review.type ? (
+      {review.score && review.type && review.type != "standard" ? (
         <div className="max-w-[12em]">
           {getReviewIcon(review.score, review.type)}
         </div>

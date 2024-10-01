@@ -11,8 +11,10 @@ export const reviewType = defineType({
       title: "Type anmeldelse",
       name: "type",
       type: "string",
+      initialValue: "standard",
       options: {
         list: [
+          { title: "Standard", value: "standard" },
           { title: "Terning", value: "dice" },
           { title: "Stjerne", value: "stars" },
         ],
@@ -25,6 +27,8 @@ export const reviewType = defineType({
       name: "score",
       type: "number",
       title: "Score",
+      description:
+        "Dette trenger du bare velge hvis anmeldelse har stjerner eller terning",
       validation: (rule) => [
         rule.min(1).max(6).error(`Score må være mellom 1 og 6`),
       ],
