@@ -18,7 +18,7 @@ import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
 import { DatesLabel } from "~/components/EventLabels";
 import { Navigation } from "~/components/Navigation";
-import StickyFooter from "~/components/StickyFooter";
+import { SocialMediaBlock } from "~/components/SocialMediaBlock";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -95,69 +95,80 @@ export default function Program() {
   const params = useParams();
 
   return (
-    <div className="flex flex-col grow items-center text-black font-serif">
-      <Navigation />
+    <>
+      <div className="flex flex-col grow items-center text-black font-serif">
+        <Navigation />
 
-      <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
-      <div className="flex flex-column w-[90vw]">
-        <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
-          {data?.links?.map((link, index) => (
-            <div
-              onMouseEnter={() => {
-                setGifUrl(
-                  urlFor(link.gif?.asset?._ref ?? link.image.asset?._ref ?? "")
-                );
-              }}
-              className="flex z-40 justify-center align-middle my-5 md:w-1/3 md:text-center "
-            >
-              <Link
-                key={index}
-                to={
-                  link.slug?.current
-                    ? `${params.lang === "en" ? "/en/event/" : "/event/"}${
-                        link.slug.current
-                      }`
-                    : ""
-                }
-                aria-label={`${t(texts.labelText)} ${link.title}`}
-                className="group flex w-full flex-col"
+        <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
+        <div className="flex flex-column w-[90vw]">
+          <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
+            {data?.links?.map((link, index) => (
+              <div
+                onMouseEnter={() => {
+                  setGifUrl(
+                    urlFor(
+                      link.gif?.asset?._ref ?? link.image.asset?._ref ?? ""
+                    )
+                  );
+                }}
+                className="flex z-40 justify-center align-middle my-5 md:w-1/3 md:text-center "
               >
-                <div className="md:hidden aspect-square w-full">
-                  <img
-                    className="inline-block object-cover w-full h-full"
-                    src={urlFor(link?.image?.asset?._ref ?? "")}
-                    alt={link?.image?.alt ?? ""}
-                    key={index}
-                  />
-                </div>
-                <p
-                  className={`${"group-hover:underline"} text-2xl lg:text-4xl mt-4 mb-2`}
+                <Link
+                  key={index}
+                  to={
+                    link.slug?.current
+                      ? `${params.lang === "en" ? "/en/event/" : "/event/"}${
+                          link.slug.current
+                        }`
+                      : ""
+                  }
+                  aria-label={`${t(texts.labelText)} ${link.title}`}
+                  className="group flex w-full flex-col"
                 >
-                  {link.title}
-                </p>
-                {link.dates && link.dates.length > 0 && (
-                  <div className="md:self-center">
-                    <DatesLabel
-                      dates={link.dates}
-                      borderColor={"border-black"}
-                      borderStyle="md:border-none"
-                      fontStyle="italic"
+                  <div className="md:hidden aspect-square w-full">
+                    <img
+                      className="inline-block object-cover w-full h-full"
+                      src={urlFor(link?.image?.asset?._ref ?? "")}
+                      alt={link?.image?.alt ?? ""}
+                      key={index}
                     />
                   </div>
-                )}
-              </Link>
+                  <p
+                    className={`${"group-hover:underline"} text-2xl lg:text-4xl mt-4 mb-2`}
+                  >
+                    {link.title}
+                  </p>
+                  {link.dates && link.dates.length > 0 && (
+                    <div className="md:self-center">
+                      <DatesLabel
+                        dates={link.dates}
+                        borderColor={"border-black"}
+                        borderStyle="md:border-none"
+                        fontStyle="italic"
+                      />
+                    </div>
+                  )}
+                </Link>
+              </div>
+            ))}
+            <div className="md:hidden w-full my-8">
+              <SocialMediaBlock socialMediaText={data?.socialMediaText} />
             </div>
-          ))}
+          </div>
+          {data?.gif && (
+            <img
+              src={gifUrl}
+              alt={data.gif.alt}
+              className="hidden fixed lg:block max-w-[300px] max-h-[200px] object-cover right-14 top-14"
+            />
+          )}
         </div>
-        {data?.gif && (
-          <img
-            src={gifUrl}
-            alt={data.gif.alt}
-            className="hidden absolute lg:block max-w-[300px] max-h-[200px] object-cover right-14 top-14"
-          />
-        )}
       </div>
-    </div>
+
+      <div className="hidden fixed md:block left-14 bottom-20">
+        <SocialMediaBlock socialMediaText={data?.socialMediaText} />
+      </div>
+    </>
   );
 }
 

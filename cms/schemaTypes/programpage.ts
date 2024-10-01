@@ -68,5 +68,11 @@ export const programpage = defineType({
         accept: ".gif",
       },
     }),
+    defineField({
+      name: "socialMediaText",
+      title: "Sosiale medier",
+      description: "Legg til tekst på sosiale medier blokk",
+      type: "string",
+    }),
   ],
 });
