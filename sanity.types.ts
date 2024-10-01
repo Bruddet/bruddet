@@ -627,8 +627,10 @@ export type Event = {
   ingress?: string;
   dates?: Array<{
     date?: string;
-    url?: string;
-    status?: 1 | 2 | 3;
+    ticketUrl?: string;
+    busTicketUrl?: string;
+    eventTicketStatus?: 1 | 2 | 3;
+    busTicketStatus?: 1 | 2 | 3;
     _key: string;
   }>;
   duration?: string;
@@ -851,8 +853,10 @@ export type EVENT_QUERYResult = {
   colorCombination: "blueBlack" | "blueYellow" | "creamBlue" | "peachBlue" | "purpleWhite" | null;
   dates: Array<{
     date?: string;
-    url?: string;
-    status?: 1 | 2 | 3;
+    ticketUrl?: string;
+    busTicketUrl?: string;
+    eventTicketStatus?: 1 | 2 | 3;
+    busTicketStatus?: 1 | 2 | 3;
     _key: string;
   }> | null;
   duration: string | null;
@@ -1121,8 +1125,10 @@ export type PROGRAMPAGE_QUERYResult = {
     } | null;
     dates: Array<{
       date?: string;
-      url?: string;
-      status?: 1 | 2 | 3;
+      ticketUrl?: string;
+      busTicketUrl?: string;
+      eventTicketStatus?: 1 | 2 | 3;
+      busTicketStatus?: 1 | 2 | 3;
       _key: string;
     }> | null;
   }> | null;

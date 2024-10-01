@@ -67,9 +67,12 @@ export const Styles = ({ colorCombination, styleProp }) => {
 const colors = {
   ...colorsWithVariants,
   strongblue: "#59A1B6",
+  mossDark: "#182D39",
+  nightBlue: "#2A4F65",
   lightblue: "#83D2FF",
   beige: "#FFF8E8",
   mainThemeColor: "#D4FF26",
+  acidGreen: "#DEFF5C",
 };
 
 /** @type {import('tailwindcss').Config} */
