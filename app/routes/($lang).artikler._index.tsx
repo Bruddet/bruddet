@@ -2,12 +2,12 @@ import { LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { ARTICLES_QUERYResult } from "../../cms/types";
 import { getArticlesQuery } from "../queries/article-queries";
-import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
 import { loadQuery } from "../../cms/loader.server";
 import { QueryResponseInitial, useQuery } from "@sanity/react-loader";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
+import { useColorCombination } from "~/utils/hooks/useColorCombination";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -82,7 +82,7 @@ export default function Articles() {
   });
   const params = useParams();
   const { t } = useTranslation();
-  const { setColor } = useBackgroundColor();
+  const { setColorCombination } = useColorCombination();
 
   if (data.length == 0) {
     throw new Response("Not Found", {
@@ -91,8 +91,9 @@ export default function Articles() {
   }
 
   useEffect(() => {
-    setColor("bg-beige");
-  }, [setColor]);
+    setColorCombination("blueBlack");
+  }, [setColorCombination]);
+
   return (
     <div className="grow">
       <div className="text-center py-12 px-0">

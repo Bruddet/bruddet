@@ -1,17 +1,17 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { useLoaderData, Link, useParams, useLocation } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "../../sanity.types";
 import { getFrontpageQuery } from "../queries/frontpage-queries";
 import urlFor from "../utils/imageUrlBuilder";
 import HexagonBuyButton from "../assets/HexagonBuyButton";
 import { createTexts, useTranslation } from "../utils/i18n";
-import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { Navigation } from "~/components/Navigation";
+import { useColorCombination } from "~/utils/hooks/useColorCombination";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -94,14 +94,15 @@ export default function Index() {
     data?.event?.svgTitle?.asset?._ref || data?.svgTitle?.asset?._ref || ""
   );
 
-  const { setColor } = useBackgroundColor();
-
-  console.log("data event image", data?.event?.image);
-  console.log("dominant---", data?.event?.image?.palette?.dominant);
+  const { setColorCombination } = useColorCombination();
 
   useEffect(() => {
-    setColor("bg-beige");
-  }, [setColor]);
+    if (data?.event?.colorCombination) {
+      setColorCombination(data.event.colorCombination);
+    } else {
+      setColorCombination("creamBlue");
+    }
+  }, [setColorCombination]);
 
   return (
     <>

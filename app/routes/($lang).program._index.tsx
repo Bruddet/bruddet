@@ -10,7 +10,6 @@ import { useEffect, useState } from "react";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { PROGRAMPAGE_QUERYResult } from "../../sanity.types";
 import { getProgramPageQuery } from "../queries/program-queries";
-import { useBackgroundColor } from "../utils/backgroundColor";
 import urlFor from "../utils/imageUrlBuilder";
 import { loadQuery } from "../../cms/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
@@ -18,7 +17,7 @@ import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
 import { DatesLabel } from "~/components/EventLabels";
 import { Navigation } from "~/components/Navigation";
-import StickyFooter from "~/components/StickyFooter";
+import { useColorCombination } from "~/utils/hooks/useColorCombination";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -83,20 +82,20 @@ export default function Program() {
     initial,
   });
 
-  const { setColor } = useBackgroundColor();
+  const { setColorCombination, colorCombination } = useColorCombination();
 
   const { t } = useTranslation();
   const [gifUrl, setGifUrl] = useState(urlFor(data?.gif?.asset?._ref || ""));
 
   useEffect(() => {
-    setColor("bg-strongblue");
-  }, [setColor]);
+    setColorCombination("blueBlack");
+  }, [setColorCombination]);
 
   const params = useParams();
 
   return (
     <div className="flex flex-col grow items-center text-black font-serif">
-      <Navigation />
+      <Navigation colorCombination={colorCombination} />
 
       <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
       <div className="flex flex-column w-[90vw]">

@@ -6,7 +6,6 @@ import { getColor } from "../utils/colorCombinations";
 import urlFor from "../utils/imageUrlBuilder";
 import ImageEventPage from "../components/Masks/ImageEventPage";
 import { getEventQuery } from "../queries/event-queries";
-import { useBackgroundColor } from "../utils/backgroundColor";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
 import { useTranslation } from "../utils/i18n";
 import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
@@ -17,6 +16,7 @@ import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { EventLabels } from "~/components/EventLabels";
 import BuyButtonFooter from "~/components/BuyButtonFooter";
 import { EventTextContent } from "~/components/EventTextContent";
+import { useColorCombination } from "~/utils/hooks/useColorCombination";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -120,15 +120,15 @@ export default function Event() {
     colorCombination || "creamBlue"
   );
 
-  const { setColor } = useBackgroundColor();
+  const { setColorCombination } = useColorCombination();
   const { setSlug } = useSlugContext();
 
   useEffect(() => {
-    setColor(bgColor);
+    setColorCombination(colorCombination || "creamBlue");
     if (_translations && _translations != undefined) {
       setSlug(language, _translations);
     }
-  }, [bgColor, data?._translations, language, setColor, setSlug]);
+  }, [bgColor, data?._translations, language, setColorCombination, setSlug]);
 
   useBuyButtonObserver();
   const SvgUrl = urlFor(

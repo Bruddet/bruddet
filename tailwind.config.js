@@ -2,22 +2,27 @@ const colorsWithVariants = {
   blueBlack: {
     primary: "#B6E3FD",
     secondary: "#000000",
+    textPrimary: "#000000",
   },
   peachBlue: {
     primary: "#FFD3CE",
     secondary: "#350E94",
+    textPrimary: "#000000",
   },
   creamBlue: {
     primary: "#FFF8E8",
     secondary: "#182E39",
+    textPrimary: "#182E39",
   },
   purpleWhite: {
     primary: "#556090",
     secondary: "#FFFFFF",
+    textPrimary: "#000000",
   },
   blueYellow: {
     primary: "#182E39",
     secondary: "#D4FF26",
+    textPrimary: "#FFFFFF",
   },
 };
 
@@ -26,7 +31,7 @@ const styleProps = [
   "secondaryBackgroundColor",
   "primaryBorderColor",
   "secondaryBorderColor",
-  "textColor",
+  "primaryTextColor",
   "secondaryTextColor",
   "textBorderColor",
   "shadowColor",
@@ -52,8 +57,8 @@ export const Styles = ({ colorCombination, styleProp }) => {
       return `border-${colorCombination}-primary`;
     case "secondaryBorderColor":
       return `border-${colorCombination}-secondary`;
-    case "textColor":
-      return `text-${colorCombination}-primary`;
+    case "primaryTextColor":
+      return `text-${colorCombination}-textPrimary`;
     case "secondaryTextColor":
       return `text-${colorCombination}-secondary`;
     case "textBorderColor":

@@ -6,7 +6,6 @@ import { getArticleQuery } from "../queries/article-queries";
 import PortableTextComponent from "../components/PortableTextComponent";
 import urlFor from "../utils/imageUrlBuilder";
 import MuxPlayer from "@mux/mux-player-react";
-import { useBackgroundColor } from "../utils/backgroundColor";
 import { useEffect } from "react";
 import { useTranslation } from "../utils/i18n";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
@@ -14,6 +13,7 @@ import { loadQuery } from "../../cms/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
+import { useColorCombination } from "~/utils/hooks/useColorCombination";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -95,14 +95,13 @@ export default function Article() {
     initial,
   });
 
-  const bgColor = "bg-[#FFF8E8]";
-  const { setColor } = useBackgroundColor();
+  const { setColorCombination } = useColorCombination();
   const { setSlug } = useSlugContext();
 
-  const { primaryText } = getColor(data?.colorCombination || "creamBlue");
+  const { primaryTextColor } = getColor(data?.colorCombination || "creamBlue");
 
   useEffect(() => {
-    setColor(bgColor);
+    setColorCombination("creamBlue");
     setSlug(language, data?._translations);
   });
   const { t, language } = useTranslation();
@@ -127,7 +126,7 @@ export default function Article() {
         />
       )}
       {data?.text && (
-        <PortableTextComponent data={data} textColor={primaryText} />
+        <PortableTextComponent data={data} textColor={primaryTextColor} />
       )}
       {data?.event && (
         <Link

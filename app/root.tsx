@@ -18,10 +18,6 @@ import {
   LanguageProvider,
   useTranslation,
 } from "./utils/i18n";
-import {
-  BackgroundColorProvider,
-  useBackgroundColor,
-} from "./utils/backgroundColor";
 import { SlugProvider } from "./utils/i18n/SlugProvider";
 import NoTranslation from "./components/NoTranslation";
 import { lazy, Suspense } from "react";
@@ -30,6 +26,10 @@ import { loadQueryOptions } from "../cms/loadQueryOptions.server";
 import NewsletterMarquee from "./components/NewsletterMarquee";
 import "./styles/global.css";
 import StickyFooter from "./components/StickyFooter";
+import {
+  ColorCombinationProvider,
+  useColorCombination,
+} from "./utils/hooks/useColorCombination";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
@@ -88,7 +88,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const { language } = useTranslation();
-  const { color } = useBackgroundColor();
+  const { colorCombination } = useColorCombination();
 
   return (
     <html lang={language} className="h-full">
@@ -109,7 +109,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className={`${color} min-h-screen h-full flex flex-col`}>
+      <body className={`${colorCombination} min-h-screen h-full flex flex-col`}>
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -137,7 +137,7 @@ export default function App() {
   }
   return (
     <LanguageProvider language={language}>
-      <BackgroundColorProvider>
+      <ColorCombinationProvider>
         <SlugProvider>
           {preview && (
             <Suspense>
@@ -156,7 +156,7 @@ export default function App() {
             )}
           </div>
         </SlugProvider>
-      </BackgroundColorProvider>
+      </ColorCombinationProvider>
     </LanguageProvider>
   );
 }

@@ -16,8 +16,8 @@ export const Styles = ({ colorCombination, styleProp }: Props) => {
       return `border-${colorCombination}-primary`;
     case "secondaryBorderColor":
       return `border-${colorCombination}-secondary`;
-    case "textColor":
-      return `text-${colorCombination}-primary`;
+    case "primaryTextColor":
+      return `text-${colorCombination}-textPrimary`;
     case "secondaryTextColor":
       return `text-${colorCombination}-secondary`;
     case "textBorderColor":

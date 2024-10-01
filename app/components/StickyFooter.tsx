@@ -1,6 +1,7 @@
 import { Link, useLocation } from "@remix-run/react";
 import { createTexts, useTranslation } from "../utils/i18n";
-import { useBackgroundColor } from "../utils/backgroundColor";
+import { useColorCombination } from "~/utils/hooks/useColorCombination";
+import { getColor } from "~/utils/colorCombinations";
 
 export default function StickyFooter() {
   let textcolor = "black";
@@ -8,11 +9,12 @@ export default function StickyFooter() {
   const { t } = useTranslation();
   const isEnglish =
     location.pathname.includes("/en/") || location.pathname === "/en";
-  const { color } = useBackgroundColor();
+  const { colorCombination } = useColorCombination();
+  const { bgColor } = getColor(colorCombination);
 
   return (
     <footer
-      className={`md:hidden z-50 py-6 flex flex-row justify-center align-middle gap-10 w-full bottom-0 sticky border-t border-${textcolor} text-${textcolor} ${color} font-serif text-2xl `}
+      className={`md:hidden z-50 py-6 flex flex-row justify-center align-middle gap-10 w-full bottom-0 sticky border-t border-${textcolor} text-${textcolor} ${bgColor} font-serif text-2xl `}
     >
       <Link
         to={isEnglish ? "/en" + "/meny" : "/meny"}

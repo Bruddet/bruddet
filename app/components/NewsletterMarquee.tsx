@@ -1,21 +1,23 @@
 import React from "react";
 import { useState } from "react";
 import PurpleDot from "~/assets/PurpleDot";
-import { useBackgroundColor } from "~/utils/backgroundColor";
+import { getColor } from "~/utils/colorCombinations";
+import { useColorCombination } from "~/utils/hooks/useColorCombination";
 import { createTexts, useTranslation } from "~/utils/i18n";
 
 export function NewsletterMarquee() {
   const [displayText, setDisplayText] = useState(true);
 
-  const { color } = useBackgroundColor();
+  const { colorCombination } = useColorCombination();
+  const { primaryTextColor, bgColor } = getColor(colorCombination);
 
   return (
     <>
       <button
         id="newsletter-marquee"
-        className={`overflow-hidden hidden z-50 md:flex sticky bottom-0 text-black border-t-2  ${
+        className={`overflow-hidden hidden ${bgColor} z-50 md:flex sticky bottom-0 text-black border-t-2  ${
           displayText
-            ? `border-t-white ${color !== "bg-white" ? color : "bg-black"}`
+            ? `border-t-white ${primaryTextColor}`
             : "border-t-[#24ED15] bg-[#24ED15]"
         }`}
         onFocus={() => {

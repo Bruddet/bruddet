@@ -6,7 +6,7 @@ import { ColorCombinations, SanityImagePalette } from "~/sanity.types";
 import { getColor } from "~/utils/colorCombinations";
 
 type Props = {
-  colorCombination: ColorCombinations | undefined;
+  colorCombination: ColorCombinations | undefined | null;
 };
 
 export const Navigation = ({ colorCombination }: Props) => {
@@ -33,8 +33,7 @@ export const Navigation = ({ colorCombination }: Props) => {
   const colorOnShadow =
     !pathsWithBlackText.includes(location?.pathname) && shadowColor;
 
-  useEffect(() => {}, []);
-
+  console.log("primaryTextColor", primaryTextColor);
   return (
     <div className="flex flex-row px-4 justify-between fixed w-full bottom-1/2">
       <Link
@@ -57,7 +56,7 @@ export const Navigation = ({ colorCombination }: Props) => {
       <Link
         id="programNavigationButton"
         to={lang.includes("/en") ? "/en/program" : "/program"}
-        className={`md:flex ${navigationButtonStyle}  ${shadowColor}`}
+        className={`md:flex ${navigationButtonStyle}  ${colorOnShadow}`}
         aria-label={t(texts.programText)}
       >
         <div
