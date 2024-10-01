@@ -442,6 +442,10 @@
           "of": [
             {
               "type": "string",
+              "value": "standard"
+            },
+            {
+              "type": "string",
               "value": "dice"
             },
             {
@@ -970,6 +974,10 @@
                 "value": {
                   "type": "union",
                   "of": [
+                    {
+                      "type": "string",
+                      "value": "standard"
+                    },
                     {
                       "type": "string",
                       "value": "dice"

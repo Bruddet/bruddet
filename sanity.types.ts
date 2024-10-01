@@ -87,7 +87,7 @@ export type Review = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  type?: "dice" | "stars";
+  type?: "standard" | "dice" | "stars";
   score?: number;
   content?: string;
   source?: string;
@@ -164,7 +164,7 @@ export type Content = Array<{
   _type: "video";
   _key: string;
 } | {
-  type?: "dice" | "stars";
+  type?: "standard" | "dice" | "stars";
   score?: number;
   content?: string;
   source?: string;
@@ -791,7 +791,7 @@ export type ARTICLE_QUERYResult = {
     _type: "quoteBomb";
     _key: string;
   } | {
-    type?: "dice" | "stars";
+    type?: "dice" | "standard" | "stars";
     score?: number;
     content?: string;
     source?: string;
@@ -942,7 +942,7 @@ export type EVENT_QUERYResult = {
     _type: "quoteBomb";
     _key: string;
   } | {
-    type?: "dice" | "stars";
+    type?: "dice" | "standard" | "stars";
     score?: number;
     content?: string;
     source?: string;

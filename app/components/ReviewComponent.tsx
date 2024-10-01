@@ -20,7 +20,6 @@ interface ReviewProps {
     link?: string;
     type?: string;
   };
-  color?: string;
 }
 
 function getStar(score: number) {
@@ -67,19 +66,19 @@ function getReviewIcon(score: number, type: string) {
   }
 }
 
-export function ReviewComponent({ review, color }: ReviewProps) {
+export function ReviewComponent({ review }: ReviewProps) {
   return (
     <blockquote className="flex flex-col text-center justify-center items-center">
       <p className="not-italic text-3xl ">&quot;{review.content}&quot;</p>
       <p className="not-italic">{review.source}</p>
       {review.link ? (
-        <a href={review.link} className={color}>
+        <a href={review.link} className={"underline cursor-pointer"}>
           {review.company}
         </a>
       ) : (
-        <p className={`underline not-italic`}>{review.company}</p>
+        <p>{review.company}</p>
       )}
-      {review.score && review.type ? (
+      {review.score && review.type && review.type != "standard" ? (
         <div className="max-w-[12em]">
           {getReviewIcon(review.score, review.type)}
         </div>
