@@ -12,29 +12,46 @@ export const DateTicket = ({ dateTicket, color = "black" }: Props) => {
   const formattedDate = formatDayAndDate(dateTicket.date!, language);
   const formattedTimestamp = formatTimestamp(dateTicket.date!, language);
   const status =
-    dateTicket.status == 2
+    dateTicket.eventTicketStatus == 2
       ? t(texts.fewLeft)
-      : dateTicket.status == 3
+      : dateTicket.eventTicketStatus == 3
       ? t(texts.soldOut)
       : undefined;
 
-  const textColor = `text-${color}`;
-  const borderColor = `border-${color}`;
-
   return (
-    <div className={`flex flex-col gap-2 my-4 ${textColor}`}>
+    <div className={`flex flex-col gap-2 my-4 text-black`}>
       <p className="capitalize font-bold text-3xl">{formattedDate}</p>
       <p className="font-bold text-xl">{formattedTimestamp}</p>
       {status && <p>{status}</p>}
-      <button
-        disabled={dateTicket.status === 3}
-        className={`py-2 text-base w-32 border ${borderColor} disabled:opacity-65 enabled:hover:bg-white enabled:hover:text-black`}
-        onClick={() => window.open(dateTicket.url, "_blank")}
-      >
-        {dateTicket.status == 3
-          ? t(texts.soldOut).toLocaleUpperCase()
-          : t(texts.buy).toLocaleUpperCase()}
-      </button>
+      <div className="flex gap-2">
+        <button
+          disabled={dateTicket.eventTicketStatus === 3}
+          className={`py-2 text-base min-w-36 md:w-72 h-14 bg-mainThemeColor border border-black disabled:opacity-65 enabled:hover:bg-acidGreen enabled:hover:border-2`}
+          onClick={() => window.open(dateTicket.ticketUrl, "_blank")}
+        >
+          <p className="font-bold">
+            {dateTicket.eventTicketStatus == 3
+              ? t(texts.soldOut).toLocaleUpperCase()
+              : t(texts.buy).toLocaleUpperCase()}
+          </p>
+        </button>
+        <button
+          disabled={dateTicket.busTicketStatus === 3}
+          className={`py-2 text-base min-w-36 md:w-52 h-14 border bg-mossDark border-black text-beige disabled:opacity-65 enabled:hover:bg-nightBlue enabled:hover:border-2`}
+          onClick={() => window.open(dateTicket.busTicketUrl, "_blank")}
+        >
+          <p className="hidden md:block font-bold">
+            {dateTicket.busTicketStatus == 3
+              ? t(texts.soldOut).toLocaleUpperCase()
+              : t(texts.busTicket).toLocaleUpperCase()}
+          </p>
+          <p className="block md:hidden font-bold">
+            {dateTicket.busTicketStatus == 3
+              ? t(texts.soldOut).toLocaleUpperCase()
+              : t(texts.busTicketMobile).toLocaleUpperCase()}
+          </p>
+        </button>
+      </div>
     </div>
   );
 };
@@ -43,6 +60,14 @@ const texts = {
   buy: {
     en: "Buy",
     nb: "Kjøp",
+  },
+  busTicket: {
+    en: "Bus ticket",
+    nb: "Bussbillett",
+  },
+  busTicketMobile: {
+    en: "Bus",
+    nb: "Buss",
   },
   soldOut: {
     en: "Sold out",

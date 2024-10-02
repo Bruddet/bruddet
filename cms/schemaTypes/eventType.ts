@@ -108,6 +108,12 @@ export const eventType = defineType({
         rule.max(200).warning("Anbefaler kortere ingress."),
       ],
     }),
+    {
+      name: "ticketInformation",
+      title: "Informasjon om billetter",
+      type: "string",
+      group: "content",
+    },
     defineField({
       name: "dates",
       title: "Datoer",
@@ -124,18 +130,23 @@ export const eventType = defineType({
             {
               name: "date",
               type: "datetime",
-              title: "Dato",
+              title: "Spilledato",
               validation: (rule) => rule.required().error("Dato er påkrevd."),
             },
             {
-              name: "url",
+              name: "ticketUrl",
               type: "url",
-              title: "Link",
+              title: "Link til forestillingsbillett",
               validation: (rule) => [rule.required().error("URL er påkrevd.")],
             },
             {
-              name: "status",
-              title: "Antall billetter igjen",
+              name: "busTicketUrl",
+              type: "url",
+              title: "Link til bussbillett",
+            },
+            {
+              name: "eventTicketStatus",
+              title: "Status billetter (forestilling) igjen",
               type: "number",
               initialValue: 1,
               options: {
@@ -150,6 +161,21 @@ export const eventType = defineType({
               validation: (rule) => [
                 rule.required().error("Status er påkrevd."),
               ],
+            },
+            {
+              name: "busTicketStatus",
+              title: "Status billetter (buss) igjen",
+              type: "number",
+              initialValue: 1,
+              options: {
+                list: [
+                  { title: "Normalt", value: 1 },
+                  { title: "Få billetter igjen", value: 2 },
+                  { title: "Utsolgt", value: 3 },
+                ],
+                layout: "radio",
+                direction: "horizontal",
+              },
             },
           ],
         },

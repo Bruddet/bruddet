@@ -15,7 +15,11 @@ export const RolesAndTickets = ({ roleGroups, data, textColor }: Props) => {
         <RolesBlock roleGroup={group} key={i} />
       ))}
       {data?.dates && (
-        <Tickets textColor={textColor} dateTickets={data.dates} />
+        <Tickets
+          textColor={textColor}
+          dateTickets={data.dates}
+          ticketInformation={data.ticketInformation}
+        />
       )}
     </div>
   );
