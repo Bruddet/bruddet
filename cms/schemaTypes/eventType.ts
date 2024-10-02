@@ -108,6 +108,12 @@ export const eventType = defineType({
         rule.max(200).warning("Anbefaler kortere ingress."),
       ],
     }),
+    {
+      name: "ticketInformation",
+      title: "Informasjon om billetter",
+      type: "string",
+      group: "content",
+    },
     defineField({
       name: "dates",
       title: "Datoer",

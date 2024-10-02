@@ -26,6 +26,7 @@ export function getEventQuery(params: Params<string>) {
     image,
     imageMask, 
     colorCombination, 
+    ticketInformation,
     dates, 
     duration,
     labels,
