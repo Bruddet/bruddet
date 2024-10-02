@@ -120,7 +120,7 @@ export const EventLabels = ({
   const labels = [
     ...(customLabels ?? []),
     dateLabel,
-    formattedTimestamp,
+    dates.length === 1 && formattedTimestamp,
     duration,
     getGenre(),
   ];
