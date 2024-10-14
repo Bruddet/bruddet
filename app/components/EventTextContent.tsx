@@ -35,7 +35,7 @@ export const EventTextContent = ({ textColor, data }: Props) => {
 
   return (
     <div
-      className={`flex flex-col my-12 ${textColor} self-center max-w-[2000px]`}
+      className={`flex flex-col mt-12 ${textColor} self-center max-w-[2000px]`}
     >
       {/*grid-block for regular screens*/}
       <div className="hidden md:block">
