@@ -1,22 +1,38 @@
 import { Custom_EVENT_QUERYResult } from "cms/customTypes";
 import PortableTextComponent from "./PortableTextComponent";
 import { RolesAndTickets } from "./RolesAndTickets";
+import { swapActiveImage } from "~/utils/GallerySlider";
 
 type Props = {
   textColor: string;
   data: Custom_EVENT_QUERYResult;
 };
 
-export const EventTextContent = ({ textColor, data }: Props) => {
-  const leftBlocks = ["block", "review"];
+export const activeGallerySlideClassName = `absolute mt-5 opacity-1 transition-opacity duration-400 ease-linear delay-400 gallery-slide`;
+export const inactiveGallerySlideClassName = `mt-5 opacity-0 gallery-slide`;
 
-  const rightBlocks = [
+export const EventTextContent = ({ textColor, data }: Props) => {
+  const leftBlockTypes = ["block", "review"];
+
+  const rightBlockTypes = [
     "quoteBomb",
     "expandableBlock",
     "dice",
     "video",
     "customImage",
   ];
+
+  window.onscroll = () => {
+    swapActiveImage();
+  };
+
+  const rightBlocks = data?.text.filter((block) =>
+    rightBlockTypes.includes(block._type)
+  );
+  const leftBlocks = data?.text.filter((block) =>
+    leftBlockTypes.includes(block._type)
+  );
+
   return (
     <div
       className={`flex flex-col my-12 ${textColor} self-center max-w-[2000px]`}
@@ -26,31 +42,33 @@ export const EventTextContent = ({ textColor, data }: Props) => {
         <div className="grid grid-cols-2 gap-10 font-serif text-xl">
           <div className="flex justify-start w-full">
             <div className="lg:w-4/5 flex flex-col gap-8">
-              {data?.text?.map(
-                (d, index) =>
-                  leftBlocks.includes(d._type) && (
-                    <PortableTextComponent
-                      textColor={textColor}
-                      key={index}
-                      data={d}
-                    />
-                  )
-              )}
+              {leftBlocks.map((d, index) => (
+                <PortableTextComponent
+                  textColor={textColor}
+                  key={index}
+                  data={d}
+                />
+              ))}
               <RolesAndTickets roleGroups={data?.roleGroups} data={data} />
             </div>
           </div>
           <div className="flex justify-end w-full">
-            <div className="lg:w-4/5 flex flex-col items-center">
-              {data?.text?.map(
-                (d, index) =>
-                  rightBlocks.includes(d._type) && (
-                    <PortableTextComponent
-                      textColor={textColor}
-                      key={index}
-                      data={d}
-                    />
-                  )
-              )}
+            <div className="lg:w-4/5 flex flex-col items-center sticky top-0 h-screen-vh">
+              {rightBlocks?.map((d, index) => (
+                <div
+                  className={
+                    index === 0
+                      ? activeGallerySlideClassName
+                      : inactiveGallerySlideClassName
+                  }
+                >
+                  <PortableTextComponent
+                    textColor={textColor}
+                    key={index}
+                    data={d}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
