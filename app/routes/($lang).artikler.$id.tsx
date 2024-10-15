@@ -6,7 +6,7 @@ import { getArticleQuery } from "../queries/article-queries";
 import PortableTextComponent from "../components/PortableTextComponent";
 import urlFor from "../utils/imageUrlBuilder";
 import MuxPlayer from "@mux/mux-player-react";
-import { useBackgroundColor } from "../utils/backgroundColor";
+import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
 import { useEffect } from "react";
 import { useTranslation } from "../utils/i18n";
 import { useSlugContext } from "../utils/i18n/SlugProvider";

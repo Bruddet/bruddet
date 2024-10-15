@@ -2,16 +2,19 @@ import React from "react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Dot from "~/assets/Dot";
-import { useBackgroundColor } from "~/utils/backgroundColor";
+import { useBackgroundColor } from "~/utils/hooks/useBackgroundColor";
 import { getColor } from "~/utils/colorCombinations";
 import { createTexts, useTranslation } from "~/utils/i18n";
+import { useColorCombination } from "~/utils/hooks/useColorCombination";
 
 export function NewsletterMarquee() {
   const [displayText, setDisplayText] = useState(true);
 
   const { color } = useBackgroundColor();
+  const { colorCombination } = useColorCombination();
   const location = useLocation();
 
+  const { primaryBorder } = getColor(colorCombination);
   console.log("color", color)
   return (
     <>

@@ -2,7 +2,7 @@ import { LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData, useParams } from "@remix-run/react";
 import { ARTICLES_QUERYResult } from "../../cms/types";
 import { getArticlesQuery } from "../queries/article-queries";
-import { useBackgroundColor } from "../utils/backgroundColor";
+import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
 import { useEffect } from "react";
 import { loadQuery } from "../../cms/loader.server";
 import { QueryResponseInitial, useQuery } from "@sanity/react-loader";

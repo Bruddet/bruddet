@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import { createTexts, useTranslation } from "../utils/i18n";
 import { PROGRAMPAGE_QUERYResult } from "../../sanity.types";
 import { getProgramPageQuery } from "../queries/program-queries";
-import { useBackgroundColor } from "../utils/backgroundColor";
+import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
 import urlFor from "../utils/imageUrlBuilder";
 import { loadQuery } from "../../cms/loader.server";
 import { QueryResponseInitial } from "@sanity/react-loader";

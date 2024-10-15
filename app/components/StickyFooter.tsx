@@ -1,6 +1,6 @@
 import { Link, useLocation } from "@remix-run/react";
 import { createTexts, useTranslation } from "../utils/i18n";
-import { useBackgroundColor } from "../utils/backgroundColor";
+import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
 
 export default function StickyFooter() {
   let textcolor = "black";

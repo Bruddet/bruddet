@@ -21,7 +21,7 @@ import {
 import {
   BackgroundColorProvider,
   useBackgroundColor,
-} from "./utils/backgroundColor";
+} from "./utils/hooks/useBackgroundColor";
 import { SlugProvider } from "./utils/i18n/SlugProvider";
 import NoTranslation from "./components/NoTranslation";
 import { lazy, Suspense } from "react";
