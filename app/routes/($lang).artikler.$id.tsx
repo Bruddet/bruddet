@@ -99,7 +99,7 @@ export default function Article() {
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();
 
-  const { primaryText } = getColor(data?.colorCombination || "creamBlue");
+  const { primaryTextColor } = getColor(data?.colorCombination || "creamBlue");
 
   useEffect(() => {
     setColor(bgColor);
@@ -127,7 +127,7 @@ export default function Article() {
         />
       )}
       {data?.text && (
-        <PortableTextComponent data={data} textColor={primaryText} />
+        <PortableTextComponent data={data} textColor={primaryTextColor} />
       )}
       {data?.event && (
         <Link

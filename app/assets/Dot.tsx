@@ -1,7 +1,7 @@
 type Props = {
   color?: string;
 }
-export default function Dot({color = "#D4FF26"}: Props) {
+export default function Dot({color = "#182D39"}: Props) {
   return (
     <svg
       width="11"
