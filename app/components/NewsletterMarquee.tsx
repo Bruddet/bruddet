@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import PurpleDot from "~/assets/PurpleDot";
+import { Link, useLocation } from "react-router-dom";
+import Dot from "~/assets/Dot";
 import { useBackgroundColor } from "~/utils/backgroundColor";
 import { createTexts, useTranslation } from "~/utils/i18n";
 
@@ -13,11 +14,7 @@ export function NewsletterMarquee() {
     <>
       <button
         id="newsletter-marquee"
-        className={`overflow-hidden hidden z-50 md:flex sticky bottom-0 text-black border-t-2  ${
-          displayText
-            ? `border-t-white ${color !== "bg-white" ? color : "bg-black"}`
-            : "border-t-[#24ED15] bg-[#24ED15]"
-        }`}
+        className={`overflow-hidden hidden z-50 md:flex sticky bottom-0 h-14 text-black ${color !== "bg-white" ? color : "bg-black"} `}
         onFocus={() => {
           setDisplayText(false);
         }}
@@ -43,10 +40,81 @@ type ContentProps = {
 
 export const Content = ({ displayText }: ContentProps) => {
   const { t } = useTranslation();
+  const location = useLocation();
+  const lang = location?.pathname;
 
   return (
-    <>
-      {displayText ? (
+    <div className="grid grid-cols-[2fr_10fr_2fr] h-full">
+      <Link
+        to={lang.includes("/en") ? "/en/meny" : "/meny"}
+        className={`flex justify-start items-center hover:bg-green-50`}
+        aria-label={t(texts.menuText)}
+      >
+        <div className="px-4 text-xl font-bold hover:underline">{t(texts.menuButton)}</div>
+      </Link>     
+      <div className="border-l border-r border-black overflow-hidden whitespace-nowrap flex items-center">
+        <div className="animate-marquee items-center">
+        {Array.from({ length: 2 }).map((_, idx) => (
+          Array.from({ length: 10 }).map((_, i) => (
+            <React.Fragment aria-hidden={idx === 1} key={i}>
+              <span className="text-xl mx-4">{t(texts.marqueeText)}</span>
+              <Dot color="#D4FF26" />
+            </React.Fragment>
+            ))
+          ))
+        }
+        </div>
+      </div>
+      <Link
+        to={lang.includes("/en") ? "/en/program" : "/program"}
+        className={`flex justify-end items-center`}
+        aria-label={t(texts.programText)}
+      >
+        <div className="px-4 text-xl font-bold ml-auto hover:underline">{t(texts.programButton)}</div>
+      </Link>
+    </div>
+  );
+};
+
+const texts = createTexts({
+  marqueeText: {
+    nb: "Nyhetsbrev",
+    en: "Newsletter",
+  },
+  newsletterText: {
+    nb: " Få ekslusiv info, billetter til redusert pris og andre tilbud! Meld deg på vårt nyhetsbrev",
+    en: "Get exclusive info, tickets at reduced prices and other offers! Sign up for our newsletter!",
+  },
+  newsletterMobile: {
+    nb: "Meld deg på vårt nyhetsbrev",
+    en: "Sign up for our newsletter",
+  },
+  programText: {
+    nb: "Gå til programside",
+    en: "Go to program page",
+  },
+  menuText: {
+    nb: "Gå til menyside",
+    en: "Go to menu page",
+  },
+  buyTicket: {
+    nb: "Kjøp \nBillett",
+    en: "Buy \nTicket",
+  },
+  menuButton: {
+    nb: "Meny",
+    en: "Menu",
+  },
+  programButton: {
+    nb: "Program",
+    en: "Program",
+  },
+});
+
+export default NewsletterMarquee;
+
+/*
+{displayText ? (
         <>
           <div className="py-4 whitespace-nowrap animate-marquee ">
             {Array.from({ length: 30 }).map((_, i) => (
@@ -72,23 +140,4 @@ export const Content = ({ displayText }: ContentProps) => {
           </div>
         </div>
       )}
-    </>
-  );
-};
-
-const texts = createTexts({
-  marqueeText: {
-    nb: "Nyhetsbrev",
-    en: "Newsletter",
-  },
-  newsletterText: {
-    nb: " Få ekslusiv info, billetter til redusert pris og andre tilbud! Meld deg på vårt nyhetsbrev",
-    en: "Get exclusive info, tickets at reduced prices and other offers! Sign up for our newsletter!",
-  },
-  newsletterMobile: {
-    nb: "Meld deg på vårt nyhetsbrev",
-    en: "Sign up for our newsletter",
-  },
-});
-
-export default NewsletterMarquee;
+*/
