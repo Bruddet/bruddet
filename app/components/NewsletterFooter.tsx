@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Dot from "~/assets/Dot";
@@ -7,34 +6,19 @@ import { getColor } from "~/utils/colorCombinations";
 import { createTexts, useTranslation } from "~/utils/i18n";
 import { useColorCombination } from "~/utils/hooks/useColorCombination";
 
-export function NewsletterMarquee() {
-  const [displayText, setDisplayText] = useState(true);
-
+export default function NewsletterFooter() {
   const { color } = useBackgroundColor();
   const pathname = useLocation().pathname;
 
   return (
     <>
       <button
-        id="newsletter-marquee"
         className={`overflow-hidden ${
           (pathname.includes("program") || pathname.includes("meny")) &&
           `border-t border-black`
         }  hidden z-50 md:flex sticky bottom-0 h-14 text-black ${
           color !== "bg-white" ? color : "bg-black"
         } `}
-        onFocus={() => {
-          setDisplayText(false);
-        }}
-        onBlur={() => {
-          setDisplayText(true);
-        }}
-        onMouseEnter={() => {
-          setDisplayText(false);
-        }}
-        onMouseLeave={() => {
-          setDisplayText(true);
-        }}
       >
         <Content pathname={pathname} />
       </button>
@@ -145,34 +129,3 @@ const texts = createTexts({
     en: "Program",
   },
 });
-
-export default NewsletterMarquee;
-
-/*
-{displayText ? (
-        <>
-          <div className="py-4 whitespace-nowrap animate-marquee ">
-            {Array.from({ length: 30 }).map((_, i) => (
-              <React.Fragment key={i}>
-                <span className="text-xl mx-4">{t(texts.marqueeText)}</span>
-                <PurpleDot />
-              </React.Fragment>
-            ))}
-          </div>
-          <div className="absolute top-0 py-4 animate-marquee2 whitespace-nowrap">
-            {Array.from({ length: 30 }).map((_, i) => (
-              <React.Fragment key={i}>
-                <span className="text-xl mx-4">{t(texts.marqueeText)}</span>
-                <PurpleDot />
-              </React.Fragment>
-            ))}
-          </div>
-        </>
-      ) : (
-        <div className="text-black py-4 text-xl flex flex-col items-center w-full">
-          <div className=" text-center font-serif">
-            <p className="text-center">{t(texts.newsletterText)}</p>
-          </div>
-        </div>
-      )}
-*/

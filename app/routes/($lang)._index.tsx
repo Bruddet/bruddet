@@ -11,7 +11,6 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
-import { Navigation } from "~/components/Navigation";
 import { useColorCombination } from "~/utils/hooks/useColorCombination";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -100,7 +99,7 @@ export default function Index() {
 
   useEffect(() => {
     setColor("bg-beige");
-    setColorCombination(data?.event?.colorCombination || 'creamBlue')
+    setColorCombination(data?.event?.colorCombination || "creamBlue");
   }, [setColor]);
 
   return (
@@ -112,8 +111,6 @@ export default function Index() {
         }}
         aria-label={"Background image"}
       >
-        <Navigation />
-
         {data?.event && (
           <div className="absolute right-16 top-16">
             <HexagonBuyButton

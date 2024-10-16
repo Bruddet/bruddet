@@ -27,7 +27,7 @@ import NoTranslation from "./components/NoTranslation";
 import { lazy, Suspense } from "react";
 import { ExitPreview } from "./components/ExitPreview";
 import { loadQueryOptions } from "../cms/loadQueryOptions.server";
-import NewsletterMarquee from "./components/NewsletterMarquee";
+import NewsletterFooter from "./components/NewsletterFooter";
 import "./styles/global.css";
 import StickyFooter from "./components/StickyFooter";
 
@@ -150,7 +150,7 @@ export default function App() {
             <Outlet />
             {pathsWithNewsletter.includes(location.pathname) && (
               <>
-                <NewsletterMarquee />
+                <NewsletterFooter />
                 <StickyFooter />
               </>
             )}

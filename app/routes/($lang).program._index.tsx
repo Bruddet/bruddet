@@ -17,7 +17,6 @@ import { QueryResponseInitial } from "@sanity/react-loader";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "cms/loadQueryOptions.server";
 import { DatesLabel } from "~/components/EventLabels";
-import { Navigation } from "~/components/Navigation";
 import { SocialMediaBlock } from "~/components/SocialMediaBlock";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
@@ -97,8 +96,6 @@ export default function Program() {
   return (
     <>
       <div className="flex flex-col grow items-center text-black font-serif">
-        <Navigation />
-
         <h1 className="text-5xl font-bold mb-12 hidden">{data?.title}</h1>
         <div className="flex flex-column w-[90vw]">
           <div className="w-3/4 flex flex-col items-center justify-center vertical-align: middle; mx-auto">
