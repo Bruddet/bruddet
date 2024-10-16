@@ -6,7 +6,7 @@ import { getArticleQuery } from "../queries/article-queries";
 import PortableTextComponent from "../components/PortableTextComponent";
 import urlFor from "../utils/imageUrlBuilder";
 import MuxPlayer from "@mux/mux-player-react";
-import { useBackgroundColor } from "../utils/backgroundColor";
+import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
 import { useEffect } from "react";
 import { useTranslation } from "../utils/i18n";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
@@ -99,7 +99,7 @@ export default function Article() {
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();
 
-  const { primaryText } = getColor(data?.colorCombination || "creamBlue");
+  const { primaryTextColor } = getColor(data?.colorCombination || "creamBlue");
 
   useEffect(() => {
     setColor(bgColor);
@@ -127,7 +127,7 @@ export default function Article() {
         />
       )}
       {data?.text && (
-        <PortableTextComponent data={data} textColor={primaryText} />
+        <PortableTextComponent data={data} textColor={primaryTextColor} />
       )}
       {data?.event && (
         <Link

@@ -5,13 +5,13 @@ import { getFrontpageQuery } from "../queries/frontpage-queries";
 import urlFor from "../utils/imageUrlBuilder";
 import HexagonBuyButton from "../assets/HexagonBuyButton";
 import { createTexts, useTranslation } from "../utils/i18n";
-import { useBackgroundColor } from "../utils/backgroundColor";
+import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
 import { useEffect } from "react";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { loadQuery } from "../../cms/loader.server";
 import { useQuery } from "../../cms/loader";
 import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
-import { Navigation } from "~/components/Navigation";
+import { useColorCombination } from "~/utils/hooks/useColorCombination";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -95,9 +95,11 @@ export default function Index() {
   );
 
   const { setColor } = useBackgroundColor();
+  const { setColorCombination } = useColorCombination();
 
   useEffect(() => {
     setColor("bg-beige");
+    setColorCombination(data?.event?.colorCombination || "creamBlue");
   }, [setColor]);
 
   return (
@@ -109,8 +111,6 @@ export default function Index() {
         }}
         aria-label={"Background image"}
       >
-        <Navigation />
-
         {data?.event && (
           <div className="absolute right-16 top-16">
             <HexagonBuyButton

@@ -21,13 +21,13 @@ import {
 import {
   BackgroundColorProvider,
   useBackgroundColor,
-} from "./utils/backgroundColor";
+} from "./utils/hooks/useBackgroundColor";
 import { SlugProvider } from "./utils/i18n/SlugProvider";
 import NoTranslation from "./components/NoTranslation";
 import { lazy, Suspense } from "react";
 import { ExitPreview } from "./components/ExitPreview";
 import { loadQueryOptions } from "../cms/loadQueryOptions.server";
-import NewsletterMarquee from "./components/NewsletterMarquee";
+import NewsletterFooter from "./components/NewsletterFooter";
 import "./styles/global.css";
 import StickyFooter from "./components/StickyFooter";
 
@@ -150,7 +150,7 @@ export default function App() {
             <Outlet />
             {pathsWithNewsletter.includes(location.pathname) && (
               <>
-                <NewsletterMarquee />
+                <NewsletterFooter />
                 <StickyFooter />
               </>
             )}

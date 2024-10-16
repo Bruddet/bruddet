@@ -6,7 +6,7 @@ import { getColor } from "../utils/colorCombinations";
 import urlFor from "../utils/imageUrlBuilder";
 import ImageEventPage from "../components/Masks/ImageEventPage";
 import { getEventQuery } from "../queries/event-queries";
-import { useBackgroundColor } from "../utils/backgroundColor";
+import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
 import { useTranslation } from "../utils/i18n";
 import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
