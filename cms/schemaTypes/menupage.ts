@@ -35,30 +35,48 @@ export const menuPage = defineType({
       validation: (rule) => [rule.required().error("Må ha SEO beskrivelse")],
     }),
     defineField({
-      name: "links",
-      title: "Undersider",
+      name: "articles",
+      title: "Artikkelgrupper",
       type: "array",
-      description:
-        "Velg hvilke undersider, av typen Artikler, som skal vises på Menysiden",
+      description: "Lag en kategori og tilhørende undersider",
       of: [
         {
-          type: "reference",
-          to: [{ type: "article" }],
-          options: {
-            filter: ({ document }) => {
-              return {
-                filter: "language == $lang",
-                params: { lang: document.language },
-              };
+          type: "object",
+          fields: [
+            {
+              name: "articleGroup",
+              title: "Artikkelgruppe",
+              type: "string",
             },
-          },
+            {
+              name: "links",
+              title: "Lenker til artikler",
+              type: "array",
+              description:
+                "Velg hvilke undersider, av typen 'Artikler', som skal vises på 'Menysiden'",
+              of: [
+                {
+                  type: "reference",
+                  to: [{ type: "article" }],
+                  options: {
+                    filter: ({ document }) => {
+                      return {
+                        filter: "language == $lang",
+                        params: { lang: document.language },
+                      };
+                    },
+                  },
+                },
+              ],
+              options: {
+                documentInternationalization: {
+                  exclude: true,
+                },
+              },
+            },
+          ],
         },
       ],
-      options: {
-        documentInternationalization: {
-          exclude: true,
-        },
-      },
     }),
   ],
 });
