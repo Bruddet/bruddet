@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import Dot from "~/assets/Dot";
 import { useBackgroundColor } from "~/utils/hooks/useBackgroundColor";
 import { getColor } from "~/utils/colorCombinations";
 import { createTexts, useTranslation } from "~/utils/i18n";
 import { useColorCombination } from "~/utils/hooks/useColorCombination";
+import { Link, useLocation } from "@remix-run/react";
 
 export default function NewsletterFooter() {
   const { color } = useBackgroundColor();
@@ -101,7 +101,7 @@ const texts = createTexts({
     en: "Newsletter",
   },
   newsletterText: {
-    nb: " Få ekslusiv info, billetter til redusert pris og andre tilbud! Meld deg på vårt nyhetsbrev",
+    nb: "Få ekslusiv info, billetter til redusert pris og andre tilbud! Meld deg på vårt nyhetsbrev",
     en: "Get exclusive info, tickets at reduced prices and other offers! Sign up for our newsletter!",
   },
   newsletterMobile: {
