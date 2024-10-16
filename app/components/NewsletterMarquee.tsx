@@ -11,16 +11,18 @@ export function NewsletterMarquee() {
   const [displayText, setDisplayText] = useState(true);
 
   const { color } = useBackgroundColor();
-  const { colorCombination } = useColorCombination();
-  const location = useLocation();
+  const pathname = useLocation().pathname;
 
-  const { primaryBorder } = getColor(colorCombination);
-  console.log("color", color)
   return (
     <>
       <button
         id="newsletter-marquee"
-        className={`overflow-hidden ${location.pathname.includes("program") && 'border-t border-black'}  hidden z-50 md:flex sticky bottom-0 h-14 text-black ${color !== "bg-white" ? color : "bg-black"} `}
+        className={`overflow-hidden ${
+          (pathname.includes("program") || pathname.includes("meny")) &&
+          `border-t border-black`
+        }  hidden z-50 md:flex sticky bottom-0 h-14 text-black ${
+          color !== "bg-white" ? color : "bg-black"
+        } `}
         onFocus={() => {
           setDisplayText(false);
         }}
@@ -34,49 +36,76 @@ export function NewsletterMarquee() {
           setDisplayText(true);
         }}
       >
-        <Content displayText={displayText} />
+        <Content pathname={pathname} />
       </button>
     </>
   );
 }
 
 type ContentProps = {
-  displayText?: boolean;
+  pathname?: string;
 };
 
-export const Content = ({ displayText }: ContentProps) => {
+export const Content = ({ pathname }: ContentProps) => {
   const { t } = useTranslation();
-  const location = useLocation();
-  const pathname = location?.pathname;
+
+  const { colorCombination } = useColorCombination();
+  const { secondaryBorder, primaryTextColor } = getColor(colorCombination);
+
+  const [isHovering, setIsHovering] = useState(false);
 
   return (
-    <div className="grid grid-cols-[2fr_10fr_2fr] h-full">
+    <div className="grid grid-cols-[2fr_10fr_2fr] h-full w-full">
       <Link
-        to={pathname.includes("/en") ? "/en/meny" : "/meny"}
-        className={`flex justify-start items-center hover:bg-mainThemeColor`}
+        to={pathname?.includes("/en") ? "/en/meny" : "/meny"}
+        className={`flex justify-start items-center ${primaryTextColor} hover:bg-mainThemeColor`}
         aria-label={t(texts.menuText)}
       >
         <div className="px-4 text-xl font-bold">{t(texts.menuButton)}</div>
-      </Link>     
-      <div className="border-l border-r border-black hover:bg-mainThemeColor overflow-hidden whitespace-nowrap flex items-center">
-        <div className="animate-marquee flex items-center">
-        {Array.from({ length: 2 }).map((_, idx) => (
-          Array.from({ length: 10 }).map((_, i) => (
-            <div className="flex items-center" aria-hidden={idx === 1} key={i}>
-              <span className="text-l font-thin mossDark mx-10">{t(texts.marqueeText)}</span>
-              <Dot color={pathname.includes("program") ? '#182D39' : '#D4FF26'} />
-            </div>
-            ))
-          ))
-        }
-        </div>
+      </Link>
+      <div
+        onMouseOver={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
+        className={`border-l border-r ${secondaryBorder} hover:bg-mainThemeColor overflow-hidden whitespace-nowrap flex items-center`}
+      >
+        {isHovering ? (
+          <div className="w-full">
+            <p>{t(texts.newsletterText)}</p>
+          </div>
+        ) : (
+          <div className="animate-marquee flex items-center">
+            {Array.from({ length: 2 }).map((_, idx) =>
+              Array.from({ length: 10 }).map((_, i) => (
+                <div
+                  className="flex items-center"
+                  aria-hidden={idx === 1}
+                  key={i}
+                >
+                  <span className="text-l font-thin mossDark mx-10">
+                    {t(texts.marqueeText)}
+                  </span>
+                  <Dot
+                    color={
+                      pathname?.includes("program") ||
+                      pathname?.includes("meny")
+                        ? "#182D39"
+                        : "#D4FF26"
+                    }
+                  />
+                </div>
+              ))
+            )}
+          </div>
+        )}
       </div>
       <Link
-        to={pathname.includes("/en") ? "/en/program" : "/program"}
+        to={pathname?.includes("/en") ? "/en/program" : "/program"}
         className={`flex justify-end items-center hover:bg-mainThemeColor`}
         aria-label={t(texts.programText)}
       >
-        <div className="px-4 text-xl font-bold ml-auto">{t(texts.programButton)}</div>
+        <div className="px-4 text-xl font-bold ml-auto">
+          {t(texts.programButton)}
+        </div>
       </Link>
     </div>
   );
