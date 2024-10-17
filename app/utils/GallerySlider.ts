@@ -10,20 +10,31 @@ export const swapActiveImage = () => {
 
   const slidesArray = [].slice.call(slides);
 
-  var scroll = window.scrollY;
-  const scrollHeight = document.documentElement.scrollHeight;
+  var scroll = window.scrollY + eventHeaderHeight;
+
+  var body = document.body;
+  var html = document.documentElement;
+
+  const pageHeight = Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight
+  );
+
   const viewportHeight = window.innerHeight;
-  const maxScroll = scrollHeight - viewportHeight;
 
-  const sectionHeight = maxScroll / slidesArray.length;
+  const sectionHeight = (pageHeight - viewportHeight) / slidesArray.length;
 
-  slidesArray.forEach((el: Element, i) => {
-    const sectionLowerBound = sectionHeight * i + eventHeaderHeight;
-    const sectionHigherBound = sectionHeight * (i + 1) + eventHeaderHeight;
+  slidesArray.forEach((el: Element, n) => {
+    var sectionLowerBound = 0;
 
-    console.log("sectionHeight", sectionHeight);
-    console.log("scroll", scroll);
-    console.log("eventHeaderHeight", eventHeaderHeight);
+    if (n !== 0) {
+      sectionLowerBound = sectionHeight * n + eventHeaderHeight;
+    }
+
+    var sectionHigherBound = sectionHeight * (n + 1) + eventHeaderHeight;
 
     if (scroll > eventHeaderHeight) {
       el.className = inactiveGallerySlideClassName;
