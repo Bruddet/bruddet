@@ -22,6 +22,8 @@ export const EventTextContent = ({ textColor, data }: Props) => {
     "customImage",
   ];
 
+  const galleryDisplayType = data.galleryDisplayType;
+
   window.onscroll = () => {
     swapActiveImage();
   };
@@ -32,6 +34,11 @@ export const EventTextContent = ({ textColor, data }: Props) => {
   const leftBlocks = data?.text.filter((block) =>
     leftBlockTypes.includes(block._type)
   );
+
+  const galleryClassName =
+    galleryDisplayType === 1
+      ? "lg:w-4/5 flex flex-col items-center sticky top-0 h-screen-vh"
+      : "lg:w-4/5 flex flex-col items-center";
 
   return (
     <div
@@ -53,11 +60,13 @@ export const EventTextContent = ({ textColor, data }: Props) => {
             </div>
           </div>
           <div className="flex justify-end w-full">
-            <div className="lg:w-4/5 flex flex-col items-center sticky top-0 h-screen-vh">
+            <div className={galleryClassName}>
               {rightBlocks?.map((d, index) => (
                 <div
                   className={
-                    index === 0
+                    galleryDisplayType != 1
+                      ? "mt-5"
+                      : index === 0
                       ? activeGallerySlideClassName
                       : inactiveGallerySlideClassName
                   }

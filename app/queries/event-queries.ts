@@ -32,6 +32,7 @@ export function getEventQuery(params: Params<string>) {
     labels,
     ingress,
     svgTitle,
+    galleryDisplayType,
     text[]{..., _type=="video" => {title, muxVideo{asset->{playbackId}}}},
     eventGenre, 
     roleGroups[]{

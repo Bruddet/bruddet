@@ -111,6 +111,7 @@ export const eventType = defineType({
     {
       name: "ticketInformation",
       title: "Informasjon om billetter",
+      description: "Her kan du legge inn informasjon om f.eks. bussbilletter",
       type: "string",
       group: "content",
     },
@@ -212,15 +213,38 @@ export const eventType = defineType({
     }),
     defineField({
       name: "text",
-      title: "Beskrivelse",
+      title: "Innhold",
       type: "content",
       group: "content",
       description:
-        "Innhold: Mulighet for å legge inn tekst, bilde, video, sitat og anmeldelse",
+        "Her kan du legge inn tekst, bilder, video, sitat og anmeldelser",
       options: {
         documentInternationalization: {
           exclude: true,
         },
+      },
+    }),
+    defineField({
+      name: "galleryDisplayType",
+      title: "Visning av bilder",
+      type: "number",
+      initialValue: 1,
+      group: "content",
+      description:
+        "Her kan du bestemme om bildene i høyre kolonne skal skiftes ut ved scroll (som er det anbefalte), eller hvis alle bildene skal vises under hverandre hele tiden.",
+      options: {
+        list: [
+          {
+            title: "Vis ett bilde av gangen (skifter ved scrolling) - anbefalt",
+            value: 1,
+          },
+          {
+            title: "Vis alle bilder samtidig, plassert under hverandre",
+            value: 2,
+          },
+        ],
+        layout: "radio",
+        direction: "horizontal",
       },
     }),
     defineField({
