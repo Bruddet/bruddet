@@ -11,7 +11,7 @@ export default function BuyButtonFooter({ handleScroll }: Props) {
   return (
     <footer
       id="buyButton"
-      className={`py-6 flex flex-row justify-center align-middle gap-10 w-full bottom-0 sticky text-${textcolor} bg-red-400 font-serif text-2xl `}
+      className={`py-4 flex flex-row justify-center align-middle gap-10 w-full bottom-0 sticky text-${textcolor} bg-mainThemeColor font-serif font-bold text-xl `}
     >
       <button className="hover:underline" onClick={handleScroll}>
         {t(text.buy).toUpperCase()}
