@@ -58,6 +58,14 @@ export default function PortableTextComponent({
       }>) => {
         return <Dice content={value.content} dice={value.diceValue} />;
       },
+      maps: ({
+        value,
+      }: PortableTextComponentProps<{
+        content: string;
+        diceValue: number;
+      }>) => {
+        return <Dice content={value.content} dice={value.diceValue} />;
+      },
       review: ({
         value,
       }: PortableTextComponentProps<{

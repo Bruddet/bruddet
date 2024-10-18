@@ -37,6 +37,7 @@ export function getArticleQuery(params: Params<string>) {
         }
       }
     }, 
+    maps,
     video{
       title, 
       muxVideo{

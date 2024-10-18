@@ -72,6 +72,13 @@ export const articleType = defineType({
       },
     }),
     defineField({
+      name: "maps",
+      title: "Kart",
+      type: "googleMaps",
+      description: "Legg til kart ",
+      group: "content",
+    }),
+    defineField({
       name: "image",
       title: "Hovedbilde",
       type: "customImage",
