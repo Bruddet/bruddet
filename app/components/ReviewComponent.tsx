@@ -4,11 +4,7 @@ import DiceThree from "~/assets/dice/DiceThree";
 import DiceFour from "~/assets/dice/DiceFour";
 import DiceFive from "~/assets/dice/DiceFive";
 import DiceSix from "~/assets/dice/DiceSix";
-import StarOne from "~/assets/stars/StarsOne";
-import StarTwo from "~/assets/stars/StarsTwo";
-import StarThree from "~/assets/stars/StarsThree";
-import StarFour from "~/assets/stars/StarsFour";
-import StarFive from "~/assets/stars/StarsFive";
+import StarsOne from "~/assets/stars/StarsOne";
 
 interface ReviewProps {
   review: {
@@ -23,20 +19,13 @@ interface ReviewProps {
 }
 
 function getStar(score: number) {
-  switch (score) {
-    case 1:
-      return <StarOne />;
-    case 2:
-      return <StarTwo />;
-    case 3:
-      return <StarThree />;
-    case 4:
-      return <StarFour />;
-    case 5:
-      return <StarFive />;
-    default:
-      <></>;
-  }
+  return (
+    <div className="flex">
+      {Array.from({ length: score }).map((_, i) => (
+        <StarsOne />
+      ))}
+    </div>
+  );
 }
 
 function getDice(score: number) {
@@ -68,9 +57,13 @@ function getReviewIcon(score: number, type: string) {
 
 export function ReviewComponent({ review }: ReviewProps) {
   return (
-    <blockquote className="flex flex-col text-center justify-center items-center">
+    <blockquote className="flex flex-col text-center justify-center items-center gap-4">
       <p className="not-italic text-3xl ">&quot;{review.content}&quot;</p>
-      <p className="not-italic">{review.source}</p>
+      {review.source && (
+        <p className="not-italic text-basic">
+          {review.source?.toLocaleUpperCase()}
+        </p>
+      )}
       {review.link ? (
         <a href={review.link} className={"underline cursor-pointer"}>
           {review.company}
@@ -79,9 +72,7 @@ export function ReviewComponent({ review }: ReviewProps) {
         <p>{review.company}</p>
       )}
       {review.score && review.type && review.type != "standard" ? (
-        <div className="max-w-[12em]">
-          {getReviewIcon(review.score, review.type)}
-        </div>
+        <div className="">{getReviewIcon(review.score, review.type)}</div>
       ) : null}
     </blockquote>
   );
