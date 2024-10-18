@@ -148,7 +148,7 @@ export default function Event() {
         )}
         <div className="flex flex-col mx-6 md:mx-8 lg:mx-24">
           {ingress && (
-            <p className="text-lg lg:text-3xl mx-auto my-6 max-w-[1000px] font-bold">
+            <p className="text-lg lg:text-3xl mx-auto my-6 text-center max-w-[1000px] font-bold">
               {ingress}
             </p>
           )}
