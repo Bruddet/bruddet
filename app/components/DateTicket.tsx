@@ -1,6 +1,10 @@
 import { DateTicketType } from "./Tickets";
 import { formatDayAndDate, formatTimestamp } from "../utils/dateAndTime";
 import { useTranslation } from "../utils/i18n";
+import {
+  primaryButtonClassName,
+  secondaryButtonClassName,
+} from "~/styles/buttonConstants";
 
 type Props = {
   dateTicket: DateTicketType;
@@ -26,7 +30,7 @@ export const DateTicket = ({ dateTicket, color = "black" }: Props) => {
       <div className="flex gap-2">
         <button
           disabled={dateTicket.eventTicketStatus === 3}
-          className={`py-2 text-base min-w-36 md:w-72 h-14 bg-mainThemeColor border border-black disabled:opacity-65 enabled:hover:bg-acidGreen enabled:hover:border-2`}
+          className={`min-w-36 md:w-52 h-14 ${primaryButtonClassName}`}
           onClick={() => window.open(dateTicket.ticketUrl, "_blank")}
         >
           <p className="font-bold">
@@ -37,7 +41,7 @@ export const DateTicket = ({ dateTicket, color = "black" }: Props) => {
         </button>
         <button
           disabled={dateTicket.busTicketStatus === 3}
-          className={`py-2 text-base min-w-36 md:w-52 h-14 border bg-mossDark border-black text-beige disabled:opacity-65 enabled:hover:bg-nightBlue enabled:hover:border-2`}
+          className={`min-w-36 md:w-52 h-14 ${secondaryButtonClassName}`}
           onClick={() => window.open(dateTicket.busTicketUrl, "_blank")}
         >
           <p className="hidden md:block font-bold">
