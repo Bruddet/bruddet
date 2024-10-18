@@ -107,6 +107,7 @@ export default function Article() {
   });
   const { t, language } = useTranslation();
 
+  console.log("data text", data);
   return (
     <div
       className={`bg-[#FFF8E8] flex flex-col items-center grow mx-6 self-center md:w-full lg:w-1/2`}
@@ -127,7 +128,7 @@ export default function Article() {
         />
       )}
       {data?.text && (
-        <PortableTextComponent data={data} textColor={primaryTextColor} />
+        <PortableTextComponent data={data.text} textColor={primaryTextColor} />
       )}
       {data?.event && (
         <Link

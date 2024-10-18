@@ -58,13 +58,17 @@ export default function PortableTextComponent({
       }>) => {
         return <Dice content={value.content} dice={value.diceValue} />;
       },
-      maps: ({
+      googleMaps: ({
         value,
       }: PortableTextComponentProps<{
-        content: string;
-        diceValue: number;
+        address: { lat: string; lng: string; _key: string };
       }>) => {
-        return <Dice content={value.content} dice={value.diceValue} />;
+        console.log("VALUE ", value);
+        const src = `https://www.google.com/maps/embed/v1/place?key=${"AIzaSyDJw_Wf-VzyARatHf_xiByy9Ixkm3qgGRw"}
+    &q=${value.address?.lat} + ${value.address?.lng}`;
+        return (
+          <iframe width="600" height="450" loading="lazy" src={src}></iframe>
+        );
       },
       review: ({
         value,
