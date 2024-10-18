@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { Custom_EVENT_QUERYResult } from "../../cms/customTypes";
@@ -162,7 +162,9 @@ export default function Event() {
               colorCombination={colorCombination}
             />
           )}
-          <EventTextContent textColor={primaryTextColor} data={data} />
+          <Suspense>
+            <EventTextContent textColor={primaryTextColor} data={data} />
+          </Suspense>
         </div>
       </div>
       <BuyButtonFooter handleScroll={handleScroll} />
