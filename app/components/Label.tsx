@@ -21,7 +21,7 @@ export const Label = ({
   return (
     <p
       key={key}
-      className={`p-2 border ${fontWeight} text-nowrap w-min ${borderColor} ${textColor} ${fontStyle} ${borderStyle}`}
+      className={`p-2 border h-10 border-box ${fontWeight} text-nowrap w-min ${borderColor} ${textColor} ${fontStyle} ${borderStyle}`}
     >
       {label}
     </p>

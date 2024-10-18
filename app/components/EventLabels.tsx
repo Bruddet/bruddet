@@ -8,6 +8,7 @@ import { Label } from "./Label";
 import { TranslationObject, useTranslation } from "~/utils/i18n";
 import { ColorCombinations } from "~/sanity.types";
 import { getColor } from "~/utils/colorCombinations";
+import { primaryButtonClassName } from "~/styles/buttonConstants";
 
 type DatesLabelProps = {
   dates: DateObject[];
@@ -132,12 +133,9 @@ export const EventLabels = ({
     }
   };
 
-  const {
-    primaryTextColor,
-    secondaryTextColor,
-    textBorderColor,
-    primaryButtonColor,
-  } = getColor(colorCombination || "creamBlue");
+  const { primaryTextColor, textBorderColor } = getColor(
+    colorCombination || "creamBlue"
+  );
 
   return (
     <>
@@ -160,7 +158,7 @@ export const EventLabels = ({
         )}
         <button
           onClick={handleScroll}
-          className={`p-2 ${primaryButtonColor} border ${textBorderColor} ${secondaryTextColor} font-bold`}
+          className={`px-2 ${primaryButtonClassName} w-36 h-10 border-box`}
         >
           {t(texts.buyTicket).toUpperCase()}
         </button>
