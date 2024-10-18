@@ -13,6 +13,7 @@ export default function ImageEventPage({
 }: ImageProps) {
   return (
     <div
+      id="event-header"
       className="flex justify-center aspect-[9/16] sm:aspect-[16/9] grow bg-cover max-h-[60vh] sm:max-h-[80vh] bg-center w-full  bg-no-repeat max-w-[2000px] mx-auto font-serif"
       style={{
         backgroundImage: `url(${url})`,

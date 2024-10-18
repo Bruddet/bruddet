@@ -108,6 +108,9 @@ export default {
           },
         },
       },
+      height: {
+        "screen-vh": "calc(var(--vh, 1vh) * 100)",
+      },
       colors: colors,
       animation: {
         marquee: "marquee 30s linear infinite",

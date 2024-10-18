@@ -3976,6 +3976,23 @@
         },
         "optional": true
       },
+      "galleryDisplayType": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "union",
+          "of": [
+            {
+              "type": "number",
+              "value": 1
+            },
+            {
+              "type": "number",
+              "value": 2
+            }
+          ]
+        },
+        "optional": true
+      },
       "roleGroups": {
         "type": "objectAttribute",
         "value": {
