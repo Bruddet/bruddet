@@ -6,6 +6,7 @@ import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { stegaClean } from "@sanity/client/stega";
 import Dice from "./Dice";
 import { QuoteBomb } from "./QuoteBomb";
+import { GoogleMapsComponent } from "./GoogleMapsComponent";
 
 export interface PortableTextProps {
   data?: any;
@@ -63,11 +64,11 @@ export default function PortableTextComponent({
       }: PortableTextComponentProps<{
         address: { lat: string; lng: string; _key: string };
       }>) => {
-        console.log("VALUE ", value);
-        const src = `https://www.google.com/maps/embed/v1/place?key=${"AIzaSyDJw_Wf-VzyARatHf_xiByy9Ixkm3qgGRw"}
-    &q=${value.address?.lat} + ${value.address?.lng}`;
         return (
-          <iframe width="600" height="450" loading="lazy" src={src}></iframe>
+          <GoogleMapsComponent
+            lat={value.address.lat}
+            lng={value.address.lng}
+          />
         );
       },
       review: ({

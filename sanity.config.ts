@@ -25,7 +25,6 @@ const SANITY_STUDIO_FRONTEND_URL =
   process.env.VITE_SANITY_STUDIO_FRONTEND_URL ?? "https://bruddet.vercel.app";
 
 const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_TOKEN ?? "";
-console.log("GOOGLE_MAPS_API_KEY", GOOGLE_MAPS_API_KEY);
 
 async function getDocumentPreviewUrl(
   document: SanityDocumentLike,
@@ -72,11 +71,7 @@ export default defineConfig({
   projectId: PROJECT_ID,
   dataset: DATASET,
   basePath: STUDIO_BASE_PATH,
-
   plugins: [
-    googleMapsInput({
-      apiKey: "AIzaSyDJw_Wf-VzyARatHf_xiByy9Ixkm3qgGRw",
-    }),
     structureTool({ structure: deskStructure }),
     documentInternationalization(PluginConfig),
     visionTool(),
