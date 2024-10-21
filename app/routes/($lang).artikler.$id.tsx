@@ -1,19 +1,21 @@
+import MuxPlayer from "@mux/mux-player-react";
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
+import { QueryResponseInitial } from "@sanity/react-loader";
+import { Suspense, useEffect } from "react";
+import { EventTextContent } from "~/components/EventTextContent";
 import { Custom_ARTICLE_QUERYResult } from "../../cms/customTypes";
-import { getColor } from "../utils/colorCombinations";
-import { getArticleQuery } from "../queries/article-queries";
+import { useQuery } from "../../cms/loader";
+import { loadQuery } from "../../cms/loader.server";
+import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import PortableTextComponent from "../components/PortableTextComponent";
-import urlFor from "../utils/imageUrlBuilder";
-import MuxPlayer from "@mux/mux-player-react";
+import { getArticleQuery } from "../queries/article-queries";
+import { getColor } from "../utils/colorCombinations";
 import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
-import { useEffect } from "react";
 import { useTranslation } from "../utils/i18n";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
-import { loadQuery } from "../../cms/loader.server";
-import { QueryResponseInitial } from "@sanity/react-loader";
-import { useQuery } from "../../cms/loader";
-import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
+import urlFor from "../utils/imageUrlBuilder";
+import { Ingress } from "./Ingress";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -119,6 +121,7 @@ export default function Article() {
           alt={data.image.alt}
         ></img>
       )}
+      {data.ingress && <Ingress ingress={data.ingress} />}
       {data.video?.muxVideo.asset && (
         <MuxPlayer
           disableCookies={true}
@@ -126,10 +129,10 @@ export default function Article() {
           title={data.video.title || ""}
         />
       )}
-      {data?.text && (
+      {data.text && (
         <PortableTextComponent data={data} textColor={primaryTextColor} />
       )}
-      {data?.event && (
+      {data.event && (
         <Link
           to={
             language == "en"
@@ -140,6 +143,9 @@ export default function Article() {
           {t(texts.readMore)}
         </Link>
       )}
+      <Suspense>
+        <EventTextContent textColor={primaryTextColor} data={data} />
+      </Suspense>
     </div>
   );
 }

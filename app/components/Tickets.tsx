@@ -10,7 +10,7 @@ export type DateTicketType = {
 };
 
 type Props = {
-  dateTickets: DateTicketType[];
+  dateTickets: DateTicketType[] | null;
   textColor?: string;
   ticketInformation?: string | null;
 };
