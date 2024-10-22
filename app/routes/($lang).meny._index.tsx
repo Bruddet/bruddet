@@ -1,20 +1,14 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
-import {
-  Link,
-  MetaFunction,
-  useLoaderData,
-  useLocation,
-  useParams,
-} from "@remix-run/react";
+import { Link, MetaFunction, useLoaderData, useParams } from "@remix-run/react";
+import { QueryResponseInitial } from "@sanity/react-loader";
 import { useEffect } from "react";
+import { useQuery } from "../../cms/loader";
+import { loadQuery } from "../../cms/loader.server";
+import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import { MENUPAGE_QUERYResult } from "../../sanity.types";
 import { getMenuPageQuery } from "../queries/menu-queries";
 import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
 import { useTranslation } from "../utils/i18n";
-import { loadQuery } from "../../cms/loader.server";
-import { QueryResponseInitial } from "@sanity/react-loader";
-import { useQuery } from "../../cms/loader";
-import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -81,6 +75,12 @@ function RedirectType(type: string) {
 }
 
 export default function Info() {
+  type TextType = {
+    _key: string;
+    subtitle: string;
+    slug: string;
+  };
+
   const { initial, query, queryParams } = useLoaderData<typeof loader>() as {
     initial: QueryResponseInitial<MENUPAGE_QUERYResult>;
     query: string;
@@ -101,19 +101,30 @@ export default function Info() {
       <h1 className="text-5xl font-bold mb-12">{data?.title}</h1>
       <div className="flex flex-col items-center text-center gap-4 text-xl py-12 px-0">
         {data?.links?.map((link, index) => (
-          <Link
-            key={index}
-            to={
-              params.lang == "en"
-                ? "/en" + `${RedirectType(link._type)}/${link.slug?.current}`
-                : `${RedirectType(link._type)}/${link.slug?.current}`
-            }
-            aria-label={`${t(texts.labelText)} ${link.title}`}
-          >
-            <p className="p-4 hover:underline text-2xl lg:text-4xl">
-              {link.title || ""}
-            </p>
-          </Link>
+          <>
+            <Link
+              key={index}
+              to={
+                params.lang == "en"
+                  ? "/en" + `${RedirectType(link._type)}/${link.slug?.current}`
+                  : `${RedirectType(link._type)}/${link.slug?.current}`
+              }
+              aria-label={`${t(texts.labelText)} ${link.title}`}
+            >
+              <p className="p-4 hover:underline text-2xl lg:text-4xl">
+                {link.title || ""}
+              </p>
+            </Link>
+            {link.text?.map((text) => (
+              <Link
+                to={`${/artikler/}${(text as TextType).slug}#${
+                  (text as TextType)._key
+                }`}
+              >
+                <p>{(text as TextType).subtitle}</p>
+              </Link>
+            ))}
+          </>
         ))}
         <p>...</p>
         <Link to={params.lang == "en" ? "/en/artikler" : "/artikler"}>

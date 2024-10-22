@@ -2,7 +2,7 @@ import MuxPlayer from "@mux/mux-player-react";
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { QueryResponseInitial } from "@sanity/react-loader";
-import { Suspense, useEffect } from "react";
+import { useEffect } from "react";
 
 import { EventTextContent } from "~/components/EventTextContent";
 import { Custom_ARTICLE_QUERYResult } from "../../cms/customTypes";
@@ -138,9 +138,7 @@ export default function Article() {
             {t(texts.readMore)}
           </Link>
         )}
-        <Suspense>
-          <EventTextContent textColor={primaryTextColor} data={data} />
-        </Suspense>
+        <EventTextContent textColor={primaryTextColor} data={data} />
       </div>
     </>
   );
