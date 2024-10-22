@@ -1,11 +1,11 @@
 import MuxPlayer from "@mux/mux-player-react";
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
-import urlFor from "../utils/imageUrlBuilder";
-import { ReviewComponent } from "./ReviewComponent";
-import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { stegaClean } from "@sanity/client/stega";
+import urlFor from "../utils/imageUrlBuilder";
 import Dice from "./Dice";
+import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { QuoteBomb } from "./QuoteBomb";
+import { ReviewComponent } from "./ReviewComponent";
 
 export interface PortableTextProps {
   data?: any;
@@ -81,8 +81,24 @@ export default function PortableTextComponent({
             title={value.title}
             textColor={textColor}
             content={value.content}
-          ></ExpandableBlockComponent>
+          />
         );
+      },
+      block: (props: any) => {
+        const { value } = props;
+        const { style, _key } = value;
+
+        if (/^h\d/.test(style)) {
+          const headingId = `${_key}`;
+          return (
+            <div id={headingId}>
+              <a href={`#${headingId}`} aria-hidden="true" tabIndex={-1}>
+                {PortableText(props)}
+              </a>
+            </div>
+          );
+        }
+        return PortableText(props);
       },
       quoteBomb: ({
         value,
