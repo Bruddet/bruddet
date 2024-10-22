@@ -167,7 +167,6 @@ export default function Event() {
           </Suspense>
         </div>
       </div>
-      <BuyButtonFooter handleScroll={handleScroll} />
     </>
   );
 }

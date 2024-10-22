@@ -1,20 +1,22 @@
 import { useState } from "react";
-import Dot from "~/assets/Dot";
 import { useBackgroundColor } from "~/utils/hooks/useBackgroundColor";
 import { getColor } from "~/utils/colorCombinations";
 import { createTexts, useTranslation } from "~/utils/i18n";
 import { useColorCombination } from "~/utils/hooks/useColorCombination";
 import { Link, useLocation } from "@remix-run/react";
+import { NewsletterMarquee } from "./NewsletterMarquee";
 
-export default function NewsletterFooter() {
+export default function Footer() {
   const { color } = useBackgroundColor();
-  const pathname = useLocation().pathname;
+  const pathname = useLocation()?.pathname;
 
   return (
     <>
       <button
         className={`overflow-hidden ${
-          (pathname.includes("program") || pathname.includes("meny")) &&
+          (pathname.includes("program") ||
+            pathname.includes("meny") ||
+            pathname.includes("event")) &&
           `border-t border-black`
         }  hidden z-50 md:flex sticky bottom-0 h-14 text-black ${
           color !== "bg-white" ? color : "bg-black"
@@ -27,7 +29,7 @@ export default function NewsletterFooter() {
 }
 
 type ContentProps = {
-  pathname?: string;
+  pathname: string;
 };
 
 export const Content = ({ pathname }: ContentProps) => {
@@ -38,11 +40,18 @@ export const Content = ({ pathname }: ContentProps) => {
 
   const [isHovering, setIsHovering] = useState(false);
 
+  const handleScroll = () => {
+    const target = document.getElementById("tickets");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="grid grid-cols-[2fr_10fr_2fr] h-full w-full">
       <Link
         to={pathname?.includes("/en") ? "/en/meny" : "/meny"}
-        className={`flex justify-start items-center ${primaryTextColor} hover:bg-mainThemeColor`}
+        className={`flex justify-start items-center ${primaryTextColor} hover:bg-mainThemeColor hover:underline`}
         aria-label={t(texts.menuText)}
       >
         <div className="px-4 text-xl font-bold">{t(texts.menuButton)}</div>
@@ -52,39 +61,20 @@ export const Content = ({ pathname }: ContentProps) => {
         onMouseLeave={() => setIsHovering(false)}
         className={`border-l border-r ${secondaryBorder} hover:bg-mainThemeColor overflow-hidden whitespace-nowrap flex items-center`}
       >
-        {isHovering ? (
-          <div className="w-full">
-            <p>{t(texts.newsletterText)}</p>
-          </div>
+        {pathname?.includes("event") ? (
+          <button
+            className="py-4 flex flex-row justify-center align-middle gap-10 w-full hover:underline bottom-0 sticky text-${textcolor} hover:bg-mainThemeColor bg-beige font-serif font-bold text-xl"
+            onClick={handleScroll}
+          >
+            {t(texts.buy).toUpperCase()}
+          </button>
         ) : (
-          <div className="animate-marquee flex items-center">
-            {Array.from({ length: 2 }).map((_, idx) =>
-              Array.from({ length: 10 }).map((_, i) => (
-                <div
-                  className="flex items-center"
-                  aria-hidden={idx === 1}
-                  key={i}
-                >
-                  <span className="text-l font-thin mossDark mx-10">
-                    {t(texts.marqueeText)}
-                  </span>
-                  <Dot
-                    color={
-                      pathname?.includes("program") ||
-                      pathname?.includes("meny")
-                        ? "#182D39"
-                        : "#D4FF26"
-                    }
-                  />
-                </div>
-              ))
-            )}
-          </div>
+          <NewsletterMarquee isHovering={isHovering} pathname={pathname} />
         )}
       </div>
       <Link
         to={pathname?.includes("/en") ? "/en/program" : "/program"}
-        className={`flex justify-end items-center hover:bg-mainThemeColor`}
+        className={`flex justify-end items-center hover:bg-mainThemeColor hover:underline`}
         aria-label={t(texts.programText)}
       >
         <div className="px-4 text-xl font-bold ml-auto">
@@ -127,5 +117,9 @@ const texts = createTexts({
   programButton: {
     nb: "Program",
     en: "Program",
+  },
+  buy: {
+    en: "Buy ticket",
+    nb: "Kjøp billett",
   },
 });
