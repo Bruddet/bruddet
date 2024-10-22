@@ -2,6 +2,7 @@ import {
   Custom_ARTICLE_QUERYResult,
   Custom_EVENT_QUERYResult,
 } from "cms/customTypes";
+import { useEffect } from "react";
 import { swapActiveImage } from "~/utils/GallerySlider";
 import PortableTextComponent from "./PortableTextComponent";
 import { RolesAndTickets } from "./RolesAndTickets";
@@ -27,9 +28,11 @@ export const EventTextContent = ({ textColor, data }: Props) => {
 
   const galleryDisplayType = data.galleryDisplayType;
 
-  window.onscroll = () => {
-    swapActiveImage();
-  };
+  useEffect(() => {
+    window.onscroll = () => {
+      swapActiveImage();
+    };
+  }, []);
 
   const rightBlocks = data?.text.filter((block) =>
     rightBlockTypes.includes(block._type)
