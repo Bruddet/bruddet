@@ -8,19 +8,19 @@ type Props = {
   data: Custom_EVENT_QUERYResult;
 };
 
-export const activeGallerySlideClassName = `absolute mt-5 opacity-1 transition-opacity duration-400 ease-linear delay-400 gallery-slide`;
+export const activeGallerySlideClassName = `absolute mt-5 opacity-1 transition-opacity duration-400 ease-linear delay-400 gallery-slide w-[30em] h-[20em]`;
 export const inactiveGallerySlideClassName = `mt-5 opacity-0 gallery-slide`;
 
 export const EventTextContent = ({ textColor, data }: Props) => {
-  const leftBlockTypes = ["block", "review"];
-
-  const rightBlockTypes = [
-    "quoteBomb",
-    "expandableBlock",
-    "dice",
+  const leftBlockTypes = [
+    "block",
+    "review",
     "video",
-    "customImage",
+    "expandableBlock",
+    "quoteBomb",
   ];
+
+  const rightBlockSickyTypes = ["customImage"];
 
   const galleryDisplayType = data.galleryDisplayType;
 
@@ -28,9 +28,10 @@ export const EventTextContent = ({ textColor, data }: Props) => {
     swapActiveImage();
   };
 
-  const rightBlocks = data?.text.filter((block) =>
-    rightBlockTypes.includes(block._type)
+  const stickyRightBlocks = data?.text.filter((block) =>
+    rightBlockSickyTypes.includes(block._type)
   );
+
   const leftBlocks = data?.text.filter((block) =>
     leftBlockTypes.includes(block._type)
   );
@@ -47,6 +48,7 @@ export const EventTextContent = ({ textColor, data }: Props) => {
       {/*grid-block for regular screens*/}
       <div className="hidden md:block">
         <div className="grid grid-cols-2 gap-10 font-serif text-xl">
+          {/*left-column*/}
           <div className="flex justify-start w-full">
             <div className="lg:w-4/5 flex flex-col gap-8">
               {leftBlocks.map((d, index) => (
@@ -59,9 +61,10 @@ export const EventTextContent = ({ textColor, data }: Props) => {
               <RolesAndTickets roleGroups={data?.roleGroups} data={data} />
             </div>
           </div>
+          {/*right-column*/}
           <div className="flex justify-end w-full">
             <div className={galleryClassName}>
-              {rightBlocks?.map((d, index) => (
+              {stickyRightBlocks?.map((d, index) => (
                 <div
                   className={
                     galleryDisplayType != 1
