@@ -1,5 +1,6 @@
 import MuxPlayer from "@mux/mux-player-react";
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
+import { Link } from "@remix-run/react";
 import { stegaClean } from "@sanity/client/stega";
 import urlFor from "../utils/imageUrlBuilder";
 import Dice from "./Dice";
@@ -92,9 +93,14 @@ export default function PortableTextComponent({
           const headingId = `${_key}`;
           return (
             <div id={headingId}>
-              <a href={`#${headingId}`} aria-hidden="true" tabIndex={-1}>
+              <Link
+                to={`#${headingId}`}
+                aria-hidden="true"
+                tabIndex={-1}
+                className="cursor-default pointer-events-none"
+              >
                 {PortableText(props)}
-              </a>
+              </Link>
             </div>
           );
         }
