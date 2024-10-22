@@ -3,6 +3,7 @@ import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { Suspense, useEffect } from "react";
+
 import { EventTextContent } from "~/components/EventTextContent";
 import { Custom_ARTICLE_QUERYResult } from "../../cms/customTypes";
 import { useQuery } from "../../cms/loader";
@@ -14,8 +15,6 @@ import { getColor } from "../utils/colorCombinations";
 import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
 import { useTranslation } from "../utils/i18n";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
-import urlFor from "../utils/imageUrlBuilder";
-import { Ingress } from "./Ingress";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -110,43 +109,40 @@ export default function Article() {
   const { t, language } = useTranslation();
 
   return (
-    <div
-      className={`bg-[#FFF8E8] flex flex-col items-center grow mx-6 self-center md:w-full lg:w-1/2`}
-    >
-      <h1 className="text-4xl">{data.title}</h1>
-      {data.image && (
-        <img
-          className="w-3/4 md:w-3/4 lg:w-1/2"
-          src={urlFor(data.image.asset?._ref || "")}
-          alt={data.image.alt}
-        ></img>
-      )}
-      {data.ingress && <Ingress ingress={data.ingress} />}
-      {data.video?.muxVideo.asset && (
-        <MuxPlayer
-          disableCookies={true}
-          playbackId={data.video.muxVideo.asset.playbackId}
-          title={data.video.title || ""}
-        />
-      )}
-      {data.text && (
-        <PortableTextComponent data={data} textColor={primaryTextColor} />
-      )}
-      {data.event && (
-        <Link
-          to={
-            language == "en"
-              ? `/en/event/${data.event?.slug?.current}`
-              : `/event/${data.event?.slug?.current}`
-          }
-        >
-          {t(texts.readMore)}
-        </Link>
-      )}
-      <Suspense>
-        <EventTextContent textColor={primaryTextColor} data={data} />
-      </Suspense>
-    </div>
+    <>
+      <div className={`flex-col flex w-full ${primaryTextColor} font-serif`}>
+        <div className="flex flex-col mx-6 md:mx-8 lg:mx-24 mt-40">
+          <h1 className="text-5xl font-normal text-center">{data.title}</h1>
+          <h2 className="text-lg lg:text-3xl mx-auto my-6 text-center max-w-[1000px] font-normal">
+            {data.ingress}
+          </h2>
+        </div>
+        {data.video?.muxVideo.asset && (
+          <MuxPlayer
+            disableCookies={true}
+            playbackId={data.video.muxVideo.asset.playbackId}
+            title={data.video.title || ""}
+          />
+        )}
+        {data.text && (
+          <PortableTextComponent data={data} textColor={primaryTextColor} />
+        )}
+        {data.event && (
+          <Link
+            to={
+              language == "en"
+                ? `/en/event/${data.event?.slug?.current}`
+                : `/event/${data.event?.slug?.current}`
+            }
+          >
+            {t(texts.readMore)}
+          </Link>
+        )}
+        <Suspense>
+          <EventTextContent textColor={primaryTextColor} data={data} />
+        </Suspense>
+      </div>
+    </>
   );
 }
 
