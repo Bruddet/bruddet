@@ -100,7 +100,7 @@ export default function Article() {
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();
 
-  const { primaryTextColor } = getColor(data?.colorCombination || "creamBlue");
+  const { primaryTextColor } = getColor("creamBlue");
 
   useEffect(() => {
     setColor(bgColor);
@@ -109,38 +109,37 @@ export default function Article() {
   const { t, language } = useTranslation();
 
   return (
-    <>
-      <div className={`flex-col flex w-full ${primaryTextColor} font-serif`}>
-        <div className="flex flex-col mx-6 md:mx-8 lg:mx-24 mt-40">
-          <h1 className="text-5xl font-normal text-center">{data.title}</h1>
-          <h2 className="text-lg lg:text-3xl mx-auto my-6 text-center max-w-[1000px] font-normal">
-            {data.ingress}
-          </h2>
-        </div>
-        {data.video?.muxVideo.asset && (
-          <MuxPlayer
-            disableCookies={true}
-            playbackId={data.video.muxVideo.asset.playbackId}
-            title={data.video.title || ""}
-          />
-        )}
-        {data.text && (
-          <PortableTextComponent data={data} textColor={primaryTextColor} />
-        )}
-        {data.event && (
-          <Link
-            to={
-              language == "en"
-                ? `/en/event/${data.event?.slug?.current}`
-                : `/event/${data.event?.slug?.current}`
-            }
-          >
-            {t(texts.readMore)}
-          </Link>
-        )}
-        <EventTextContent textColor={primaryTextColor} data={data} />
-      </div>
-    </>
+    <div className="flex flex-col mx-6 md:mx-8 lg:mx-24 mt-40 items-center">
+      <h1 className="text-3xl lg:text-5xl font-normal md:text-left lg:text-center  max-w-[995px]">
+        {data.title}
+      </h1>
+      <h2 className="text-lg lg:text-3xl mx-auto my-6 md:text-left lg:text-center max-w-[1000px] font-normal">
+        {data.ingress}
+      </h2>
+
+      {data.video?.muxVideo.asset && (
+        <MuxPlayer
+          disableCookies={true}
+          playbackId={data.video.muxVideo.asset.playbackId}
+          title={data.video.title || ""}
+        />
+      )}
+      {data.text && (
+        <PortableTextComponent data={data} textColor={primaryTextColor} />
+      )}
+      {data.event && (
+        <Link
+          to={
+            language == "en"
+              ? `/en/event/${data.event?.slug?.current}`
+              : `/event/${data.event?.slug?.current}`
+          }
+        >
+          {t(texts.readMore)}
+        </Link>
+      )}
+      <EventTextContent textColor={primaryTextColor} data={data} />
+    </div>
   );
 }
 

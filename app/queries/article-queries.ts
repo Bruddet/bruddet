@@ -30,7 +30,6 @@ export function getArticleQuery(params: Params<string>) {
     ingress,
     metaTitle, 
     metaDescription, 
-    colorCombination, 
     galleryDisplayType,
     image, 
     text[]{..., 

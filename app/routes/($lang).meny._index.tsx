@@ -112,7 +112,7 @@ export default function Info() {
               aria-label={`${t(texts.labelText)} ${link.title}`}
             >
               <p className="p-4 hover:underline text-2xl lg:text-4xl">
-                {link.title || ""}
+                {link.title?.toUpperCase() || ""}
               </p>
             </Link>
             {link.text?.map((text) => (
