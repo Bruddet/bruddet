@@ -6,6 +6,7 @@ import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { stegaClean } from "@sanity/client/stega";
 import Dice from "./Dice";
 import { QuoteBomb } from "./QuoteBomb";
+import { GoogleMapsComponent } from "./GoogleMapsComponent";
 
 export interface PortableTextProps {
   data?: any;
@@ -57,6 +58,18 @@ export default function PortableTextComponent({
         diceValue: number;
       }>) => {
         return <Dice content={value.content} dice={value.diceValue} />;
+      },
+      googleMaps: ({
+        value,
+      }: PortableTextComponentProps<{
+        address: { lat: string; lng: string; _key: string };
+      }>) => {
+        return (
+          <GoogleMapsComponent
+            lat={value.address.lat}
+            lng={value.address.lng}
+          />
+        );
       },
       review: ({
         value,

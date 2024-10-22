@@ -29,5 +29,8 @@ export default {
     {
       type: "quoteBomb",
     },
+    {
+      type: "googleMaps",
+    },
   ],
 };

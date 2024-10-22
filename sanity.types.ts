@@ -61,6 +61,15 @@ export type SanityFileAsset = {
   source?: SanityAssetSourceData;
 };
 
+export type GoogleMaps = {
+  _id: string;
+  _type: "googleMaps";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  address?: Geopoint;
+};
+
 export type Geopoint = {
   _type: "geopoint";
   lat?: number;
@@ -558,6 +567,10 @@ export type Article = {
   language?: string;
   colorCombination?: "blueBlack" | "peachBlue" | "creamBlue" | "purpleWhite" | "blueYellow";
   text?: Content;
+  maps?: {
+    address?: Geopoint;
+    _type: "googleMaps";
+  };
   image?: {
     asset?: {
       _ref: string;
@@ -693,7 +706,7 @@ export type InternationalizedArrayReference = Array<{
   _key: string;
 } & InternationalizedArrayReferenceValue>;
 
-export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | Geopoint | QuoteBomb | EventGenre | Review | ImageMask | MetaDescription | MetaTitle | Video | RoleGroup | Content | ExpandableContent | ExpandableBlock | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Menupage | Frontpage | Article | Event | Person | CustomImage | Slug | InternationalizedArrayReference;
+export type AllSanitySchemaTypes = SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityFileAsset | GoogleMaps | Geopoint | QuoteBomb | EventGenre | Review | ImageMask | MetaDescription | MetaTitle | Video | RoleGroup | Content | ExpandableContent | ExpandableBlock | SanityImageCrop | SanityImageHotspot | SanityImageAsset | SanityAssetSourceData | SanityImageMetadata | MediaTag | MuxVideo | MuxVideoAsset | MuxAssetData | MuxStaticRenditions | MuxStaticRenditionFile | MuxPlaybackId | MuxTrack | TranslationMetadata | InternationalizedArrayReferenceValue | Programpage | Menupage | Frontpage | Article | Event | Person | CustomImage | Slug | InternationalizedArrayReference;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./app/queries/article-queries.ts
 // Variable: ARTICLES_QUERY
@@ -704,7 +717,7 @@ export type ARTICLES_QUERYResult = Array<{
   title: string | null;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current==$id && language==$lang][0]{    title,     slug,     metaTitle,     metaDescription,     colorCombination,     image,     text[]{...,       _type=="video" => {        title, muxVideo{asset->{playbackId}        }      }    },     video{      title,       muxVideo{        asset->{          playbackId}        }    },    'event': event->{slug},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      slug,      language,      }    }
+// Query: *[_type=="article" && slug.current==$id && language==$lang][0]{    title,     slug,     metaTitle,     metaDescription,     colorCombination,     image,     text[]{...,       _type=="video" => {        title, muxVideo{asset->{playbackId}        }      }    },     maps,    video{      title,       muxVideo{        asset->{          playbackId}        }    },    'event': event->{slug},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      slug,      language,      }    }
 export type ARTICLE_QUERYResult = {
   title: string | null;
   slug: Slug | null;
@@ -813,6 +826,10 @@ export type ARTICLE_QUERYResult = {
     _type: "video";
     _key: string;
   }> | null;
+  maps: {
+    address?: Geopoint;
+    _type: "googleMaps";
+  } | null;
   video: {
     title: string | null;
     muxVideo: {
@@ -1143,7 +1160,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type==\"article\" && language==$lang]{_id, slug, title}": ARTICLES_QUERYResult;
-    "*[_type==\"article\" && slug.current==$id && language==$lang][0]{\n    title, \n    slug, \n    metaTitle, \n    metaDescription, \n    colorCombination, \n    image, \n    text[]{..., \n      _type==\"video\" => {\n        title, muxVideo{asset->{playbackId}\n        }\n      }\n    }, \n    video{\n      title, \n      muxVideo{\n        asset->{\n          playbackId}\n        }\n    },\n    'event': event->{slug},\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      slug,\n      language,\n      }\n    }": ARTICLE_QUERYResult;
+    "*[_type==\"article\" && slug.current==$id && language==$lang][0]{\n    title, \n    slug, \n    metaTitle, \n    metaDescription, \n    colorCombination, \n    image, \n    text[]{..., \n      _type==\"video\" => {\n        title, muxVideo{asset->{playbackId}\n        }\n      }\n    }, \n    maps,\n    video{\n      title, \n      muxVideo{\n        asset->{\n          playbackId}\n        }\n    },\n    'event': event->{slug},\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      slug,\n      language,\n      }\n    }": ARTICLE_QUERYResult;
     "*[_type==\"event\" && language==$lang && slug.current==$id][0]{\n    metaTitle,\n    metaDescription,\n    title, \n    image,\n    imageMask, \n    colorCombination, \n    ticketInformation,\n    dates, \n    duration,\n    labels,\n    ingress,\n    svgTitle,\n    galleryDisplayType,\n    text[]{..., _type==\"video\" => {title, muxVideo{asset->{playbackId}}}},\n    eventGenre, \n    roleGroups[]{\n      _type,\n      name, \n      persons[]{\n      _type,\n      occupation, \n      description,\n      person->{name, image, text}\n      }\n    },\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n    slug,\n    language,\n    }\n  }": EVENT_QUERYResult;
     "*[_type==\"frontpage\" && language==$lang][0]{\n  title, \n  image, \n  language,\n  svgTitle, \n  metaTitle, \n  metaDescription, \n  event->{\n    title, \n    text, \n    image, \n    slug, \n    metaTitle, \n    metaDescription, \n    svgTitle,\n    colorCombination\n    }\n  }": FRONTPAGE_QUERYResult;
     "*[_type==\"menupage\" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]": MENUPAGE_QUERYResult;

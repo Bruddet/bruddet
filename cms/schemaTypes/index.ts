@@ -16,6 +16,7 @@ import { expandableBlockType } from "./objects/expandableBlockType";
 import { menuPage } from "./menupage";
 import expandableContent from "./objects/expandableContent";
 import quoteBomb from "./objects/quoteBomb";
+import googleMaps from "./objects/maps";
 
 export const schemaTypes = [
   articleType,
@@ -36,4 +37,5 @@ export const schemaTypes = [
   eventGenre,
   programpage,
   quoteBomb,
+  googleMaps,
 ];
