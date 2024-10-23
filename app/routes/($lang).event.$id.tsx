@@ -1,7 +1,7 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { QueryResponseInitial } from "@sanity/react-loader";
-import { Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import BuyButtonFooter from "~/components/BuyButtonFooter";
 import { EventLabels } from "~/components/EventLabels";
 import { EventTextContent } from "~/components/EventTextContent";
@@ -161,9 +161,7 @@ export default function Event() {
               colorCombination={colorCombination}
             />
           )}
-          <Suspense>
-            <EventTextContent textColor={primaryTextColor} data={data} />
-          </Suspense>
+          <EventTextContent textColor={primaryTextColor} data={data} />
         </div>
       </div>
       <BuyButtonFooter handleScroll={handleScroll} />
