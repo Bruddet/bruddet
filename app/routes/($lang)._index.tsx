@@ -111,14 +111,13 @@ export default function Index() {
         }}
         aria-label={"Background image"}
       >
-        {data?.event && (
-          <div className="absolute right-16 top-16">
-            <HexagonBuyButton
-              slug={data?.event?.slug?.current}
-              text={t(texts.buyTicket)}
-            />
-          </div>
-        )}
+        <div className="absolute right-16 top-16">
+          <HexagonBuyButton
+            slug={data?.event?.slug?.current}
+            text={t(texts.buyTicket)}
+          />
+        </div>
+
         <img
           className="md:w-1/2 m-auto"
           src={SvgUrl}
