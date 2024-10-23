@@ -4,7 +4,9 @@ import { Link, useLoaderData } from "@remix-run/react";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { useEffect } from "react";
 
+import { handleScroll } from "~/components/EventLabels";
 import { EventTextContent } from "~/components/EventTextContent";
+import { primaryButtonClassName } from "~/styles/buttonConstants";
 import { Custom_ARTICLE_QUERYResult } from "../../cms/customTypes";
 import { useQuery } from "../../cms/loader";
 import { loadQuery } from "../../cms/loader.server";
@@ -92,6 +94,11 @@ export default function Article() {
     queryParams: Record<string, string>;
   };
 
+  type TagText = {
+    subtitle: string;
+    _key: string;
+  };
+
   const { data } = useQuery<typeof initial.data>(query, queryParams, {
     initial,
   });
@@ -116,7 +123,16 @@ export default function Article() {
       <h2 className="text-lg lg:text-3xl mx-auto my-6 md:text-left lg:text-center max-w-[1000px] font-normal">
         {data.ingress}
       </h2>
-
+      <div className="flex gap-2 flex-wrap">
+        {data.tagTexts?.map((tagText) => (
+          <button
+            onClick={() => handleScroll((tagText as TagText)._key)}
+            className={`px-2 ${primaryButtonClassName} h-10 border-box w-fit`}
+          >
+            {(tagText as TagText).subtitle}
+          </button>
+        ))}
+      </div>
       {data.video?.muxVideo.asset && (
         <MuxPlayer
           disableCookies={true}

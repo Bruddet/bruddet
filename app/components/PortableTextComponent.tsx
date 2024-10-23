@@ -97,7 +97,7 @@ export default function PortableTextComponent({
                 to={`#${headingId}`}
                 aria-hidden="true"
                 tabIndex={-1}
-                className="cursor-default pointer-events-none"
+                className="pointer-events-none cursor-text"
               >
                 {PortableText(props)}
               </Link>

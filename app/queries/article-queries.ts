@@ -38,6 +38,8 @@ export function getArticleQuery(params: Params<string>) {
         }
       }
     },
+  "tagTexts": text[style in ["h1","h2", "h3", "h4", "h5"]]
+  {"subtitle": children[0].text, _key},
     roleGroups[]{
       _type,
       name, 
