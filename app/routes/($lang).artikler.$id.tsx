@@ -100,11 +100,6 @@ export default function Article() {
     googleMapsApiKey: string;
   };
 
-  type TagText = {
-    subtitle: string;
-    _key: string;
-  };
-
   const { data } = useQuery<typeof initial.data>(query, queryParams, {
     initial,
   });
@@ -132,10 +127,10 @@ export default function Article() {
       <div className="flex gap-2 flex-wrap">
         {data.tagTexts?.map((tagText) => (
           <button
-            onClick={() => handleScroll((tagText as TagText)._key)}
+            onClick={() => handleScroll(tagText._key)}
             className={`px-2 ${primaryButtonClassName} h-10 border-box w-fit`}
           >
-            {(tagText as TagText).subtitle}
+            {tagText.subtitle}
           </button>
         ))}
       </div>
