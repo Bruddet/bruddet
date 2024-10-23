@@ -2,7 +2,6 @@ import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { QueryResponseInitial } from "@sanity/react-loader";
 import { useEffect } from "react";
-import BuyButtonFooter from "~/components/BuyButtonFooter";
 import { EventLabels } from "~/components/EventLabels";
 import { EventTextContent } from "~/components/EventTextContent";
 import { Custom_EVENT_QUERYResult } from "../../cms/customTypes";
@@ -164,7 +163,6 @@ export default function Event() {
           <EventTextContent textColor={primaryTextColor} data={data} />
         </div>
       </div>
-      <BuyButtonFooter handleScroll={handleScroll} />
     </>
   );
 }

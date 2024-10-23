@@ -27,7 +27,7 @@ import NoTranslation from "./components/NoTranslation";
 import { lazy, Suspense } from "react";
 import { ExitPreview } from "./components/ExitPreview";
 import { loadQueryOptions } from "../cms/loadQueryOptions.server";
-import NewsletterFooter from "./components/NewsletterFooter";
+import Footer from "./components/Footer";
 import "./styles/global.css";
 import StickyFooter from "./components/StickyFooter";
 
@@ -148,9 +148,10 @@ export default function App() {
           <Header />
           <div className="flex flex-col grow min-h-screen font-serif" id="main">
             <Outlet />
-            {pathsWithNewsletter.includes(location.pathname) && (
+            {(pathsWithNewsletter.includes(location.pathname) ||
+              location.pathname.includes("event")) && (
               <>
-                <NewsletterFooter />
+                <Footer />
                 <StickyFooter />
               </>
             )}

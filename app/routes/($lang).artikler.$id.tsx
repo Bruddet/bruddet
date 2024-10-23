@@ -27,7 +27,7 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     options
   );
   const article = initial.data;
-
+  const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY;
   if (!article) {
     throw new Response("Not Found", {
       status: 404,
@@ -40,7 +40,12 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
     });
   }
 
-  return { initial, query: query, queryParams: queryParams };
+  return {
+    initial,
+    query: query,
+    queryParams: queryParams,
+    googleMapsApiKey: googleMapsApiKey,
+  };
 }
 
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
@@ -92,6 +97,7 @@ export default function Article() {
     initial: QueryResponseInitial<Custom_ARTICLE_QUERYResult>;
     query: string;
     queryParams: Record<string, string>;
+    googleMapsApiKey: string;
   };
 
   type TagText = {

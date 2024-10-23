@@ -5,6 +5,7 @@ import { stegaClean } from "@sanity/client/stega";
 import urlFor from "../utils/imageUrlBuilder";
 import Dice from "./Dice";
 import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
+import { GoogleMapsComponent } from "./GoogleMapsComponent";
 import { QuoteBomb } from "./QuoteBomb";
 import { ReviewComponent } from "./ReviewComponent";
 
@@ -27,12 +28,8 @@ export default function PortableTextComponent({
         credit: string;
       }>) => {
         return (
-          <div className="md:py-10 w-[100%]">
-            <img
-              className="min-w-[100%]"
-              src={urlFor(value.asset._ref)}
-              alt={value.alt}
-            />
+          <div className="md:py-10">
+            <img src={urlFor(value.asset._ref)} alt={value.alt} />
             <p className="mt-1">{value.credit}</p>
           </div>
         );
@@ -58,6 +55,18 @@ export default function PortableTextComponent({
         diceValue: number;
       }>) => {
         return <Dice content={value.content} dice={value.diceValue} />;
+      },
+      googleMaps: ({
+        value,
+      }: PortableTextComponentProps<{
+        address: { lat: string; lng: string; _key: string };
+      }>) => {
+        return (
+          <GoogleMapsComponent
+            lat={value.address.lat}
+            lng={value.address.lng}
+          />
+        );
       },
       review: ({
         value,
