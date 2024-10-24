@@ -21,12 +21,18 @@ export type CustomContent = Omit<
   }
 >;
 
+type TagText = {
+  subtitle: string;
+  _key: string;
+}[];
+
 export type Custom_ARTICLE_QUERYResult = Omit<
   NonNullable<ARTICLE_QUERYResult>,
-  "video" | "text"
+  "video" | "text" | "tagTexts"
 > & {
   video: CustomVideo;
   text: CustomContent;
+  tagTexts: TagText;
 };
 
 export type Custom_EVENT_QUERYResult = Omit<

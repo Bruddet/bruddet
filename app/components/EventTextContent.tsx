@@ -1,11 +1,15 @@
-import { Custom_EVENT_QUERYResult } from "cms/customTypes";
+import {
+  Custom_ARTICLE_QUERYResult,
+  Custom_EVENT_QUERYResult,
+} from "cms/customTypes";
+import { useEffect } from "react";
+import { swapActiveImage } from "~/utils/GallerySlider";
 import PortableTextComponent from "./PortableTextComponent";
 import { RolesAndTickets } from "./RolesAndTickets";
-import { swapActiveImage } from "~/utils/GallerySlider";
 
 type Props = {
   textColor: string;
-  data: Custom_EVENT_QUERYResult;
+  data: Custom_EVENT_QUERYResult | Custom_ARTICLE_QUERYResult;
 };
 
 export const activeGallerySlideClassName = `absolute mt-5 opacity-1 transition-opacity duration-400 ease-linear delay-400 gallery-slide w-[30em] h-[20em]`;
@@ -24,9 +28,11 @@ export const EventTextContent = ({ textColor, data }: Props) => {
 
   const galleryDisplayType = data.galleryDisplayType;
 
-  window.onscroll = () => {
-    swapActiveImage();
-  };
+  useEffect(() => {
+    window.onscroll = () => {
+      swapActiveImage();
+    };
+  }, []);
 
   const stickyRightBlocks = data?.text.filter((block) =>
     rightBlockSickyTypes.includes(block._type)

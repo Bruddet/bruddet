@@ -1,7 +1,5 @@
 import { defineField, defineType } from "sanity";
 import { isUniqueOtherThanLanguage } from "../structure/documentInternationalization";
-import { documentInternationalization } from "@sanity/document-internationalization";
-import { COLOR_COMBINATIONS } from "./objects/colorCombination";
 
 export const articleType = defineType({
   name: "article",
@@ -44,19 +42,17 @@ export const articleType = defineType({
       validation: (rule) => [rule.required().error("Må ha en slug")],
     }),
     defineField({
+      name: "ingress",
+      title: "Ingress",
+      type: "string",
+      description: "Teksten under tittel",
+      group: "content",
+    }),
+    defineField({
       name: "language",
       type: "string",
       readOnly: true,
       hidden: true,
-    }),
-    defineField({
-      name: "colorCombination",
-      title: "Fargekombinasjon",
-      type: "string",
-      options: {
-        list: COLOR_COMBINATIONS.map(({ title, value }) => ({ title, value })),
-        layout: "radio",
-      },
     }),
     defineField({
       name: "text",
@@ -69,6 +65,29 @@ export const articleType = defineType({
         documentInternationalization: {
           exclude: true,
         },
+      },
+    }),
+    defineField({
+      name: "galleryDisplayType",
+      title: "Visning av bilder",
+      type: "number",
+      initialValue: 1,
+      group: "content",
+      description:
+        "Her kan du bestemme om bildene i høyre kolonne skal skiftes ut ved scroll (som er det anbefalte), eller hvis alle bildene skal vises under hverandre hele tiden.",
+      options: {
+        list: [
+          {
+            title: "Vis ett bilde av gangen (skifter ved scrolling) - anbefalt",
+            value: 1,
+          },
+          {
+            title: "Vis alle bilder samtidig, plassert under hverandre",
+            value: 2,
+          },
+        ],
+        layout: "radio",
+        direction: "horizontal",
       },
     }),
     defineField({
@@ -105,6 +124,19 @@ export const articleType = defineType({
         },
       },
       group: "content",
+    }),
+    defineField({
+      name: "roleGroups",
+      title: "Roller",
+      description: "Lag egne rollegrupper",
+      type: "array",
+      of: [{ type: "roleGroup" }],
+      group: "content",
+      options: {
+        documentInternationalization: {
+          exclude: true,
+        },
+      },
     }),
     defineField({
       name: "metaTitle",

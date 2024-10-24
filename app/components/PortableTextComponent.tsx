@@ -1,12 +1,13 @@
 import MuxPlayer from "@mux/mux-player-react";
 import { PortableText, PortableTextComponentProps } from "@portabletext/react";
-import urlFor from "../utils/imageUrlBuilder";
-import { ReviewComponent } from "./ReviewComponent";
-import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
+import { Link } from "@remix-run/react";
 import { stegaClean } from "@sanity/client/stega";
+import urlFor from "../utils/imageUrlBuilder";
 import Dice from "./Dice";
-import { QuoteBomb } from "./QuoteBomb";
+import { ExpandableBlockComponent } from "./ExpandableBlockComponent";
 import { GoogleMapsComponent } from "./GoogleMapsComponent";
+import { QuoteBomb } from "./QuoteBomb";
+import { ReviewComponent } from "./ReviewComponent";
 
 export interface PortableTextProps {
   data?: any;
@@ -27,8 +28,12 @@ export default function PortableTextComponent({
         credit: string;
       }>) => {
         return (
-          <div className="md:py-10">
-            <img src={urlFor(value.asset._ref)} alt={value.alt} />
+          <div className="md:py-10 ">
+            <img
+              className="md:min-w-[450px] max-w-[500px]"
+              src={urlFor(value.asset._ref)}
+              alt={value.alt}
+            />
             <p className="mt-1">{value.credit}</p>
           </div>
         );
@@ -90,8 +95,29 @@ export default function PortableTextComponent({
             title={value.title}
             textColor={textColor}
             content={value.content}
-          ></ExpandableBlockComponent>
+          />
         );
+      },
+      block: (props: any) => {
+        const { value } = props;
+        const { style, _key } = value;
+
+        if (/^h2/.test(style)) {
+          const headingId = `${_key}`;
+          return (
+            <div id={headingId}>
+              <Link
+                to={`#${headingId}`}
+                aria-hidden="true"
+                tabIndex={-1}
+                className="pointer-events-none cursor-text"
+              >
+                {PortableText(props)}
+              </Link>
+            </div>
+          );
+        }
+        return PortableText(props);
       },
       quoteBomb: ({
         value,

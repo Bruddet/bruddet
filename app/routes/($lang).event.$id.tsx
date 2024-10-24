@@ -1,22 +1,21 @@
-import { Suspense, useEffect } from "react";
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { QueryResponseInitial } from "@sanity/react-loader";
+import { useEffect } from "react";
+import { EventLabels } from "~/components/EventLabels";
+import { EventTextContent } from "~/components/EventTextContent";
 import { Custom_EVENT_QUERYResult } from "../../cms/customTypes";
-import { getColor } from "../utils/colorCombinations";
-import urlFor from "../utils/imageUrlBuilder";
+import { useQuery } from "../../cms/loader";
+import { loadQuery } from "../../cms/loader.server";
+import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 import ImageEventPage from "../components/Masks/ImageEventPage";
 import { getEventQuery } from "../queries/event-queries";
-import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
-import { useSlugContext } from "../utils/i18n/SlugProvider";
-import { useTranslation } from "../utils/i18n";
 import { useBuyButtonObserver } from "../utils/BuyButtonObserver";
-import { QueryResponseInitial } from "@sanity/react-loader";
-import { loadQuery } from "../../cms/loader.server";
-import { useQuery } from "../../cms/loader";
-import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
-import { EventLabels } from "~/components/EventLabels";
-import BuyButtonFooter from "~/components/BuyButtonFooter";
-import { EventTextContent } from "~/components/EventTextContent";
+import { getColor } from "../utils/colorCombinations";
+import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
+import { useTranslation } from "../utils/i18n";
+import { useSlugContext } from "../utils/i18n/SlugProvider";
+import urlFor from "../utils/imageUrlBuilder";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -36,7 +35,6 @@ export async function loader({ params, request }: LoaderFunctionArgs) {
 
   return { initial, query: query, queryParams: queryParams };
 }
-
 export const meta: MetaFunction<typeof loader> = ({ data, location }) => {
   const path = location.pathname;
   let language = "nb";
@@ -162,9 +160,7 @@ export default function Event() {
               colorCombination={colorCombination}
             />
           )}
-          <Suspense>
-            <EventTextContent textColor={primaryTextColor} data={data} />
-          </Suspense>
+          <EventTextContent textColor={primaryTextColor} data={data} />
         </div>
       </div>
     </>

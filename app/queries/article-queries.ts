@@ -27,14 +27,27 @@ export function getArticleQuery(params: Params<string>) {
   const ARTICLE_QUERY = groq`*[_type=="article" && slug.current==$id && language==$lang][0]{
     title, 
     slug, 
+    ingress,
     metaTitle, 
     metaDescription, 
-    colorCombination, 
+    galleryDisplayType,
     image, 
     text[]{..., 
       _type=="video" => {
         title, muxVideo{asset->{playbackId}
         }
+      }
+  },  
+  "tagTexts": text[style == "h2"]
+  {"subtitle": children[0].text, _key},
+    roleGroups[]{
+      _type,
+      name, 
+      persons[]{
+      _type,
+      occupation, 
+      description,
+      person->{name, image, text}
       }
     }, 
     video{

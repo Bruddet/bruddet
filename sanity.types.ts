@@ -223,6 +223,10 @@ export type Content = Array<{
   creditsMedia?: string;
   _type: "quoteBomb";
   _key: string;
+} | {
+  address?: Geopoint;
+  _type: "googleMaps";
+  _key: string;
 }>;
 
 export type ExpandableContent = Array<{
@@ -564,13 +568,10 @@ export type Article = {
   _rev: string;
   title?: string;
   slug?: Slug;
+  ingress?: string;
   language?: string;
-  colorCombination?: "blueBlack" | "peachBlue" | "creamBlue" | "purpleWhite" | "blueYellow";
   text?: Content;
-  maps?: {
-    address?: Geopoint;
-    _type: "googleMaps";
-  };
+  galleryDisplayType?: 1 | 2;
   image?: {
     asset?: {
       _ref: string;
@@ -595,6 +596,9 @@ export type Article = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "event";
   };
+  roleGroups?: Array<{
+    _key: string;
+  } & RoleGroup>;
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 };
@@ -717,13 +721,14 @@ export type ARTICLES_QUERYResult = Array<{
   title: string | null;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current==$id && language==$lang][0]{    title,     slug,     metaTitle,     metaDescription,     colorCombination,     image,     text[]{...,       _type=="video" => {        title, muxVideo{asset->{playbackId}        }      }    },     maps,    video{      title,       muxVideo{        asset->{          playbackId}        }    },    'event': event->{slug},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      slug,      language,      }    }
+// Query: *[_type=="article" && slug.current==$id && language==$lang][0]{    title,     slug,     ingress,    metaTitle,     metaDescription,     galleryDisplayType,    image,     text[]{...,       _type=="video" => {        title, muxVideo{asset->{playbackId}        }      }    },  "tagTexts": text[style in ["h1","h2", "h3", "h4", "h5"]]  {"subtitle": children[0].text, _key},    roleGroups[]{      _type,      name,       persons[]{      _type,      occupation,       description,      person->{name, image, text}      }    },     video{      title,       muxVideo{        asset->{          playbackId}        }    },    'event': event->{slug},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      slug,      language,      }    }
 export type ARTICLE_QUERYResult = {
   title: string | null;
   slug: Slug | null;
+  ingress: string | null;
   metaTitle: MetaTitle | null;
   metaDescription: MetaDescription | null;
-  colorCombination: "blueBlack" | "blueYellow" | "creamBlue" | "peachBlue" | "purpleWhite" | null;
+  galleryDisplayType: 1 | 2 | null;
   image: {
     asset?: {
       _ref: string;
@@ -803,6 +808,10 @@ export type ARTICLE_QUERYResult = {
     _type: "expandableBlock";
     _key: string;
   } | {
+    address?: Geopoint;
+    _type: "googleMaps";
+    _key: string;
+  } | {
     quote?: string;
     creditsSource?: string;
     creditsMedia?: string;
@@ -826,10 +835,33 @@ export type ARTICLE_QUERYResult = {
     _type: "video";
     _key: string;
   }> | null;
-  maps: {
-    address?: Geopoint;
-    _type: "googleMaps";
-  } | null;
+  tagTexts: Array<never> | null;
+  roleGroups: Array<{
+    _type: "roleGroup";
+    name: string | null;
+    persons: Array<{
+      _type: null;
+      occupation: string | null;
+      description: string | null;
+      person: {
+        name: string | null;
+        image: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          alt?: string;
+          credit?: string;
+          _type: "customImage";
+        } | null;
+        text: string | null;
+      } | null;
+    }> | null;
+  }> | null;
   video: {
     title: string | null;
     muxVideo: {
@@ -960,6 +992,10 @@ export type EVENT_QUERYResult = {
       _key: string;
     }>;
     _type: "expandableBlock";
+    _key: string;
+  } | {
+    address?: Geopoint;
+    _type: "googleMaps";
     _key: string;
   } | {
     quote?: string;
@@ -1093,15 +1129,16 @@ export type FRONTPAGE_QUERYResult = {
 
 // Source: ./app/queries/menu-queries.ts
 // Variable: MENUPAGE_QUERY
-// Query: *[_type=="menupage" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]
+// Query: *[_type == "menupage" && language == $lang] {    title,    metaTitle,     metaDescription,     links[]->{title,    slug,    _type,    text[style in ["h1","h2", "h3", "h4", "h5"]]{    defined(_key) => {_key},    "subtitle": children[0].text,    "slug": ^.slug.current    }[defined(subtitle)],    }}[0]
 export type MENUPAGE_QUERYResult = {
   title: string | null;
   metaTitle: MetaTitle | null;
   metaDescription: MetaDescription | null;
   links: Array<{
-    _type: "article";
     title: string | null;
     slug: Slug | null;
+    _type: "article";
+    text: Array<never> | null;
   }> | null;
 } | null;
 
@@ -1160,10 +1197,10 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type==\"article\" && language==$lang]{_id, slug, title}": ARTICLES_QUERYResult;
-    "*[_type==\"article\" && slug.current==$id && language==$lang][0]{\n    title, \n    slug, \n    metaTitle, \n    metaDescription, \n    colorCombination, \n    image, \n    text[]{..., \n      _type==\"video\" => {\n        title, muxVideo{asset->{playbackId}\n        }\n      }\n    }, \n    maps,\n    video{\n      title, \n      muxVideo{\n        asset->{\n          playbackId}\n        }\n    },\n    'event': event->{slug},\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      slug,\n      language,\n      }\n    }": ARTICLE_QUERYResult;
+    "*[_type==\"article\" && slug.current==$id && language==$lang][0]{\n    title, \n    slug, \n    ingress,\n    metaTitle, \n    metaDescription, \n    galleryDisplayType,\n    image, \n    text[]{..., \n      _type==\"video\" => {\n        title, muxVideo{asset->{playbackId}\n        }\n      }\n    },\n  \"tagTexts\": text[style in [\"h1\",\"h2\", \"h3\", \"h4\", \"h5\"]]\n  {\"subtitle\": children[0].text, _key},\n    roleGroups[]{\n      _type,\n      name, \n      persons[]{\n      _type,\n      occupation, \n      description,\n      person->{name, image, text}\n      }\n    }, \n    video{\n      title, \n      muxVideo{\n        asset->{\n          playbackId}\n        }\n    },\n    'event': event->{slug},\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      slug,\n      language,\n      }\n    }": ARTICLE_QUERYResult;
     "*[_type==\"event\" && language==$lang && slug.current==$id][0]{\n    metaTitle,\n    metaDescription,\n    title, \n    image,\n    imageMask, \n    colorCombination, \n    ticketInformation,\n    dates, \n    duration,\n    labels,\n    ingress,\n    svgTitle,\n    galleryDisplayType,\n    text[]{..., _type==\"video\" => {title, muxVideo{asset->{playbackId}}}},\n    eventGenre, \n    roleGroups[]{\n      _type,\n      name, \n      persons[]{\n      _type,\n      occupation, \n      description,\n      person->{name, image, text}\n      }\n    },\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n    slug,\n    language,\n    }\n  }": EVENT_QUERYResult;
     "*[_type==\"frontpage\" && language==$lang][0]{\n  title, \n  image, \n  language,\n  svgTitle, \n  metaTitle, \n  metaDescription, \n  event->{\n    title, \n    text, \n    image, \n    slug, \n    metaTitle, \n    metaDescription, \n    svgTitle,\n    colorCombination\n    }\n  }": FRONTPAGE_QUERYResult;
-    "*[_type==\"menupage\" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]": MENUPAGE_QUERYResult;
+    "*[_type == \"menupage\" && language == $lang] {\n    title,\n    metaTitle, \n    metaDescription, \n    links[]->{title,\n    slug,\n    _type,\n    text[style in [\"h1\",\"h2\", \"h3\", \"h4\", \"h5\"]]{\n    defined(_key) => {_key},\n    \"subtitle\": children[0].text,\n    \"slug\": ^.slug.current\n    }[defined(subtitle)],\n    }}[0]": MENUPAGE_QUERYResult;
     "*[_type==\"programpage\" && language==$lang]{metaTitle, metaDescription, title, text,gif, socialMediaText, links[]->{title, slug, gif, image, dates} }[0]": PROGRAMPAGE_QUERYResult;
   }
 }

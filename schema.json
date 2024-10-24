@@ -1425,6 +1425,37 @@
                 }
               }
             }
+          },
+          {
+            "type": "object",
+            "attributes": {
+              "address": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "inline",
+                  "name": "geopoint"
+                },
+                "optional": true
+              },
+              "_type": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string",
+                  "value": "googleMaps"
+                }
+              }
+            },
+            "rest": {
+              "type": "object",
+              "attributes": {
+                "_key": {
+                  "type": "objectAttribute",
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
           }
         ]
       }
@@ -3443,39 +3474,17 @@
         },
         "optional": true
       },
-      "language": {
+      "ingress": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
         },
         "optional": true
       },
-      "colorCombination": {
+      "language": {
         "type": "objectAttribute",
         "value": {
-          "type": "union",
-          "of": [
-            {
-              "type": "string",
-              "value": "blueBlack"
-            },
-            {
-              "type": "string",
-              "value": "peachBlue"
-            },
-            {
-              "type": "string",
-              "value": "creamBlue"
-            },
-            {
-              "type": "string",
-              "value": "purpleWhite"
-            },
-            {
-              "type": "string",
-              "value": "blueYellow"
-            }
-          ]
+          "type": "string"
         },
         "optional": true
       },
@@ -3487,27 +3496,20 @@
         },
         "optional": true
       },
-      "maps": {
+      "galleryDisplayType": {
         "type": "objectAttribute",
         "value": {
-          "type": "object",
-          "attributes": {
-            "address": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "inline",
-                "name": "geopoint"
-              },
-              "optional": true
+          "type": "union",
+          "of": [
+            {
+              "type": "number",
+              "value": 1
             },
-            "_type": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "string",
-                "value": "googleMaps"
-              }
+            {
+              "type": "number",
+              "value": 2
             }
-          }
+          ]
         },
         "optional": true
       },
@@ -3645,6 +3647,28 @@
             }
           },
           "dereferencesTo": "event"
+        },
+        "optional": true
+      },
+      "roleGroups": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "object",
+            "attributes": {
+              "_key": {
+                "type": "objectAttribute",
+                "value": {
+                  "type": "string"
+                }
+              }
+            },
+            "rest": {
+              "type": "inline",
+              "name": "roleGroup"
+            }
+          }
         },
         "optional": true
       },

@@ -1,14 +1,14 @@
+import { EventGenre } from "sanity.types";
+import { ColorCombinations } from "~/sanity.types";
+import { primaryButtonClassName } from "~/styles/buttonConstants";
+import { getColor } from "~/utils/colorCombinations";
 import {
   formatDayAndDate,
   formatTimestamp,
   getMonth,
 } from "~/utils/dateAndTime";
-import { EventGenre } from "sanity.types";
-import { Label } from "./Label";
 import { TranslationObject, useTranslation } from "~/utils/i18n";
-import { ColorCombinations } from "~/sanity.types";
-import { getColor } from "~/utils/colorCombinations";
-import { primaryButtonClassName } from "~/styles/buttonConstants";
+import { Label } from "./Label";
 
 type DatesLabelProps = {
   dates: DateObject[];
@@ -75,6 +75,13 @@ export const getDateLabel = ({
   )?.toLocaleUpperCase()}`;
 };
 
+export const handleScroll = (id: string) => {
+  const target = document.getElementById(id);
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
 export const EventLabels = ({
   dates,
   genre,
@@ -126,13 +133,6 @@ export const EventLabels = ({
     getGenre(),
   ];
 
-  const handleScroll = () => {
-    const target = document.getElementById("tickets");
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   const { primaryTextColor, textBorderColor } = getColor(
     colorCombination || "creamBlue"
   );
@@ -157,7 +157,7 @@ export const EventLabels = ({
             )
         )}
         <button
-          onClick={handleScroll}
+          onClick={() => handleScroll("tickets")}
           className={`px-2 ${primaryButtonClassName} w-36 h-10 border-box`}
         >
           {t(texts.buyTicket).toUpperCase()}

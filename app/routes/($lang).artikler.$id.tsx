@@ -1,19 +1,22 @@
+import MuxPlayer from "@mux/mux-player-react";
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { Custom_ARTICLE_QUERYResult } from "../../cms/customTypes";
-import { getColor } from "../utils/colorCombinations";
-import { getArticleQuery } from "../queries/article-queries";
-import PortableTextComponent from "../components/PortableTextComponent";
-import urlFor from "../utils/imageUrlBuilder";
-import MuxPlayer from "@mux/mux-player-react";
-import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
+import { QueryResponseInitial } from "@sanity/react-loader";
 import { useEffect } from "react";
+
+import { handleScroll } from "~/components/EventLabels";
+import { EventTextContent } from "~/components/EventTextContent";
+import { primaryButtonClassName } from "~/styles/buttonConstants";
+import { Custom_ARTICLE_QUERYResult } from "../../cms/customTypes";
+import { useQuery } from "../../cms/loader";
+import { loadQuery } from "../../cms/loader.server";
+import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
+import PortableTextComponent from "../components/PortableTextComponent";
+import { getArticleQuery } from "../queries/article-queries";
+import { getColor } from "../utils/colorCombinations";
+import { useBackgroundColor } from "../utils/hooks/useBackgroundColor";
 import { useTranslation } from "../utils/i18n";
 import { useSlugContext } from "../utils/i18n/SlugProvider";
-import { loadQuery } from "../../cms/loader.server";
-import { QueryResponseInitial } from "@sanity/react-loader";
-import { useQuery } from "../../cms/loader";
-import { loadQueryOptions } from "../../cms/loadQueryOptions.server";
 
 export async function loader({ params, request }: LoaderFunctionArgs) {
   const { options } = await loadQueryOptions(request.headers);
@@ -105,7 +108,7 @@ export default function Article() {
   const { setColor } = useBackgroundColor();
   const { setSlug } = useSlugContext();
 
-  const { primaryTextColor } = getColor(data?.colorCombination || "creamBlue");
+  const { primaryTextColor } = getColor("creamBlue");
 
   useEffect(() => {
     setColor(bgColor);
@@ -114,16 +117,24 @@ export default function Article() {
   const { t, language } = useTranslation();
 
   return (
-    <div
-      className={`bg-[#FFF8E8] flex flex-col items-center grow mx-6 self-center md:w-full lg:w-1/2`}
-    >
-      <h1 className="text-4xl">{data.title}</h1>
-      {data.image && (
-        <img
-          className="w-3/4 md:w-3/4 lg:w-1/2"
-          src={urlFor(data.image.asset?._ref || "")}
-          alt={data.image.alt}
-        ></img>
+    <div className="flex flex-col mx-6 md:mx-8 lg:mx-24 mt-40 items-center">
+      <h1 className="text-3xl lg:text-6xl font-normal md:text-left lg:text-center max-w-[995px]">
+        {data.title}
+      </h1>
+      <h2 className="text-xl lg:text-3xl mx-auto my-4 md:my-10 md:text-left lg:text-center max-w-[1000px] font-normal lg:leading-[48px]">
+        {data.ingress}
+      </h2>
+      {data.tagTexts.length > 1 && (
+        <div className="flex gap-2 flex-wrap">
+          {data.tagTexts?.map((tagText) => (
+            <button
+              onClick={() => handleScroll(tagText._key)}
+              className={`px-2 ${primaryButtonClassName} h-10 border-box w-fit`}
+            >
+              {tagText.subtitle}
+            </button>
+          ))}
+        </div>
       )}
       {data.video?.muxVideo.asset && (
         <MuxPlayer
@@ -132,10 +143,10 @@ export default function Article() {
           title={data.video.title || ""}
         />
       )}
-      {data?.text && (
-        <PortableTextComponent data={data.text} textColor={primaryTextColor} />
+      {data.text && (
+        <PortableTextComponent data={data} textColor={primaryTextColor} />
       )}
-      {data?.event && (
+      {data.event && (
         <Link
           to={
             language == "en"
@@ -146,6 +157,7 @@ export default function Article() {
           {t(texts.readMore)}
         </Link>
       )}
+      <EventTextContent textColor={primaryTextColor} data={data} />
     </div>
   );
 }
