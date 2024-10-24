@@ -92,7 +92,7 @@ export default function Info() {
 
   const { setColor } = useBackgroundColor();
   useEffect(() => {
-    setColor("bg-lightblue");
+    setColor("bg-strongblue");
   }, [setColor]);
   const params = useParams();
   const { t } = useTranslation();
@@ -116,12 +116,13 @@ export default function Info() {
             </Link>
             {link.text?.map((text) => (
               <Link
+                reloadDocument
                 to={`${/artikler/}${(text as TextType).slug}#${
                   (text as TextType)._key
                 }`}
               >
                 <p className="p-4 hover:underline text-2xl lg:text-4xl">
-                  {(text as TextType).subtitle}
+                  {(text as TextType).subtitle.toUpperCase()}
                 </p>
               </Link>
             ))}

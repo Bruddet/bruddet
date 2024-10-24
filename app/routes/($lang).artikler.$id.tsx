@@ -118,22 +118,24 @@ export default function Article() {
 
   return (
     <div className="flex flex-col mx-6 md:mx-8 lg:mx-24 mt-40 items-center">
-      <h1 className="text-3xl lg:text-6xl font-normal md:text-left lg:text-center  max-w-[995px]">
+      <h1 className="text-3xl lg:text-6xl font-normal md:text-left lg:text-center max-w-[995px]">
         {data.title}
       </h1>
-      <h2 className="text-lg lg:text-3xl mx-auto sm:my-4 my-10 md:text-left lg:text-center max-w-[1000px] font-normal">
+      <h2 className="text-xl lg:text-3xl mx-auto my-4 md:my-10 md:text-left lg:text-center max-w-[1000px] font-normal lg:leading-[48px]">
         {data.ingress}
       </h2>
-      <div className="flex gap-2 flex-wrap">
-        {data.tagTexts?.map((tagText) => (
-          <button
-            onClick={() => handleScroll(tagText._key)}
-            className={`px-2 ${primaryButtonClassName} h-10 border-box w-fit`}
-          >
-            {tagText.subtitle}
-          </button>
-        ))}
-      </div>
+      {data.tagTexts.length > 1 && (
+        <div className="flex gap-2 flex-wrap">
+          {data.tagTexts?.map((tagText) => (
+            <button
+              onClick={() => handleScroll(tagText._key)}
+              className={`px-2 ${primaryButtonClassName} h-10 border-box w-fit`}
+            >
+              {tagText.subtitle}
+            </button>
+          ))}
+        </div>
+      )}
       {data.video?.muxVideo.asset && (
         <MuxPlayer
           disableCookies={true}

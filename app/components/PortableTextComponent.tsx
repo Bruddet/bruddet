@@ -28,8 +28,12 @@ export default function PortableTextComponent({
         credit: string;
       }>) => {
         return (
-          <div className="md:py-10">
-            <img src={urlFor(value.asset._ref)} alt={value.alt} />
+          <div className="md:py-10 ">
+            <img
+              className="md:min-w-[450px] max-w-[500px]"
+              src={urlFor(value.asset._ref)}
+              alt={value.alt}
+            />
             <p className="mt-1">{value.credit}</p>
           </div>
         );

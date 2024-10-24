@@ -9,7 +9,7 @@ export function getMenuPageQuery(params: Params<string>) {
     links[]->{title,
     slug,
     _type,
-    text[style in ["h1","h2", "h3", "h4", "h5"]]{
+    text[style=="h2"]{
     defined(_key) => {_key},
     "subtitle": children[0].text,
     "slug": ^.slug.current

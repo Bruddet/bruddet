@@ -37,8 +37,8 @@ export function getArticleQuery(params: Params<string>) {
         title, muxVideo{asset->{playbackId}
         }
       }
-    },
-  "tagTexts": text[style in ["h1","h2", "h3", "h4", "h5"]]
+  },  
+  "tagTexts": text[style == "h2"]
   {"subtitle": children[0].text, _key},
     roleGroups[]{
       _type,
