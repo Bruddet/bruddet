@@ -5,10 +5,17 @@ import { createTexts, useTranslation } from "~/utils/i18n";
 import { useColorCombination } from "~/utils/hooks/useColorCombination";
 import { Link, useLocation } from "@remix-run/react";
 import { FooterMarquee } from "./FooterMarquee";
+import { Slug } from "sanity";
 
-type TFooterContent = {
-  link?: { _ref: string; _type: "reference"; _weak?: boolean };
+export type TFooterContent = {
+  link?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    slug: Slug | null;
+  };
   text?: string;
+  hoverText?: string;
 };
 
 type Props = {
@@ -20,9 +27,12 @@ export default function Footer({ footerContent }: Props) {
   const pathname = useLocation()?.pathname;
   console.log("footerprops", footerContent);
 
+  const slug = footerContent?.link?.slug;
+  const slugType = footerContent?.link?._type;
   return (
     <>
-      <button
+      <Link
+        to={slug ? `${slugType}/${slug.current}` : ""}
         className={`overflow-hidden ${
           (pathname.includes("program") ||
             pathname.includes("meny") ||
@@ -33,7 +43,7 @@ export default function Footer({ footerContent }: Props) {
         } `}
       >
         <Content footerContent={footerContent} pathname={pathname} />
-      </button>
+      </Link>
     </>
   );
 }
@@ -81,8 +91,7 @@ export const Content = ({ pathname, footerContent }: ContentProps) => {
           </button>
         ) : (
           <FooterMarquee
-            marqueeText={footerContent?.text ?? t(texts.marqueeText)}
-            marqueeLink={footerContent?.link}
+            footerContent={footerContent}
             isHovering={isHovering}
             pathname={pathname}
           />
@@ -102,14 +111,6 @@ export const Content = ({ pathname, footerContent }: ContentProps) => {
 };
 
 const texts = createTexts({
-  marqueeText: {
-    nb: "Nyhetsbrev",
-    en: "Newsletter",
-  },
-  newsletterText: {
-    nb: "Få ekslusiv info, billetter til redusert pris og andre tilbud! Meld deg på vårt nyhetsbrev",
-    en: "Get exclusive info, tickets at reduced prices and other offers! Sign up for our newsletter!",
-  },
   newsletterMobile: {
     nb: "Meld deg på vårt nyhetsbrev",
     en: "Sign up for our newsletter",

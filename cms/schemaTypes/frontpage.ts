@@ -73,7 +73,7 @@ export const frontpage = defineType({
       type: "object",
       group: "content",
       description:
-        "Legg til tittel og lenke på hexagon-knappen som vises på forsiden. OBS! det er opp til redaktøren og velge ord som passer med formen. Bruk '--' mellom ord for å få ny linje. Eksempel: 'Program--slipp'",
+        "Legg til tittel og lenke på hexagon-knappen som vises på forsiden. OBS! det er opp til redaktøren og velge ord som passer med formen. Bruk understrek '_' mellom ord for å få ny linje. Eksempel: 'Program_slipp'",
       fields: [
         {
           name: "text",
@@ -110,6 +110,12 @@ export const frontpage = defineType({
         {
           name: "text",
           title: "Tekst",
+          type: "string",
+        },
+        {
+          name: "hoverText",
+          title: "'Hover' tekst",
+          description: "Tekst som vises i banneret når man hovrer over",
           type: "string",
         },
         {

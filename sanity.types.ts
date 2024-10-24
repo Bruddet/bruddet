@@ -572,6 +572,7 @@ export type Frontpage = {
   };
   footerMarquee?: {
     text?: string;
+    hoverText?: string;
     link?: {
       _ref: string;
       _type: "reference";
@@ -1103,6 +1104,7 @@ export type FRONTPAGE_QUERYResult = {
   } | null;
   footerMarquee: {
     text?: string;
+    hoverText?: string;
     link?: {
       _ref: string;
       _type: "reference";
@@ -1151,21 +1153,18 @@ export type FRONTPAGE_QUERYResult = {
   } | null;
 } | null;
 // Variable: FOOTER_MARQUEE_TEXT_QUERY
-// Query: *[_type=="frontpage" && language==$lang][0]{    footerMarquee,  }
+// Query: *[_type=="frontpage" && language==$lang][0] {    footerMarquee{        link->{        _type,        slug        },        text,        hoverText        }      }
 export type FOOTER_MARQUEE_TEXT_QUERYResult = {
   footerMarquee: {
-    text?: string;
-    link?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "article";
+    link: {
+      _type: "article";
+      slug: Slug | null;
     } | {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "event";
-    };
+      _type: "event";
+      slug: Slug | null;
+    } | null;
+    text: string | null;
+    hoverText: string | null;
   } | null;
 } | null;
 
@@ -1241,7 +1240,7 @@ declare module "@sanity/client" {
     "*[_type==\"article\" && slug.current==$id && language==$lang][0]{\n    title, \n    slug, \n    metaTitle, \n    metaDescription, \n    colorCombination, \n    image, \n    text[]{..., \n      _type==\"video\" => {\n        title, muxVideo{asset->{playbackId}\n        }\n      }\n    }, \n    video{\n      title, \n      muxVideo{\n        asset->{\n          playbackId}\n        }\n    },\n    'event': event->{slug},\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      slug,\n      language,\n      }\n    }": ARTICLE_QUERYResult;
     "*[_type==\"event\" && language==$lang && slug.current==$id][0]{\n    metaTitle,\n    metaDescription,\n    title, \n    image,\n    imageMask, \n    colorCombination, \n    ticketInformation,\n    dates, \n    duration,\n    labels,\n    ingress,\n    svgTitle,\n    galleryDisplayType,\n    text[]{..., _type==\"video\" => {title, muxVideo{asset->{playbackId}}}},\n    eventGenre, \n    roleGroups[]{\n      _type,\n      name, \n      persons[]{\n      _type,\n      occupation, \n      description,\n      person->{name, image, text}\n      }\n    },\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n    slug,\n    language,\n    }\n  }": EVENT_QUERYResult;
     "*[_type==\"frontpage\" && language==$lang][0]{\n  title, \n  image, \n  language,\n  svgTitle, \n  metaTitle, \n  metaDescription,\n  hexagonButton,\n  footerMarquee,\n  event->{\n    title, \n    text, \n    image, \n    slug, \n    metaTitle, \n    metaDescription, \n    svgTitle,\n    colorCombination\n    }\n  }": FRONTPAGE_QUERYResult;
-    "*[_type==\"frontpage\" && language==$lang][0]{\n    footerMarquee,\n  }": FOOTER_MARQUEE_TEXT_QUERYResult;
+    "*[_type==\"frontpage\" && language==$lang][0] {\n    footerMarquee{\n        link->{\n        _type,\n        slug\n        },\n        text,\n        hoverText\n        }\n      }": FOOTER_MARQUEE_TEXT_QUERYResult;
     "*[_type==\"menupage\" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]": MENUPAGE_QUERYResult;
     "*[_type==\"programpage\" && language==$lang]{metaTitle, metaDescription, title, text,gif, socialMediaText, links[]->{title, slug, gif, image, dates} }[0]": PROGRAMPAGE_QUERYResult;
   }

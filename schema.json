@@ -3495,6 +3495,13 @@
               },
               "optional": true
             },
+            "hoverText": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
             "link": {
               "type": "objectAttribute",
               "value": {

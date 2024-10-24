@@ -1,20 +1,17 @@
 import Dot from "~/assets/Dot";
 import { createTexts, useTranslation } from "~/utils/i18n";
+import { TFooterContent } from "./Footer";
 
 type Props = {
   isHovering: boolean;
   pathname: string;
-  marqueeText: string;
-  marqueeLink?:
-    | { _ref: string; _type: "reference"; _weak?: boolean }
-    | undefined;
+  footerContent: TFooterContent | undefined | null;
 };
 
 export const FooterMarquee = ({
   isHovering,
   pathname,
-  marqueeLink,
-  marqueeText,
+  footerContent,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -22,7 +19,7 @@ export const FooterMarquee = ({
     <>
       {isHovering ? (
         <div className="w-full">
-          <p>{marqueeText}</p>
+          <p>{footerContent?.hoverText ?? t(texts.newsletterText)}</p>
         </div>
       ) : (
         <div className="animate-marquee flex items-center">
@@ -34,7 +31,7 @@ export const FooterMarquee = ({
                 key={i}
               >
                 <span className="text-l font-thin mossDark mx-10">
-                  {marqueeText}
+                  {footerContent?.text ?? t(texts.marqueeText)}
                 </span>
                 <Dot
                   color={
@@ -56,5 +53,9 @@ const texts = createTexts({
   newsletterText: {
     nb: "Få ekslusiv info, billetter til redusert pris og andre tilbud! Meld deg på vårt nyhetsbrev",
     en: "Get exclusive info, tickets at reduced prices and other offers! Sign up for our newsletter!",
+  },
+  marqueeText: {
+    nb: "Nyhetsbrev",
+    en: "Newsletter",
   },
 });

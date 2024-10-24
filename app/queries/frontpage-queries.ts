@@ -31,9 +31,16 @@ export function getFrontpageQuery(params: Params<string>) {
 export function getFooterMarqueeText(language: string) {
   const lang = language ?? "nb";
 
-  const FOOTER_MARQUEE_TEXT_QUERY = groq`*[_type=="frontpage" && language==$lang][0]{
-    footerMarquee,
-  }`;
+  const FOOTER_MARQUEE_TEXT_QUERY = groq`*[_type=="frontpage" && language==$lang][0] {
+    footerMarquee{
+        link->{
+        _type,
+        slug
+        },
+        text,
+        hoverText
+        }
+      }`;
 
   return { query: FOOTER_MARQUEE_TEXT_QUERY, params: { lang } };
 }
