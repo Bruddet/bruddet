@@ -223,6 +223,10 @@ export type Content = Array<{
   creditsMedia?: string;
   _type: "quoteBomb";
   _key: string;
+} | {
+  address?: Geopoint;
+  _type: "googleMaps";
+  _key: string;
 }>;
 
 export type ExpandableContent = Array<{
@@ -552,6 +556,35 @@ export type Frontpage = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "event";
   };
+  hexagonButton?: {
+    text?: string;
+    link?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "event";
+    } | {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "article";
+    };
+  };
+  footerMarquee?: {
+    text?: string;
+    hoverText?: string;
+    link?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "event";
+    } | {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "article";
+    };
+  };
   metaTitle?: MetaTitle;
   metaDescription?: MetaDescription;
 };
@@ -567,10 +600,6 @@ export type Article = {
   language?: string;
   colorCombination?: "blueBlack" | "peachBlue" | "creamBlue" | "purpleWhite" | "blueYellow";
   text?: Content;
-  maps?: {
-    address?: Geopoint;
-    _type: "googleMaps";
-  };
   image?: {
     asset?: {
       _ref: string;
@@ -717,7 +746,7 @@ export type ARTICLES_QUERYResult = Array<{
   title: string | null;
 }>;
 // Variable: ARTICLE_QUERY
-// Query: *[_type=="article" && slug.current==$id && language==$lang][0]{    title,     slug,     metaTitle,     metaDescription,     colorCombination,     image,     text[]{...,       _type=="video" => {        title, muxVideo{asset->{playbackId}        }      }    },     maps,    video{      title,       muxVideo{        asset->{          playbackId}        }    },    'event': event->{slug},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      slug,      language,      }    }
+// Query: *[_type=="article" && slug.current==$id && language==$lang][0]{    title,     slug,     metaTitle,     metaDescription,     colorCombination,     image,     text[]{...,       _type=="video" => {        title, muxVideo{asset->{playbackId}        }      }    },     video{      title,       muxVideo{        asset->{          playbackId}        }    },    'event': event->{slug},    "_translations": *[_type == "translation.metadata" && references(^._id)].translations[].value->{      slug,      language,      }    }
 export type ARTICLE_QUERYResult = {
   title: string | null;
   slug: Slug | null;
@@ -803,6 +832,10 @@ export type ARTICLE_QUERYResult = {
     _type: "expandableBlock";
     _key: string;
   } | {
+    address?: Geopoint;
+    _type: "googleMaps";
+    _key: string;
+  } | {
     quote?: string;
     creditsSource?: string;
     creditsMedia?: string;
@@ -826,10 +859,6 @@ export type ARTICLE_QUERYResult = {
     _type: "video";
     _key: string;
   }> | null;
-  maps: {
-    address?: Geopoint;
-    _type: "googleMaps";
-  } | null;
   video: {
     title: string | null;
     muxVideo: {
@@ -962,6 +991,10 @@ export type EVENT_QUERYResult = {
     _type: "expandableBlock";
     _key: string;
   } | {
+    address?: Geopoint;
+    _type: "googleMaps";
+    _key: string;
+  } | {
     quote?: string;
     creditsSource?: string;
     creditsMedia?: string;
@@ -1023,7 +1056,7 @@ export type EVENT_QUERYResult = {
 
 // Source: ./app/queries/frontpage-queries.ts
 // Variable: FRONTPAGE_QUERY
-// Query: *[_type=="frontpage" && language==$lang][0]{  title,   image,   language,  svgTitle,   metaTitle,   metaDescription,   event->{    title,     text,     image,     slug,     metaTitle,     metaDescription,     svgTitle,    colorCombination    }  }
+// Query: *[_type=="frontpage" && language==$lang][0]{  title,   image,   language,  svgTitle,   metaTitle,   metaDescription,  hexagonButton,  footerMarquee,  event->{    title,     text,     image,     slug,     metaTitle,     metaDescription,     svgTitle,    colorCombination    }  }
 export type FRONTPAGE_QUERYResult = {
   title: string | null;
   image: {
@@ -1055,6 +1088,35 @@ export type FRONTPAGE_QUERYResult = {
   } | null;
   metaTitle: MetaTitle | null;
   metaDescription: MetaDescription | null;
+  hexagonButton: {
+    text?: string;
+    link?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "article";
+    } | {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "event";
+    };
+  } | null;
+  footerMarquee: {
+    text?: string;
+    hoverText?: string;
+    link?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "article";
+    } | {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "event";
+    };
+  } | null;
   event: {
     title: string | null;
     text: Content | null;
@@ -1088,6 +1150,21 @@ export type FRONTPAGE_QUERYResult = {
       _type: "customImage";
     } | null;
     colorCombination: "blueBlack" | "blueYellow" | "creamBlue" | "peachBlue" | "purpleWhite" | null;
+  } | null;
+} | null;
+// Variable: FOOTER_MARQUEE_TEXT_QUERY
+// Query: *[_type=="frontpage" && language==$lang][0] {    footerMarquee{        link->{        _type,        slug        },        text,        hoverText        }      }
+export type FOOTER_MARQUEE_TEXT_QUERYResult = {
+  footerMarquee: {
+    link: {
+      _type: "article";
+      slug: Slug | null;
+    } | {
+      _type: "event";
+      slug: Slug | null;
+    } | null;
+    text: string | null;
+    hoverText: string | null;
   } | null;
 } | null;
 
@@ -1160,9 +1237,10 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "*[_type==\"article\" && language==$lang]{_id, slug, title}": ARTICLES_QUERYResult;
-    "*[_type==\"article\" && slug.current==$id && language==$lang][0]{\n    title, \n    slug, \n    metaTitle, \n    metaDescription, \n    colorCombination, \n    image, \n    text[]{..., \n      _type==\"video\" => {\n        title, muxVideo{asset->{playbackId}\n        }\n      }\n    }, \n    maps,\n    video{\n      title, \n      muxVideo{\n        asset->{\n          playbackId}\n        }\n    },\n    'event': event->{slug},\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      slug,\n      language,\n      }\n    }": ARTICLE_QUERYResult;
+    "*[_type==\"article\" && slug.current==$id && language==$lang][0]{\n    title, \n    slug, \n    metaTitle, \n    metaDescription, \n    colorCombination, \n    image, \n    text[]{..., \n      _type==\"video\" => {\n        title, muxVideo{asset->{playbackId}\n        }\n      }\n    }, \n    video{\n      title, \n      muxVideo{\n        asset->{\n          playbackId}\n        }\n    },\n    'event': event->{slug},\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n      slug,\n      language,\n      }\n    }": ARTICLE_QUERYResult;
     "*[_type==\"event\" && language==$lang && slug.current==$id][0]{\n    metaTitle,\n    metaDescription,\n    title, \n    image,\n    imageMask, \n    colorCombination, \n    ticketInformation,\n    dates, \n    duration,\n    labels,\n    ingress,\n    svgTitle,\n    galleryDisplayType,\n    text[]{..., _type==\"video\" => {title, muxVideo{asset->{playbackId}}}},\n    eventGenre, \n    roleGroups[]{\n      _type,\n      name, \n      persons[]{\n      _type,\n      occupation, \n      description,\n      person->{name, image, text}\n      }\n    },\n    \"_translations\": *[_type == \"translation.metadata\" && references(^._id)].translations[].value->{\n    slug,\n    language,\n    }\n  }": EVENT_QUERYResult;
-    "*[_type==\"frontpage\" && language==$lang][0]{\n  title, \n  image, \n  language,\n  svgTitle, \n  metaTitle, \n  metaDescription, \n  event->{\n    title, \n    text, \n    image, \n    slug, \n    metaTitle, \n    metaDescription, \n    svgTitle,\n    colorCombination\n    }\n  }": FRONTPAGE_QUERYResult;
+    "*[_type==\"frontpage\" && language==$lang][0]{\n  title, \n  image, \n  language,\n  svgTitle, \n  metaTitle, \n  metaDescription,\n  hexagonButton,\n  footerMarquee,\n  event->{\n    title, \n    text, \n    image, \n    slug, \n    metaTitle, \n    metaDescription, \n    svgTitle,\n    colorCombination\n    }\n  }": FRONTPAGE_QUERYResult;
+    "*[_type==\"frontpage\" && language==$lang][0] {\n    footerMarquee{\n        link->{\n        _type,\n        slug\n        },\n        text,\n        hoverText\n        }\n      }": FOOTER_MARQUEE_TEXT_QUERYResult;
     "*[_type==\"menupage\" && language==$lang]{title, metaTitle, metaDescription, links[]->{_type, title, slug}}[0]": MENUPAGE_QUERYResult;
     "*[_type==\"programpage\" && language==$lang]{metaTitle, metaDescription, title, text,gif, socialMediaText, links[]->{title, slug, gif, image, dates} }[0]": PROGRAMPAGE_QUERYResult;
   }

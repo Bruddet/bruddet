@@ -15,6 +15,7 @@ import PageNotFound from "./components/PageNotFound";
 import { LoaderFunction } from "@remix-run/node";
 import {
   getLanguageFromPath,
+  Language,
   LanguageProvider,
   useTranslation,
 } from "./utils/i18n";
@@ -30,6 +31,10 @@ import { loadQueryOptions } from "../cms/loadQueryOptions.server";
 import Footer from "./components/Footer";
 import "./styles/global.css";
 import StickyFooter from "./components/StickyFooter";
+import { getFooterMarqueeText } from "./queries/frontpage-queries";
+import { FOOTER_MARQUEE_TEXT_QUERYResult } from "sanity.types";
+import { loadQuery } from "cms/loader.server";
+import { QueryResponseInitial, useQuery } from "@sanity/react-loader";
 
 const LiveVisualEditing = lazy(() => import("./components/LiveVisualEditing"));
 
@@ -67,7 +72,16 @@ export function ErrorBoundary() {
 
 export const loader: LoaderFunction = async ({ request }) => {
   const { pathname, search } = new URL(request.url);
-  const { preview } = await loadQueryOptions(request.headers);
+
+  const { preview, options } = await loadQueryOptions(request.headers);
+  const language = getLanguageFromPath(pathname);
+  const { query, params: queryParams } = getFooterMarqueeText(language);
+
+  const initial = await loadQuery<FOOTER_MARQUEE_TEXT_QUERYResult>(
+    query,
+    queryParams,
+    options
+  );
 
   const newPathname = pathname.replace(/\/nb/g, "");
 
@@ -78,11 +92,11 @@ export const loader: LoaderFunction = async ({ request }) => {
   if (pathname.endsWith("/") && pathname.length > 1) {
     throw redirect(`${pathname.slice(0, -1)}${search}`, 301);
   }
-  const language = getLanguageFromPath(pathname);
 
   return {
     language: language,
     preview: preview,
+    initial,
   };
 };
 
@@ -119,8 +133,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  const { language, preview } = useRouteLoaderData<typeof loader>("root");
+  const { language, preview, initial, query, params } = useRouteLoaderData<
+    typeof loader
+  >("root") as {
+    initial: QueryResponseInitial<FOOTER_MARQUEE_TEXT_QUERYResult>;
+    query: string;
+    params: Record<string, string>;
+    language: Language;
+    preview: boolean;
+  };
+
   const location = useLocation();
+  const { data } = useQuery<typeof initial.data>(query, params, {
+    initial,
+  });
+  const footer = data?.footerMarquee;
 
   const pathsWithNewsletter = [
     "/",
@@ -151,7 +178,7 @@ export default function App() {
             {(pathsWithNewsletter.includes(location.pathname) ||
               location.pathname.includes("event")) && (
               <>
-                <Footer />
+                <Footer footerContent={footer} />
                 <StickyFooter />
               </>
             )}

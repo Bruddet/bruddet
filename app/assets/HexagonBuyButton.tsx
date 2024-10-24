@@ -1,5 +1,6 @@
 import { Link } from "@remix-run/react";
 import { useState } from "react";
+import { stegaClean } from "@sanity/client/stega";
 
 interface Props {
   text: string;
@@ -7,7 +8,7 @@ interface Props {
 }
 
 export default function HexagonBuyButton({ text, slug }: Props) {
-  const lines = text.split("\n");
+  const lines = stegaClean(text.split("_"));
   const [isHovering, setIsHovering] = useState(false);
 
   return (
@@ -17,8 +18,8 @@ export default function HexagonBuyButton({ text, slug }: Props) {
       to={"/event/" + slug + "#tickets" || "/event"}
     >
       <svg
-        width="106"
-        height="106"
+        width={lines.length === 2 ? "106" : "126"}
+        height={lines.length === 2 ? "106" : "126"}
         viewBox="0 0 106 106"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -31,11 +32,15 @@ export default function HexagonBuyButton({ text, slug }: Props) {
           <text
             key={index}
             x="50%"
-            y={`${35 + (index - 0.5) * 20}%`}
+            y={
+              lines.length === 2
+                ? `${35 + (index - 0.5) * 20}%`
+                : `${25 + (index - 0.5) * 20}%`
+            }
             textAnchor="middle"
             dominantBaseline="middle"
             fill="black"
-            fontSize="18"
+            fontSize={lines.length === 2 ? "18" : "16"}
             fontFamily="PT serif"
             fontWeight="bold"
             className={`${isHovering && "underline"}`}

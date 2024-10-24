@@ -4,15 +4,35 @@ import { getColor } from "~/utils/colorCombinations";
 import { createTexts, useTranslation } from "~/utils/i18n";
 import { useColorCombination } from "~/utils/hooks/useColorCombination";
 import { Link, useLocation } from "@remix-run/react";
-import { NewsletterMarquee } from "./NewsletterMarquee";
+import { FooterMarquee } from "./FooterMarquee";
+import { Slug } from "sanity";
 
-export default function Footer() {
+export type TFooterContent = {
+  link?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    slug: Slug | null;
+  };
+  text?: string;
+  hoverText?: string;
+};
+
+type Props = {
+  footerContent: TFooterContent | undefined | null;
+};
+
+export default function Footer({ footerContent }: Props) {
   const { color } = useBackgroundColor();
   const pathname = useLocation()?.pathname;
+  console.log("footerprops", footerContent);
 
+  const slug = footerContent?.link?.slug;
+  const slugType = footerContent?.link?._type;
   return (
     <>
-      <button
+      <Link
+        to={slug ? `${slugType}/${slug.current}` : ""}
         className={`overflow-hidden ${
           (pathname.includes("program") ||
             pathname.includes("meny") ||
@@ -22,17 +42,18 @@ export default function Footer() {
           color !== "bg-white" ? color : "bg-black"
         } `}
       >
-        <Content pathname={pathname} />
-      </button>
+        <Content footerContent={footerContent} pathname={pathname} />
+      </Link>
     </>
   );
 }
 
 type ContentProps = {
   pathname: string;
+  footerContent: TFooterContent | undefined | null;
 };
 
-export const Content = ({ pathname }: ContentProps) => {
+export const Content = ({ pathname, footerContent }: ContentProps) => {
   const { t } = useTranslation();
 
   const { colorCombination } = useColorCombination();
@@ -69,7 +90,11 @@ export const Content = ({ pathname }: ContentProps) => {
             {t(texts.buy).toUpperCase()}
           </button>
         ) : (
-          <NewsletterMarquee isHovering={isHovering} pathname={pathname} />
+          <FooterMarquee
+            footerContent={footerContent}
+            isHovering={isHovering}
+            pathname={pathname}
+          />
         )}
       </div>
       <Link
@@ -86,14 +111,6 @@ export const Content = ({ pathname }: ContentProps) => {
 };
 
 const texts = createTexts({
-  marqueeText: {
-    nb: "Nyhetsbrev",
-    en: "Newsletter",
-  },
-  newsletterText: {
-    nb: "Få ekslusiv info, billetter til redusert pris og andre tilbud! Meld deg på vårt nyhetsbrev",
-    en: "Get exclusive info, tickets at reduced prices and other offers! Sign up for our newsletter!",
-  },
   newsletterMobile: {
     nb: "Meld deg på vårt nyhetsbrev",
     en: "Sign up for our newsletter",
