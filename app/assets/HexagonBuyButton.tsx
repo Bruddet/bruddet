@@ -1,5 +1,6 @@
 import { Link } from "@remix-run/react";
 import { useState } from "react";
+import { stegaClean } from "@sanity/client/stega";
 
 interface Props {
   text: string;
@@ -7,7 +8,7 @@ interface Props {
 }
 
 export default function HexagonBuyButton({ text, slug }: Props) {
-  const lines = text.split("\n");
+  const lines = stegaClean(text.split("--"));
   const [isHovering, setIsHovering] = useState(false);
 
   return (

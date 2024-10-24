@@ -10,7 +10,9 @@ export function getFrontpageQuery(params: Params<string>) {
   language,
   svgTitle, 
   metaTitle, 
-  metaDescription, 
+  metaDescription,
+  hexagonButton,
+  footerMarquee,
   event->{
     title, 
     text, 
@@ -24,4 +26,14 @@ export function getFrontpageQuery(params: Params<string>) {
   }`;
 
   return { query: FRONTPAGE_QUERY, params: { lang } };
+}
+
+export function getFooterMarqueeText(language: string) {
+  const lang = language ?? "nb";
+
+  const FOOTER_MARQUEE_TEXT_QUERY = groq`*[_type=="frontpage" && language==$lang][0]{
+    footerMarquee,
+  }`;
+
+  return { query: FOOTER_MARQUEE_TEXT_QUERY, params: { lang } };
 }

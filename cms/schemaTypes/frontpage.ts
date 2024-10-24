@@ -71,6 +71,9 @@ export const frontpage = defineType({
       name: "hexagonButton",
       title: "Hexagon knapp",
       type: "object",
+      group: "content",
+      description:
+        "Legg til tittel og lenke på hexagon-knappen som vises på forsiden. OBS! det er opp til redaktøren og velge ord som passer med formen. Bruk '--' mellom ord for å få ny linje. Eksempel: 'Program--slipp'",
       fields: [
         {
           name: "text",
@@ -80,7 +83,19 @@ export const frontpage = defineType({
         {
           name: "link",
           title: "Link",
-          type: "url",
+          type: "reference",
+          to: [{ type: "event" }, { type: "article" }],
+          options: {
+            filter: ({ document }) => {
+              return {
+                filter: "language == $lang",
+                params: { lang: document.language },
+              };
+            },
+            documentInternationalization: {
+              exclude: true,
+            },
+          },
         },
       ],
     }),
@@ -88,6 +103,9 @@ export const frontpage = defineType({
       name: "footerMarquee",
       title: "Banner i footer",
       type: "object",
+      group: "content",
+      description:
+        "Legg til tekst og lenke på banneret i footeren på forsiden.",
       fields: [
         {
           name: "text",
@@ -97,7 +115,19 @@ export const frontpage = defineType({
         {
           name: "link",
           title: "Link",
-          type: "url",
+          type: "reference",
+          to: [{ type: "event" }, { type: "article" }],
+          options: {
+            filter: ({ document }) => {
+              return {
+                filter: "language == $lang",
+                params: { lang: document.language },
+              };
+            },
+            documentInternationalization: {
+              exclude: true,
+            },
+          },
         },
       ],
     }),

@@ -4,11 +4,21 @@ import { getColor } from "~/utils/colorCombinations";
 import { createTexts, useTranslation } from "~/utils/i18n";
 import { useColorCombination } from "~/utils/hooks/useColorCombination";
 import { Link, useLocation } from "@remix-run/react";
-import { NewsletterMarquee } from "./NewsletterMarquee";
+import { FooterMarquee } from "./FooterMarquee";
 
-export default function Footer() {
+type TFooterContent = {
+  link?: { _ref: string; _type: "reference"; _weak?: boolean };
+  text?: string;
+};
+
+type Props = {
+  footerContent: TFooterContent | undefined | null;
+};
+
+export default function Footer({ footerContent }: Props) {
   const { color } = useBackgroundColor();
   const pathname = useLocation()?.pathname;
+  console.log("footerprops", footerContent);
 
   return (
     <>
@@ -22,7 +32,7 @@ export default function Footer() {
           color !== "bg-white" ? color : "bg-black"
         } `}
       >
-        <Content pathname={pathname} />
+        <Content footerContent={footerContent} pathname={pathname} />
       </button>
     </>
   );
@@ -30,9 +40,10 @@ export default function Footer() {
 
 type ContentProps = {
   pathname: string;
+  footerContent: TFooterContent | undefined | null;
 };
 
-export const Content = ({ pathname }: ContentProps) => {
+export const Content = ({ pathname, footerContent }: ContentProps) => {
   const { t } = useTranslation();
 
   const { colorCombination } = useColorCombination();
@@ -69,7 +80,12 @@ export const Content = ({ pathname }: ContentProps) => {
             {t(texts.buy).toUpperCase()}
           </button>
         ) : (
-          <NewsletterMarquee isHovering={isHovering} pathname={pathname} />
+          <FooterMarquee
+            marqueeText={footerContent?.text ?? t(texts.marqueeText)}
+            marqueeLink={footerContent?.link}
+            isHovering={isHovering}
+            pathname={pathname}
+          />
         )}
       </div>
       <Link

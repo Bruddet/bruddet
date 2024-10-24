@@ -1,5 +1,5 @@
 import { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
-import { useLoaderData, Link, useParams, useLocation } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { FRONTPAGE_QUERYResult } from "../../sanity.types";
 import { getFrontpageQuery } from "../queries/frontpage-queries";
 import urlFor from "../utils/imageUrlBuilder";
@@ -102,6 +102,8 @@ export default function Index() {
     setColorCombination(data?.event?.colorCombination || "creamBlue");
   }, [setColor]);
 
+  const hexagonButton = data?.hexagonButton;
+
   return (
     <>
       <div
@@ -114,7 +116,7 @@ export default function Index() {
         <div className="absolute right-16 top-16">
           <HexagonBuyButton
             slug={data?.event?.slug?.current}
-            text={t(texts.buyTicket)}
+            text={hexagonButton?.text ?? t(texts.buyTicket)}
           />
         </div>
 
@@ -138,8 +140,8 @@ const texts = createTexts({
     en: "Go to menu page",
   },
   buyTicket: {
-    nb: "Kjøp \nBillett",
-    en: "Buy \nTicket",
+    nb: "Kjøp--Billett",
+    en: "Buy--Ticket",
   },
   menuButton: {
     nb: "Meny",

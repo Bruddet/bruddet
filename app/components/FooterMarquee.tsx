@@ -4,16 +4,25 @@ import { createTexts, useTranslation } from "~/utils/i18n";
 type Props = {
   isHovering: boolean;
   pathname: string;
+  marqueeText: string;
+  marqueeLink?:
+    | { _ref: string; _type: "reference"; _weak?: boolean }
+    | undefined;
 };
 
-export const NewsletterMarquee = ({ isHovering, pathname }: Props) => {
+export const FooterMarquee = ({
+  isHovering,
+  pathname,
+  marqueeLink,
+  marqueeText,
+}: Props) => {
   const { t } = useTranslation();
 
   return (
     <>
       {isHovering ? (
         <div className="w-full">
-          <p>{t(texts.newsletterText)}</p>
+          <p>{marqueeText}</p>
         </div>
       ) : (
         <div className="animate-marquee flex items-center">
@@ -25,7 +34,7 @@ export const NewsletterMarquee = ({ isHovering, pathname }: Props) => {
                 key={i}
               >
                 <span className="text-l font-thin mossDark mx-10">
-                  {t(texts.marqueeText)}
+                  {marqueeText}
                 </span>
                 <Dot
                   color={
@@ -44,10 +53,6 @@ export const NewsletterMarquee = ({ isHovering, pathname }: Props) => {
 };
 
 const texts = createTexts({
-  marqueeText: {
-    nb: "Nyhetsbrev",
-    en: "Newsletter",
-  },
   newsletterText: {
     nb: "Få ekslusiv info, billetter til redusert pris og andre tilbud! Meld deg på vårt nyhetsbrev",
     en: "Get exclusive info, tickets at reduced prices and other offers! Sign up for our newsletter!",
