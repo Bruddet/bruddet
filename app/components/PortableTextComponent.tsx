@@ -98,7 +98,7 @@ export default function PortableTextComponent({
         const { value } = props;
         const { style, _key } = value;
 
-        if (/^h\d/.test(style)) {
+        if (/^h2/.test(style)) {
           const headingId = `${_key}`;
           return (
             <div id={headingId}>

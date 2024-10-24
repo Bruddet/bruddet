@@ -1,19 +1,10 @@
-import { defineType, defineField } from "sanity";
+import { defineField, defineType } from "sanity";
 
 export const menuPage = defineType({
   name: "menupage",
   title: "Informasjonsside",
   type: "document",
   fields: [
-    defineField({
-      name: "title",
-      title: "Tittel",
-      type: "string",
-      validation: (rule) => [
-        rule.max(100).warning("Anbefaler kortere tittel."),
-        rule.required().min(1).error("Tittel er påkrevd"),
-      ],
-    }),
     defineField({
       name: "language",
       type: "string",

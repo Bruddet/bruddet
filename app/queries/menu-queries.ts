@@ -4,7 +4,6 @@ import groq from "groq";
 export function getMenuPageQuery(params: Params<string>) {
   const lang = params.lang ?? "nb";
   const MENUPAGE_QUERY = groq`*[_type == "menupage" && language == $lang] {
-    title,
     metaTitle, 
     metaDescription, 
     links[]->{title,
